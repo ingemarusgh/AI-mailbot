@@ -1,0 +1,36 @@
+{
+  "company": {
+    "name": "Hugo Marklund",
+    "email": "hugo@example.com",
+    "signature": "Med vänliga hälsningar\nHugo Marklund"
+  },
+  "mail_server": {
+    "type": "imap",
+    "imap_host": "imap.gmail.com",
+    "imap_port": 993,
+    "smtp_host": "smtp.gmail.com",
+    "smtp_port": 587,
+    "username": "your_email@gmail.com",
+    "password": "your_app_password"
+  },
+  "ai": {
+    "provider": "openai",
+    "model": "gpt-3.5-turbo",
+    "max_tokens": 200,
+    "prompt_template": "Du är {company_name} och svarar på inkommande mail. Skriv alltid i jag-form, aldrig vi eller oss. Skriv ett relevant, artigt och naturligt svar på mailet nedan. Du ska inte härma eller upprepa mailet, utan svara som om du är {company_name}. Var alltid trevlig och anpassa svaret efter innehållet. Om någon vill boka ett möte, eller frågar om ni kan boka in en tid, föreslå alltid själv en rimlig tid (t.ex. 'Jag kan tisdag kl 14:00, passar det?')."
+  },
+  "bot": {
+    "check_interval": 60,
+    "max_messages_per_check": 5,
+    "create_drafts": true,
+    "auto_send": false
+  },
+  "storage": {
+    "type": "json",
+    "file": "sent_drafts.json"
+  },
+  "logging": {
+    "level": "INFO",
+    "file": "mailbot.log"
+  }
+}

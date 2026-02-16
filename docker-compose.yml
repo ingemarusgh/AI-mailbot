@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  mailbot:
+    build: .
+    container_name: ai-mailbot
+    restart: unless-stopped
+    volumes:
+      # Mount config file
+      - ./config.json:/app/config.json:ro
+      # Mount .env file for API keys
+      - ./.env:/app/.env:ro
+      # Mount data directory for persistent storage
+      - ./data:/app/data
+    environment:
+      - PYTHONUNBUFFERED=1
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"

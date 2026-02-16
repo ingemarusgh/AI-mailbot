@@ -4,14 +4,19 @@ SENT_FILE = 'sent_drafts.json'
 
 def load_sent_pairs():
     import os
+    print(f"[DEBUG] Söker sent_drafts.json i: {os.getcwd()}")
     if not os.path.exists(SENT_FILE):
+        print(f"[DEBUG] Skapar ny sent_drafts.json i: {os.getcwd()}")
         with open(SENT_FILE, 'w') as f:
             json.dump([], f)
         return set()
     try:
         with open(SENT_FILE, 'r') as f:
-            return set(tuple(x) for x in json.load(f))
-    except Exception:
+            data = set(tuple(x) for x in json.load(f))
+        print(f"[DEBUG] Laddade sent_pairs: {data}")
+        return data
+    except Exception as e:
+        print(f"[DEBUG] Fel vid laddning av sent_drafts.json: {e}")
         return set()
 
 def save_sent_pairs(sent_pairs):
@@ -121,15 +126,16 @@ def main():
         msg_id = msg['id']
         snippet, from_addr, subject, thread_id = get_message_info(service, msg_id)
         pair = (msg_id, thread_id)
+        print(f"[DEBUG] Behandlar mail-ID: {msg_id}, thread-ID: {thread_id}")
         if pair in sent_pairs:
-            print(f"Utkast finns redan för mail-ID {msg_id} och tråd {thread_id}, hoppar över.")
+            print(f"[DEBUG] Utkast finns redan för mail-ID {msg_id} och tråd {thread_id}, hoppar över.")
             continue
         if has_draft_for_thread(service, thread_id):
-            print(f"Utkast finns redan för tråd {thread_id}, hoppar över.")
+            print(f"[DEBUG] Utkast finns redan för tråd {thread_id}, hoppar över.")
             sent_pairs.add(pair)
             save_sent_pairs(sent_pairs)
             continue
-        print(f"Mail från {from_addr}: {snippet[:200]}")
+        print(f"[DEBUG] Skapar utkast för mail från {from_addr}: {snippet[:200]}")
         autosvar = generate_ai_reply(snippet)
         draft_msg = create_message(from_addr, f"Re: {subject}", autosvar, thread_id)
         create_draft(service, 'me', draft_msg, thread_id)
