@@ -181,6 +181,7 @@ ALTER TABLE mail_configs ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ai_configs ENABLE ROW LEVEL SECURITY;
 ALTER TABLE processed_emails ENABLE ROW LEVEL SECURITY;
 ALTER TABLE email_stats ENABLE ROW LEVEL SECURITY;
+ALTER TABLE users ENABLE ROW LEVEL SECURITY;
 ALTER TABLE company_users ENABLE ROW LEVEL SECURITY;
 
 -- Companies: Users can only see companies they have access to
@@ -298,6 +299,17 @@ CREATE POLICY "Company owners can manage users"
             WHERE user_id = auth.uid() AND role = 'owner'
         )
     );
+
+-- Users: Users can only see their own profile
+DROP POLICY IF EXISTS "Users can view own profile" ON users;
+CREATE POLICY "Users can view own profile"
+    ON users FOR SELECT
+    USING (id = auth.uid());
+
+DROP POLICY IF EXISTS "Users can update own profile" ON users;
+CREATE POLICY "Users can update own profile"
+    ON users FOR UPDATE
+    USING (id = auth.uid());
 
 -- ============================================================================
 -- FÄRDIG!
