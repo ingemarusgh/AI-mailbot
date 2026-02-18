@@ -73,13 +73,23 @@ def process_company_emails(company_id: str) -> bool:
                 
                 # Create draft (or send if auto_send is enabled)
                 subject_prefix = "Re: " if not subject.startswith("Re:") else ""
-                success = mail_client.create_draft(
-                    to=from_addr,
-                    subject=f"{subject_prefix}{subject}",
-                    body=ai_reply,
-                    in_reply_to=msg_id,
-                    auto_send=config.auto_send
-                )
+                
+                # Create draft or send email based on config
+                if config.auto_send:
+                    # TODO: Implement auto-send via SMTP
+                    success = mail_client.create_draft(
+                        to=from_addr,
+                        subject=f"{subject_prefix}{subject}",
+                        body=ai_reply,
+                        in_reply_to=msg_id
+                    )
+                else:
+                    success = mail_client.create_draft(
+                        to=from_addr,
+                        subject=f"{subject_prefix}{subject}",
+                        body=ai_reply,
+                        in_reply_to=msg_id
+                    )
                 
                 if success:
                     # Mark as processed and increment stats
@@ -93,7 +103,7 @@ def process_company_emails(company_id: str) -> bool:
                     storage.increment_errors()
                     
             except Exception as e:
-                logger.error(f"Error processing message {msg_id[:20]}: {e}")
+                logger.error(f"Error processing message: {e}")
                 storage.increment_errors()
                 continue
         

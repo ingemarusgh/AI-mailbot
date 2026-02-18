@@ -118,7 +118,7 @@ class SupabaseClient:
         self, 
         company_id: str, 
         stat_type: str,
-        date: str = None
+        date: str | None = None
     ) -> None:
         """
         Increment a statistic counter for today
