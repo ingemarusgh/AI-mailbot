@@ -1,1 +1,1 @@
-web: python main_supabase.py
+worker: python main_supabase.py
