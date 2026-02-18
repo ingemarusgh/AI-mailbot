@@ -1,51 +1,103 @@
-# AI Mailbot - Generell Företagslösning
+# AI Mailbot - Multi-Tenant SaaS-lösning
 
 En konfigurerbar mailbot som automatiskt skapar AI-genererade svarsutkast för inkommande mail.
 
-## Modulär Struktur
+## 🚀 Två Deployment-alternativ
 
-### Huvudfiler:
-- **config.json.example** - Exempelkonfiguration (kopiera till config.json och anpassa)
-- **config.py** - Läser och validerar konfiguration
-- **ai_handler.py** - Hanterar AI-svarsgenereringen
-- **storage.py** - Spårar bearbetade mail (dubblettkontroll)
-- **mail_client.py** - Mail-hantering (IMAP/SMTP för alla mailservrar)
-- **main.py** - Huvudapplikation
+### 🏢 **Multi-Tenant (Nytt!)**
+**Railway + Supabase + Lovable** - Professionell SaaS-arkitektur för flera företag
 
-### Docker:
-- **Dockerfile** - Container-definition
-- **docker-compose.yml** - Enkel deployment
-- **.dockerignore** - Optimerar container-storlek
+- ✅ En backend-instans processar alla kunder
+- ✅ Databas-driven konfiguration (inga filer)
+- ✅ Admin UI för att lägga till och konfigurera företag
+- ✅ Centraliserad statistik och övervakning
+- ✅ **Privacy-first**: Ingen email-data lagras, bara hashade IDs
 
-### Dokumentation:
-- **QUICKSTART.md** - 5-minuters snabbstart
-- **MAILSERVER_EXAMPLES.md** - Konfiguration för olika mailservrar
-- **DOCKER_DEPLOYMENT.md** - Deployment-guide
+👉 **[RAILWAY_DEPLOYMENT.md](RAILWAY_DEPLOYMENT.md)** för komplett guide
 
-### Gamla filer:
-Se `legacy/` för den ursprungliga Gmail API-implementationen
+### 🖥️ **Single-Tenant (Legacy)**
+**Docker/Lokal** - En mailbot per företag, fil-baserad konfiguration
 
-## Installation
+- ✅ Körs lokalt eller i Docker
+- ✅ Enkel setup för ett företag
+- ✅ Fungerar offline (Raspberry Pi deployment)
 
-1. Kopiera config-filen:
+👉 **[DOCKER_DEPLOYMENT.md](DOCKER_DEPLOYMENT.md)** eller **[QUICKSTART.md](QUICKSTART.md)**
+
+## 📁 Projektstruktur
+
+### Multi-Tenant (Railway + Supabase):
+- **database/** - SQL-scheman för Supabase
+  - `schema.sql` - Databas-tabeller
+  - `rls_policies.sql` - Row Level Security
+- **supabase_client.py** - Databas-operationer
+- **supabase_config.py** - Load config från Supabase
+- **supabase_storage.py** - Processed emails tracking (hashade IDs)
+- **main_supabase.py** - Multi-tenant huvudloop
+- **Procfile, railway.toml** - Railway deployment config
+- **RAILWAY_DEPLOYMENT.md** - Komplett deployment-guide
+
+### Single-Tenant (Docker/Lokal):
+- **config.json.example** - Exempelkonfiguration
+- **config.py** - Fil-baserad konfiguration
+- **ai_handler.py** - AI-svarsgenereringen
+- **storage.py** - Fil-baserad tracking (sent_drafts.json)
+- **mail_client.py** - IMAP/SMTP-klient
+- **main.py** - Single-tenant huvudloop
+- **Dockerfile, docker-compose.yml** - Docker deployment
+- **DOCKER_DEPLOYMENT.md, QUICKSTART.md** - Setup-guider
+
+### Delade moduler:
+- **ai_handler.py** - AI-svarsgenereringen (används av båda)
+- **mail_client.py** - IMAP/SMTP-klient (används av båda)
+- **requirements.txt** - Python-beroenden
+
+### Legacy:
+- **legacy/** - Ursprunglig Gmail API-implementation
+
+## 🚀 Quick Start
+
+### Multi-Tenant Deployment (Railway + Supabase)
+
+1. **Sätt upp Supabase:**
+   - Skapa projekt på [supabase.com](https://supabase.com)
+   - Kör `database/schema.sql` i SQL Editor
+   - Kör `database/rls_policies.sql`
+
+2. **Deploy till Railway:**
+   - Skapa projekt på [railway.app](https://railway.app)
+   - Länka till GitHub repo
+   - Lägg till environment variables:
+     ```
+     SUPABASE_URL=...
+     SUPABASE_SERVICE_KEY=...
+     OPENAI_API_KEY=...
+     ```
+
+3. **Bygg Admin UI i Lovable:**
+   - Se [RAILWAY_DEPLOYMENT.md](RAILWAY_DEPLOYMENT.md)
+
+📖 **[Läs fullständig guide →](RAILWAY_DEPLOYMENT.md)**
+
+### Single-Tenant Deployment (Docker)
+
+1. Kopiera och redigera config:
 ```bash
 cp config.json.example config.json
+nano config.json
 ```
 
-2. Redigera config.json med dina inställningar:
-   - Företagsinformation (namn, email, signatur)
-   - Mailserver (IMAP/SMTP-inställningar)
-   - AI-inställningar (modell, prompt-mall)
-
-3. Skapa .env-fil med API-nycklar:
+2. Skapa .env:
 ```bash
-OPENAI_API_KEY=din_openai_nyckel
+echo "OPENAI_API_KEY=din_nyckel" > .env
 ```
 
-4. Installera beroenden:
+3. Start med Docker:
 ```bash
-pip install -r requirements.txt
+docker-compose up -d
 ```
+
+📖 **[Läs QUICKSTART.md →](QUICKSTART.md)**
 
 ## Konfiguration
 
@@ -102,25 +154,34 @@ Anpassa hur AI:n svarar via prompt-mallen i `config.json`:
 ```bash
 # Skapa config och .env
 cp config.json.example config.json
-nano config.json
-echo "OPENAI_API_KEY=your_key" > .env
+nan📊 Status och Roadmap
 
-# Starta med Docker Compose
-docker-compose up -d
+### ✅ Version 2.0 - Multi-Tenant (2026-02-18)
+- ✅ Supabase-integration (PostgreSQL databas)
+- ✅ Railway deployment-config
+- ✅ Privacy-first arkitektur (hashade IDs, ingen email-data)
+- ✅ Multi-tenant support (en backend för alla kunder)
+- ✅ Databas-driven konfiguration
+- ✅ Row Level Security (RLS) för säker access control
+- ✅ Email statistik och övervakning
 
-# Visa loggar
-docker-compose logs -f
-```
+### ✅ Version 1.0 - Single-Tenant
+- ✅ Grundstruktur med config och moduler
+- ✅ IMAP/SMTP-klient (Gmail, Office365, Outlook.com)
+- ✅ Docker-support och deployment-guide
+- ✅ Refaktorerad modulär arkitektur
 
-Se [DOCKER_DEPLOYMENT.md](DOCKER_DEPLOYMENT.md) för detaljerad guide.
+### 🔄 Pågående
+- 🔄 Lovable Admin UI (frontend för företagshantering)
+- 🔄 Dashboard med grafer och statistik
+- 🔄 Testa med fler mailservrar (Exchange, custom)
 
-### Alternativt: Kör direkt med Python
-```bash
-python main.py
-```
-
-### Köra gamla Gmail API-versionen:
-```bash
+### ⏳ Planerat
+- ⏳ Manual draft approval-flow
+- ⏳ Webhook-integration för externa system
+- ⏳ Exchange Web Services (EWS) API-support
+- ⏳ Email kategorisering (prioritet, auto-reply vs human review)
+- ⏳ Supabase Vault för credential-kryptering
 python auto_draft_reply.py
 ```
 
