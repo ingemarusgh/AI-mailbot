@@ -1,10 +1,11 @@
 """
-Multi-tenant AI Mailbot - Railway Deployment
-Processes emails for all active companies from Supabase
+Multi-tenant AI Mailbot - Railway Deployment (IDLE Mode)
+Uses IMAP IDLE for real-time email processing with minimal CPU usage
 """
 import time
 import sys
 import logging
+import threading
 from typing import List, Dict, Any
 from supabase_client import get_supabase
 from supabase_config import CompanyConfig
@@ -141,10 +142,57 @@ def get_check_interval(companies: List[Dict[str, Any]]) -> int:
     return min(intervals) if intervals else 300
 
 
+def company_idle_worker(company_id: str, company_name: str):
+    """
+    IDLE worker for a single company.
+    Runs in its own thread and processes emails in real-time.
+    
+    Args:
+        company_id: Company UUID
+        company_name: Company name (for logging)
+    """
+    logger.info(f"[{company_name}] Starting IDLE worker thread")
+    
+    def process_emails():
+        """Callback function when new emails arrive"""
+        try:
+            logger.info(f"[{company_name}] New email(s) detected!")
+            success = process_company_emails(company_id)
+            
+            if success:
+                logger.info(f"[{company_name}] ✓ Emails processed")
+            else:
+                logger.error(f"[{company_name}] ✗ Error processing emails")
+                
+        except Exception as e:
+            logger.error(f"[{company_name}] Error in process callback: {e}")
+    
+    try:
+        # Load configuration
+        config = CompanyConfig(company_id)
+        mail_client = MailClient(config)
+        
+        # Start IDLE mode (blocking call)
+        logger.info(f"[{company_name}] Entering IDLE mode...")
+        mail_client.idle_wait(callback=process_emails, timeout=1740)
+        
+    except Exception as e:
+        logger.error(f"[{company_name}] IDLE worker crashed: {e}")
+        logger.info(f"[{company_name}] Restarting in 60 seconds...")
+        time.sleep(60)
+        # Restart worker
+        company_idle_worker(company_id, company_name)
+
+
 def main():
-    """Main application loop - processes all active companies"""
+    """Main application - spawns IDLE worker threads for each company"""
     logger.info("=" * 70)
-    logger.info("AI Mailbot - Multi-Tenant Railway Deployment")
+    logger.info("AI Mailbot - Multi-Tenant IDLE Mode")
+    logger.info("=" * 70)
+def main():
+    """Main application - spawns IDLE worker threads for each company"""
+    logger.info("=" * 70)
+    logger.info("AI Mailbot - Multi-Tenant IDLE Mode")
     logger.info("=" * 70)
     
     try:
@@ -153,45 +201,59 @@ def main():
         supabase = get_supabase()
         logger.info("✓ Supabase connected")
         
-        iteration = 0
+        # Track active threads
+        active_threads = {}
         
         while True:
-            iteration += 1
-            logger.info(f"\n{'=' * 70}")
-            logger.info(f"LOOP {iteration} - Checking all active companies")
-            logger.info(f"{'=' * 70}")
-            
             try:
                 # Get all active companies
                 companies = supabase.get_active_companies()
-                logger.info(f"Found {len(companies)} active companies")
+                logger.info(f"\nFound {len(companies)} active companies")
                 
                 if not companies:
-                    logger.warning("No active companies found in database")
-                else:
-                    # Process each company
-                    success_count = 0
-                    error_count = 0
-                    
-                    for company in companies:
-                        company_id = company['id']
-                        company_name = company['name']
-                        
-                        logger.info(f"\n--- Processing: {company_name} ---")
-                        
-                        if process_company_emails(company_id):
-                            success_count += 1
-                        else:
-                            error_count += 1
-                    
-                    logger.info(f"\n✓ Processed {success_count} companies successfully")
-                    if error_count > 0:
-                        logger.warning(f"✗ {error_count} companies had errors")
+                    logger.warning("No active companies found. Waiting 60 seconds...")
+                    time.sleep(60)
+                    continue
                 
-                # Get check interval
-                check_interval = get_check_interval(companies)
-                logger.info(f"\nWaiting {check_interval} seconds before next check...")
-                time.sleep(check_interval)
+                # Start/update threads for each company
+                current_company_ids = {c['id'] for c in companies}
+                
+                # Start new threads for new companies
+                for company in companies:
+                    company_id = company['id']
+                    company_name = company['name']
+                    
+                    # Check if thread already exists and is alive
+                    if company_id in active_threads:
+                        thread = active_threads[company_id]
+                        if thread.is_alive():
+                            continue  # Thread already running
+                        else:
+                            logger.warning(f"[{company_name}] Thread died, restarting...")
+                    
+                    # Start new thread
+                    logger.info(f"[{company_name}] Starting IDLE thread...")
+                    thread = threading.Thread(
+                        target=company_idle_worker,
+                        args=(company_id, company_name),
+                        name=f"IDLE-{company_name}",
+                        daemon=True
+                    )
+                    thread.start()
+                    active_threads[company_id] = thread
+                
+                # Remove threads for inactive companies
+                inactive_ids = set(active_threads.keys()) - current_company_ids
+                for company_id in inactive_ids:
+                    logger.info(f"Company {company_id} is no longer active")
+                    del active_threads[company_id]
+                
+                # Check thread health every 5 minutes
+                logger.info(f"\n✓ {len(active_threads)} IDLE threads running")
+                logger.info("Threads will process emails in real-time when they arrive")
+                logger.info("Checking for new companies in 300 seconds...\n")
+                
+                time.sleep(300)  # Check for new companies every 5 minutes
                 
             except Exception as e:
                 logger.error(f"Error in main loop: {e}")

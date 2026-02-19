@@ -2,10 +2,11 @@
 import imaplib
 import smtplib
 import email
+import time
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.header import decode_header
-from typing import List, Dict, Tuple, Optional
+from typing import List, Dict, Tuple, Optional, Callable
 from config import Config
 
 
@@ -48,6 +49,79 @@ class MailClient:
                 print("[INFO] Disconnected from IMAP")
             except:
                 pass
+    
+    def idle_wait(self, callback: Callable[[], None], timeout: int = 1740) -> None:
+        """
+        Wait for new emails using IMAP IDLE.
+        Calls callback when new emails arrive.
+        
+        Args:
+            callback: Function to call when new emails arrive
+            timeout: IDLE timeout in seconds (max 29 minutes per RFC 2177)
+        
+        Note:
+            This is a blocking call. Run in a separate thread for multi-tenant.
+        """
+        if not self.imap:
+            if not self.connect_imap():
+                raise ConnectionError("Failed to connect to IMAP")
+        
+        try:
+            # Select INBOX
+            self.imap.select('INBOX')
+            print("[INFO] Starting IMAP IDLE mode...")
+            
+            while True:
+                # Enter IDLE mode
+                tag = self.imap._new_tag().decode()
+                self.imap.send(f'{tag} IDLE\r\n'.encode())
+                
+                # Wait for server acknowledgment
+                response = self.imap.readline()
+                if b'idling' not in response.lower() and b'+' not in response:
+                    print(f"[WARN] IDLE not supported by server, falling back to polling")
+                    # Fallback to polling if IDLE not supported
+                    time.sleep(60)
+                    callback()
+                    continue
+                
+                print("[DEBUG] IDLE mode active, waiting for new emails...")
+                
+                # Wait for notification or timeout
+                start_time = time.time()
+                email_detected = False
+                
+                while time.time() - start_time < timeout:
+                    try:
+                        # Read with timeout (non-blocking on most systems)
+                        response = self.imap.readline()
+                        
+                        if response:
+                            print(f"[DEBUG] IDLE response: {response}")
+                            
+                            if b'EXISTS' in response or b'RECENT' in response:
+                                email_detected = True
+                                break
+                    except:
+                        # No data available, sleep briefly
+                        time.sleep(1)
+                
+                # Exit IDLE mode
+                try:
+                    self.imap.send(b'DONE\r\n')
+                    self.imap.readline()  # Read IDLE completion
+                except:
+                    pass
+                
+                if email_detected:
+                    print("[INFO] New email detected! Processing...")
+                    callback()
+                else:
+                    print("[DEBUG] IDLE timeout, restarting...")
+                    
+        except Exception as e:
+            print(f"[ERROR] IDLE mode error: {e}")
+            raise
     
     def get_unread_messages(self, max_messages: Optional[int] = None) -> List[Dict]:
         """Get unread messages from inbox.
