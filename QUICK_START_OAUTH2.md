@@ -7,7 +7,7 @@
 ## ☑️ STEG 1: Supabase SQL Migration (2 min)
 
 1. Öppna [Supabase SQL Editor](https://supabase.com/dashboard/project/urauulfqtwfxvwmtsomd/sql/new)
-2. Kopiera **hela innehållet** från filen `database/oauth2_migration.sql`
+2. Öppna [database/oauth2_migration.sql](database/oauth2_migration.sql) och kopiera **hela innehållet**
 3. Klistra in i SQL Editor
 4. Klicka **"Run"**
 5. Verifiera: Du ska se ✅ "Success. No rows returned"
