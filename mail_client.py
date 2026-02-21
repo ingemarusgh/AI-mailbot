@@ -1,4 +1,4 @@
-"""Mail client module for IMAP/SMTP email handling."""
+"""Mail client module for IMAP/SMTP email handling with OAuth2 support."""
 import imaplib
 import smtplib
 import email
@@ -8,10 +8,11 @@ from email.mime.multipart import MIMEMultipart
 from email.header import decode_header
 from typing import List, Dict, Tuple, Optional, Callable
 from config import Config
+from oauth_handler import get_oauth_handler
 
 
 class MailClient:
-    """Handles IMAP/SMTP email operations."""
+    """Handles IMAP/SMTP email operations with OAuth2 support."""
     
     def __init__(self, config: Config):
         """Initialize mail client with configuration."""
@@ -24,18 +25,47 @@ class MailClient:
         self.password = config.get('mail_server', 'password')
         self.imap = None
         self.use_ssl = config.get('mail_server', 'use_ssl', default=True)
+        
+        # OAuth2 support
+        self.oauth_provider = config.get('mail_server', 'oauth_provider')
+        self.company_id = getattr(config, 'company_id', None)
+        self.oauth_handler = get_oauth_handler() if self.oauth_provider else None
     
     def connect_imap(self):
-        """Connect to IMAP server."""
+        """Connect to IMAP server with OAuth2 or password authentication."""
         try:
             if self.use_ssl:
                 self.imap = imaplib.IMAP4_SSL(self.imap_host, self.imap_port)
             else:
                 self.imap = imaplib.IMAP4(self.imap_host, self.imap_port)
             
-            self.imap.login(self.username, self.password)
-            print(f"[INFO] Connected to IMAP: {self.imap_host}")
+            # OAuth2 authentication
+            if self.oauth_provider == 'azure' and self.oauth_handler and self.company_id:
+                print("[INFO] Using OAuth2 authentication...")
+                access_token = self.oauth_handler.get_valid_access_token(self.company_id)
+                
+                if not access_token:
+                    print("[ERROR] Failed to get valid OAuth2 token")
+                    return False
+                
+                # Generate OAuth2 auth string
+                auth_string = self.oauth_handler.generate_oauth2_string(
+                    self.username, 
+                    access_token
+                )
+                
+                # Authenticate with OAuth2
+                self.imap.authenticate('XOAUTH2', lambda x: auth_string)
+                print(f"[INFO] Connected to IMAP via OAuth2: {self.imap_host}")
+            
+            # Password authentication (fallback)
+            else:
+                print("[INFO] Using password authentication...")
+                self.imap.login(self.username, self.password)
+                print(f"[INFO] Connected to IMAP: {self.imap_host}")
+            
             return True
+            
         except Exception as e:
             print(f"[ERROR] IMAP connection failed: {e}")
             return False
@@ -307,12 +337,36 @@ class MailClient:
             return False
     
     def _send_email(self, msg: MIMEMultipart) -> bool:
-        """Send an email via SMTP."""
+        """Send an email via SMTP with OAuth2 or password authentication."""
         try:
-            with smtplib.SMTP(self.smtp_host, self.smtp_port) as server:
-                server.starttls()
+            server = smtplib.SMTP(self.smtp_host, self.smtp_port)
+            server.starttls()
+            
+            # OAuth2 authentication
+            if self.oauth_provider == 'azure' and self.oauth_handler and self.company_id:
+                print("[INFO] Using OAuth2 for SMTP...")
+                access_token = self.oauth_handler.get_valid_access_token(self.company_id)
+                
+                if not access_token:
+                    print("[ERROR] Failed to get valid OAuth2 token for SMTP")
+                    return False
+                
+                # Generate OAuth2 auth string
+                auth_string = self.oauth_handler.generate_oauth2_string(
+                    self.username,
+                    access_token
+                )
+                
+                # Authenticate with OAuth2
+                server.docmd('AUTH', 'XOAUTH2 ' + auth_string)
+            
+            # Password authentication (fallback)
+            else:
+                print("[INFO] Using password for SMTP...")
                 server.login(self.username, self.password)
-                server.send_message(msg)
+            
+            server.send_message(msg)
+            server.quit()
             
             print(f"[INFO] Email sent to {msg['To']}")
             return True

@@ -1,12 +1,16 @@
 # Core dependencies
 openai>=1.0.0
 python-dotenv>=1.0.0
+requests>=2.31.0
 
 # Supabase integration
 supabase>=2.0.0
 
 # Email handling (IMAP/SMTP)
 # Built-in Python libraries used: imaplib, smtplib, email
+
+# OAuth2 support
+# Azure AD OAuth2 for Microsoft 365 integration
 
 # Legacy Gmail API (moved to legacy/)
 # google-auth>=2.0.0

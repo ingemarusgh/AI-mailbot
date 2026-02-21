@@ -77,7 +77,27 @@ class CompanyConfig:
     
     @property
     def email_password(self) -> str:
-        return self._mail_config['email_password']
+        return self._mail_config.get('email_password', '')
+    
+    @property
+    def oauth_provider(self) -> str:
+        """OAuth2 provider (azure, google) or None for password auth"""
+        return self._mail_config.get('oauth_provider')
+    
+    @property
+    def access_token(self) -> str:
+        """OAuth2 access token"""
+        return self._mail_config.get('access_token', '')
+    
+    @property
+    def refresh_token(self) -> str:
+        """OAuth2 refresh token"""
+        return self._mail_config.get('refresh_token', '')
+    
+    @property
+    def token_expires_at(self) -> str:
+        """OAuth2 token expiry timestamp"""
+        return self._mail_config.get('token_expires_at')
     
     @property
     def inbox_folder(self) -> str:
@@ -131,7 +151,8 @@ class CompanyConfig:
                 'imap_port': self.imap_port,
                 'smtp_host': self.smtp_host,
                 'smtp_port': self.smtp_port,
-                'email_address': self.email_address
+                'email_address': self.email_address,
+                'oauth_provider': self.oauth_provider
             },
             'ai': {
                 'provider': self.ai_provider,
@@ -146,3 +167,45 @@ class CompanyConfig:
                 'auto_send': self.auto_send
             }
         }
+    
+    def get(self, section: str, key: str, default=None):
+        """
+        Get configuration value (for backwards compatibility with Config class)
+        
+        Args:
+            section: Config section (mail_server, ai, bot)
+            key: Config key
+            default: Default value if not found
+            
+        Returns:
+            Config value or default
+        """
+        mapping = {
+            'mail_server': {
+                'imap_host': self.imap_host,
+                'imap_port': self.imap_port,
+                'smtp_host': self.smtp_host,
+                'smtp_port': self.smtp_port,
+                'username': self.email_address,
+                'password': self.email_password,
+                'use_ssl': self.imap_use_ssl,
+                'oauth_provider': self.oauth_provider,
+                'drafts_folder': 'Drafts'
+            },
+            'ai': {
+                'provider': self.ai_provider,
+                'model': self.ai_model,
+                'prompt_template': self.prompt_template,
+                'signature': self.signature
+            },
+            'bot': {
+                'check_interval': self.check_interval,
+                'max_messages_per_check': self.max_messages_per_check,
+                'create_drafts': self.create_drafts,
+                'auto_send': self.auto_send
+            }
+        }
+        
+        if section in mapping and key in mapping[section]:
+            return mapping[section][key]
+        return default
