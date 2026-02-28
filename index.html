@@ -77,7 +77,7 @@ box-shadow:0 20px 60px rgba(0,170,255,.45);
 
 <body>
 
-<canvas id="waves"></canvas>
+<canvas id="network"></canvas>
 
 <div class="container">
 <img src="./nerox-logo.png" class="logo">
@@ -89,7 +89,7 @@ Du godkänner — klart.
 </div>
 
 <script>
-const canvas = document.getElementById("waves");
+const canvas = document.getElementById("network");
 const ctx = canvas.getContext("2d");
 
 function resize(){
@@ -99,47 +99,57 @@ canvas.height = window.innerHeight;
 resize();
 window.addEventListener("resize",resize);
 
-let mouseX = canvas.width/2;
-window.addEventListener("mousemove",e=>{
-mouseX = e.clientX;
-});
+let points=[];
+const total=80;
 
-let t=0;
+for(let i=0;i<total;i++){
+points.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+vx:(Math.random()-0.5)*0.4,
+vy:(Math.random()-0.5)*0.4
+});
+}
 
 function draw(){
-ctx.fillStyle="rgba(2,6,23,0.35)";
+ctx.fillStyle="rgba(2,6,23,0.4)";
 ctx.fillRect(0,0,canvas.width,canvas.height);
 
-for(let i=0;i<6;i++){
+points.forEach(p=>{
+p.x+=p.vx;
+p.y+=p.vy;
 
-let amplitude = 40 + i*25;
-let frequency = 0.004 + i*0.0007;
-let speed = 0.001 + i*0.0003;
-let opacity = 0.12 - i*0.015;
+if(p.x<0||p.x>canvas.width) p.vx*=-1;
+if(p.y<0||p.y>canvas.height) p.vy*=-1;
+});
 
+/* connect nearby points */
+for(let a=0;a<points.length;a++){
+for(let b=a;b<points.length;b++){
+
+let dx=points[a].x-points[b].x;
+let dy=points[a].y-points[b].y;
+let dist=dx*dx+dy*dy;
+
+if(dist<12000){
+ctx.strokeStyle="rgba(0,170,255,0.08)";
+ctx.lineWidth=1;
 ctx.beginPath();
-
-for(let x=0;x<canvas.width;x++){
-
-let mouseInfluence = (mouseX - canvas.width/2) * 0.00005;
-
-let y = canvas.height/2 +
-Math.sin(x*frequency + t*speed + i) * amplitude +
-mouseInfluence * x;
-
-ctx.lineTo(x,y);
-}
-
-let gradient = ctx.createLinearGradient(0,0,canvas.width,0);
-gradient.addColorStop(0,"rgba(0,170,255,"+opacity+")");
-gradient.addColorStop(1,"rgba(0,255,255,"+opacity+")");
-
-ctx.strokeStyle = gradient;
-ctx.lineWidth = 1.5;
+ctx.moveTo(points[a].x,points[a].y);
+ctx.lineTo(points[b].x,points[b].y);
 ctx.stroke();
 }
+}
+}
 
-t += 1;
+/* draw nodes */
+points.forEach(p=>{
+ctx.beginPath();
+ctx.fillStyle="rgba(200,220,255,0.8)";
+ctx.arc(p.x,p.y,2,0,Math.PI*2);
+ctx.fill();
+});
+
 requestAnimationFrame(draw);
 }
 
