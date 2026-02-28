@@ -1,157 +1,133 @@
 <!DOCTYPE html>
-
 <html lang="sv">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nerox – AI som svarar på dina mail</title>
 
 <style>
-body {
-  margin:0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background:#0b0f14;
-  color:white;
+body{
+    margin:0;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+    background:#0b0f14;
+    color:#e8eef7;
 }
 
-.container {
-  max-width:1100px;
-  margin:auto;
-  padding:40px 20px;
+/* HERO */
+.hero{
+    text-align:center;
+    padding:120px 20px 90px;
+    max-width:900px;
+    margin:auto;
+}
+h1{
+    font-size:48px;
+    margin-bottom:15px;
+}
+.subtitle{
+    font-size:20px;
+    color:#9fb0c7;
+    margin-bottom:35px;
+}
+.cta{
+    display:inline-block;
+    padding:16px 32px;
+    background:#4c8dff;
+    color:white;
+    text-decoration:none;
+    border-radius:10px;
+    font-weight:600;
+}
+.cta:hover{background:#3a73d6}
+
+/* SECTIONS */
+.section{
+    max-width:1100px;
+    margin:80px auto;
+    padding:0 20px;
+}
+.section h2{
+    font-size:28px;
+    margin-bottom:30px;
 }
 
-.hero {
-  text-align:center;
-  padding:120px 20px 80px;
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:20px;
 }
 
-h1 {
-  font-size:56px;
-  margin-bottom:20px;
+.card{
+    background:#111826;
+    padding:26px;
+    border-radius:14px;
 }
+.card h3{margin-top:0}
 
-.subtitle {
-  font-size:22px;
-  color:#b8c1cc;
-  max-width:700px;
-  margin:auto;
-  line-height:1.6;
-}
-
-.cta {
-  margin-top:40px;
-}
-
-.button {
-  background:#4f8cff;
-  color:white;
-  padding:16px 28px;
-  border-radius:12px;
-  text-decoration:none;
-  font-weight:600;
-  display:inline-block;
-  transition:0.2s;
-}
-
-.button:hover {
-  transform:translateY(-2px);
-  background:#3a73e6;
-}
-
-.section {
-  padding:80px 20px;
-  border-top:1px solid #1b2430;
-}
-
-.grid {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:30px;
-  margin-top:40px;
-}
-
-.card {
-  background:#121821;
-  padding:28px;
-  border-radius:16px;
-}
-
-.card h3 {
-  margin-top:0;
-}
-
-.footer {
-  text-align:center;
-  padding:60px 20px;
-  color:#6b7785;
-  border-top:1px solid #1b2430;
+/* FOOTER */
+.footer{
+    text-align:center;
+    padding:60px 20px;
+    color:#7f8da3;
+    font-size:14px;
 }
 </style>
-
 </head>
 
 <body>
 
-<div class="hero container">
-  <h1>Nerox</h1>
-  <p class="subtitle">
-    AI som läser din inkorg och föreslår färdiga svar.
-    Du godkänner – klart.
-  </p>
-
-  <div class="cta">
-    <a class="button" href="mailto:kontakt@nerox.se">Boka demo</a>
-  </div>
-</div>
-
-<div class="section container">
-  <h2>Vad den gör</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>Svarar åt dig</h3>
-      <p>Nerox analyserar inkommande mail och skriver ett färdigt svar direkt.</p>
+<!-- HERO -->
+<div class="hero">
+    <h1>Nerox</h1>
+    <div class="subtitle">
+        AI som läser inkorgen och föreslår färdiga svar.<br>
+        Du godkänner — klart.
     </div>
+    <a class="cta" href="mailto:hugo@nerox.se">Boka demo</a>
+</div>
 
-```
+<!-- HUR DET FUNKAR -->
+<div class="section">
+<h2>Så fungerar det</h2>
+<div class="grid">
 <div class="card">
-  <h3>Du godkänner alltid</h3>
-  <p>Inget skickas automatiskt. Du har full kontroll över varje svar.</p>
+<h3>1. Läser inkommande mail</h3>
+Nerox analyserar innehållet och förstår vad kunden vill.
 </div>
-
 <div class="card">
-  <h3>Lär sig företaget</h3>
-  <p>AI:n anpassas efter hur just ditt företag kommunicerar.</p>
+<h3>2. Skriver färdigt svar</h3>
+Du får ett färdigt svar anpassat efter ditt företag.
 </div>
-```
-
-  </div>
-</div>
-
-<div class="section container">
-  <h2>För vem?</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>Support</h3>
-      <p>Slipp repetitiva frågor.</p>
-    </div>
-
-```
 <div class="card">
-  <h3>Försäljning</h3>
-  <p>Svara snabbare än konkurrenter.</p>
+<h3>3. Du godkänner</h3>
+Inget skickas automatiskt. Du har alltid kontroll.
+</div>
+</div>
 </div>
 
+<!-- FÖR VEM -->
+<div class="section">
+<h2>Passar företag som</h2>
+<div class="grid">
+<div class="card">Får många kundmail</div>
+<div class="card">Svarar samma saker ofta</div>
+<div class="card">Vill svara snabbare utan personal</div>
+<div class="card">Vill ge proffsiga svar varje gång</div>
+</div>
+</div>
+
+<!-- SÄKERHET -->
+<div class="section">
+<h2>Säkerhet & integritet</h2>
 <div class="card">
-  <h3>Små & stora bolag</h3>
-  <p>Fungerar med Microsoft 365 och Gmail.</p>
+Mail lagras inte permanent och inget skickas utan godkännande.
+Nerox fungerar som ett assistent-förslag — inte en autopilot.
 </div>
-```
-
-  </div>
 </div>
 
+<!-- FOOTER -->
 <div class="footer">
-  © 2026 Nerox
+© 2026 Nerox
 </div>
 
 </body>
