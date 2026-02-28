@@ -23,40 +23,11 @@ left:0;
 z-index:0;
 }
 
-/* ===== STICKY NAV ===== */
-.nav{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-z-index:5;
-background:rgba(2,6,23,.85);
-backdrop-filter:blur(15px);
-border-bottom:1px solid rgba(56,189,248,.2);
-padding:18px 30px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
-
-.nav a{
-color:#38bdf8;
-text-decoration:none;
-font-weight:600;
-}
-
-.nav-btn{
-padding:10px 20px;
-border-radius:10px;
-background:linear-gradient(135deg,#38bdf8,#0ea5e9);
-color:white;
-}
-
 /* ===== GLOBAL ===== */
 .section{
 position:relative;
 z-index:2;
-padding:160px 25px;
+padding:140px 25px;
 }
 
 .container{
@@ -67,13 +38,13 @@ margin:auto;
 .center{text-align:center;}
 
 h1{
-font-size:48px;
+font-size:44px;
 color:white;
 margin-bottom:20px;
 }
 
 h2{
-font-size:34px;
+font-size:32px;
 color:white;
 margin-bottom:25px;
 }
@@ -85,8 +56,8 @@ font-size:17px;
 
 /* ===== HERO ===== */
 .hero{
-padding-top:220px;
-padding-bottom:180px;
+padding-top:180px;
+padding-bottom:160px;
 text-align:center;
 }
 
@@ -97,6 +68,12 @@ margin-bottom:40px;
 filter:drop-shadow(0 0 40px #38bdf8);
 }
 
+.sub{
+font-size:20px;
+opacity:.85;
+}
+
+/* ===== BUTTON ===== */
 .button{
 display:inline-block;
 margin-top:35px;
@@ -116,10 +93,10 @@ box-shadow:0 0 60px rgba(56,189,248,.9);
 }
 
 /* ===== GRID ===== */
-.grid{
+.grid-4{
 display:grid;
 gap:40px;
-margin-top:60px;
+margin-top:70px;
 }
 
 .block{
@@ -130,14 +107,53 @@ padding:45px;
 backdrop-filter:blur(20px);
 }
 
-/* ===== MAIL EXAMPLES ===== */
+.block-icon{
+font-size:28px;
+margin-bottom:15px;
+color:#38bdf8;
+}
+
+/* ===== FLOW ===== */
+.flow{
+display:flex;
+flex-direction:column;
+gap:40px;
+margin-top:80px;
+align-items:center;
+}
+
+.step{
+display:flex;
+align-items:center;
+gap:20px;
+}
+
+.circle{
+width:48px;
+height:48px;
+border-radius:50%;
+background:#38bdf8;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:700;
+color:#020617;
+}
+
+.line{
+width:2px;
+height:50px;
+background:rgba(56,189,248,.4);
+}
+
+/* ===== MOCK MAIL ===== */
 .mailbox{
 background:#0f172a;
 border:1px solid rgba(56,189,248,.3);
 border-radius:20px;
 padding:40px;
 margin-top:40px;
-box-shadow:0 0 40px rgba(56,189,248,.15);
+box-shadow:0 0 40px rgba(56,189,248,.2);
 }
 
 .mail-header{
@@ -146,34 +162,33 @@ margin-bottom:20px;
 color:#38bdf8;
 }
 
-/* ===== FORM ===== */
-form{
-display:flex;
-flex-direction:column;
-gap:20px;
-margin-top:40px;
-}
-
-input,textarea{
-padding:15px;
-border-radius:10px;
-border:1px solid rgba(56,189,248,.3);
-background:#0f172a;
-color:white;
+.mail-content{
+opacity:.9;
+line-height:1.6;
 }
 
 /* ===== DESKTOP ===== */
 @media(min-width:900px){
 
-h1{font-size:68px;}
-h2{font-size:40px;}
+h1{font-size:64px;}
+h2{font-size:38px;}
 
-.grid-3{
-grid-template-columns:repeat(3,1fr);
+.grid-4{
+grid-template-columns:repeat(4,1fr);
 }
 
-.grid-2{
-grid-template-columns:repeat(2,1fr);
+.flow{
+flex-direction:row;
+}
+
+.step{
+flex-direction:column;
+text-align:center;
+}
+
+.line{
+width:120px;
+height:2px;
 }
 
 }
@@ -184,45 +199,53 @@ grid-template-columns:repeat(2,1fr);
 
 <canvas id="network"></canvas>
 
-<div class="nav">
-<a href="#">Nerox</a>
-<a href="#kontakt" class="nav-btn">Boka demo</a>
-</div>
-
 <!-- HERO -->
 <div class="section hero">
-<div class="container center">
+<div class="container">
 
 <img src="./nerox-logo.png" class="logo">
 
 <h1>AI som skapar utkast i er inkorg.</h1>
-<p>Konfigurerad per företag. Anpassad per användare. Full kontroll.</p>
+<p class="sub">
+Nerox arbetar i bakgrunden och genererar strukturerade svar direkt i ert befintliga mailflöde.
+Inget skickas automatiskt. Ni har full kontroll.
+</p>
 
-<a href="#kontakt" class="button">Se hur det fungerar</a>
+<a href="#" class="button">Boka demo</a>
 
 </div>
 </div>
 
-<!-- BAS + ANPASSNING -->
+<!-- FEATURES -->
 <div class="section">
 <div class="container center">
 
-<h2>Bas + Anpassning</h2>
+<h2>Byggd för strukturerad effektivisering</h2>
 
-<div class="grid grid-2">
-
-<div class="block">
-<h3>Basversion</h3>
-<p>Analys av inkommande mail.</p>
-<p>Strukturerade utkast.</p>
-<p>Mänskligt godkännande.</p>
-</div>
+<div class="grid-4">
 
 <div class="block">
-<h3>Anpassning</h3>
-<p>Företagsspecifika riktlinjer.</p>
-<p>Rollspecifika konfigurationer.</p>
-<p>Individanpassade svarsmallar.</p>
+<div class="block-icon">✍️</div>
+<h3>Skapar utkast</h3>
+<p>Färdiga svar läggs som utkast i er inkorg.</p>
+</div>
+
+<div class="block">
+<div class="block-icon">🧠</div>
+<h3>Konfigurerad</h3>
+<p>Arbetar enligt tydliga företagsriktlinjer.</p>
+</div>
+
+<div class="block">
+<div class="block-icon">🔒</div>
+<h3>Full kontroll</h3>
+<p>Inget skickas utan mänskligt godkännande.</p>
+</div>
+
+<div class="block">
+<div class="block-icon">🏢</div>
+<h3>Företags & individanpassad</h3>
+<p>Olika konfiguration per företag, roll och användare.</p>
 </div>
 
 </div>
@@ -230,30 +253,79 @@ grid-template-columns:repeat(2,1fr);
 </div>
 </div>
 
-<!-- ROLLBASERADE EXEMPEL -->
+<!-- FLOW -->
+<div class="section center">
+<div class="container">
+
+<h2>Så fungerar det</h2>
+
+<div class="flow">
+
+<div class="step">
+<div class="circle">1</div>
+<p>Mail inkommer</p>
+</div>
+
+<div class="line"></div>
+
+<div class="step">
+<div class="circle">2</div>
+<p>Nerox analyserar</p>
+</div>
+
+<div class="line"></div>
+
+<div class="step">
+<div class="circle">3</div>
+<p>Utkast skapas</p>
+</div>
+
+<div class="line"></div>
+
+<div class="step">
+<div class="circle">4</div>
+<p>Du granskar & godkänner</p>
+</div>
+
+</div>
+
+</div>
+</div>
+
+<!-- EXAMPLES -->
 <div class="section">
 <div class="container center">
 
-<h2>Exempel per roll</h2>
+<h2>Exempel på genererade utkast</h2>
 
 <div class="mailbox">
-<div class="mail-header">VD – Strategiskt svar</div>
-<p>Tack för ert förslag. Vi ser potential i samarbetet och föreslår ett uppföljningsmöte nästa vecka för att diskutera detaljer.</p>
+<div class="mail-header">Prisförfrågan</div>
+<div class="mail-content">
+Hej!<br><br>
+Tack för din förfrågan. Priset för tjänsten är 12 900 kr inklusive installation.
+Leveranstiden är 5–7 arbetsdagar.<br><br>
+Återkom gärna om du vill boka in en tid.
+</div>
 </div>
 
 <div class="mailbox">
-<div class="mail-header">Kundsupport – Ärendehantering</div>
-<p>Tack för din anmälan. Vi har registrerat ditt ärende och återkommer inom 24 timmar med uppdatering.</p>
+<div class="mail-header">Mötesbokning</div>
+<div class="mail-content">
+Hej!<br><br>
+Jag har möjlighet att boka möte tisdag kl 10:00 eller torsdag kl 14:30.
+Återkom med vad som passar dig bäst.<br><br>
+Vänliga hälsningar
+</div>
 </div>
 
 <div class="mailbox">
-<div class="mail-header">Servicetekniker – Bokningsbekräftelse</div>
-<p>Vi bekräftar servicebesök torsdag kl 08:00. Återkom om tiden behöver justeras.</p>
+<div class="mail-header">Statusuppdatering</div>
+<div class="mail-content">
+Hej!<br><br>
+Din beställning är nu under behandling och beräknas levereras inom 3 arbetsdagar.
+Vi återkommer om något förändras.<br><br>
+Tack för ditt tålamod.
 </div>
-
-<div class="mailbox">
-<div class="mail-header">Sälj – Pris & uppföljning</div>
-<p>Tack för din förfrågan. Offerten är bifogad och jag följer upp på fredag om jag inte hört från dig.</p>
 </div>
 
 </div>
@@ -265,26 +337,24 @@ grid-template-columns:repeat(2,1fr);
 
 <h2>Vad Nerox inte gör</h2>
 
-<p>✖ Skickar automatiskt</p>
+<p>✖ Skickar automatiskt utan godkännande</p>
 <p>✖ Lagrar mailhistorik</p>
 <p>✖ Tränas på ert material</p>
 <p>✖ Ersätter mänskliga beslut</p>
 
+<p style="margin-top:25px;">
+Nerox är ett konfigurerat arbetsverktyg – inte en självlärande AI.
+</p>
+
 </div>
 </div>
 
-<!-- KONTAKT -->
-<div class="section hero" id="kontakt">
+<!-- CTA -->
+<div class="section hero">
 <div class="container center">
 
-<h2>Boka demo</h2>
-
-<form>
-<input type="text" placeholder="Företagsnamn">
-<input type="email" placeholder="E-post">
-<textarea placeholder="Beskriv kort hur ni arbetar idag"></textarea>
-<button class="button">Skicka</button>
-</form>
+<h2>Strukturerad AI – utan att förlora kontroll.</h2>
+<a href="#" class="button">Kontakta oss</a>
 
 </div>
 </div>
