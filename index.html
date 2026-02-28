@@ -36,89 +36,69 @@ z-index:0;
 position:relative;
 z-index:2;
 text-align:center;
-max-width:900px;
-padding:80px 20px 40px 20px;
+max-width:1000px;
+padding:110px 20px 40px 20px;
 }
 
 /* BIGGER LOGO */
 .logo{
-width:520px;
-max-width:90%;
-margin-bottom:40px;
+width:620px;
+max-width:95%;
+margin-bottom:55px;
 
-/* cyberpunk glow */
 filter:
-drop-shadow(0 0 25px #00f2ff)
-drop-shadow(0 0 60px #8a2be2)
-drop-shadow(0 0 120px rgba(255,0,255,0.4));
+drop-shadow(0 0 35px rgba(125,211,252,0.5))
+drop-shadow(0 0 80px rgba(0,170,255,0.35));
 
 transition:0.4s ease;
-}
-
-.logo:hover{
-filter:
-drop-shadow(0 0 40px #00ffff)
-drop-shadow(0 0 90px #ff00ff)
-drop-shadow(0 0 160px rgba(255,0,255,0.6));
 }
 
 /* TAGLINE */
 .tagline{
 font-size:22px;
 color:#dbeafe;
-margin-bottom:60px;
+margin-bottom:70px;
 max-width:600px;
 margin-left:auto;
 margin-right:auto;
 line-height:1.6;
 }
 
-/* CYBERPUNK BUTTON */
+/* MATCH NEROX LOGO COLORS */
 button{
-padding:18px 48px;
+padding:18px 52px;
 font-size:18px;
 border-radius:14px;
-border:2px solid #00f2ff;
-background:transparent;
-color:#00f2ff;
+border:2px solid #7dd3fc;
+background:linear-gradient(135deg,#e0f2ff,#7dd3fc);
+color:#021024;
 cursor:pointer;
-position:relative;
-overflow:hidden;
 transition:0.3s ease;
 text-transform:uppercase;
 letter-spacing:1px;
-}
+font-weight:600;
 
-button::before{
-content:"";
-position:absolute;
-inset:0;
-background:linear-gradient(90deg,#00f2ff,#ff00ff);
-opacity:0;
-transition:0.3s;
-z-index:-1;
+box-shadow:
+0 0 25px rgba(125,211,252,0.4),
+0 0 60px rgba(0,170,255,0.25);
 }
 
 button:hover{
-color:black;
+transform:translateY(-3px);
 box-shadow:
-0 0 20px #00f2ff,
-0 0 40px #ff00ff;
-}
-
-button:hover::before{
-opacity:1;
+0 0 40px rgba(125,211,252,0.6),
+0 0 80px rgba(0,170,255,0.4);
 }
 
 /* MOBILE */
 @media(max-width:768px){
 
 .container{
-padding-top:60px;
+padding-top:80px;
 }
 
 .logo{
-width:360px;
+width:440px;
 }
 
 .tagline{
@@ -147,6 +127,8 @@ Du godkänner — klart.
 const canvas = document.getElementById("network");
 const ctx = canvas.getContext("2d");
 
+let isMobile = window.innerWidth < 768;
+
 function resize(){
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
@@ -154,20 +136,22 @@ canvas.height = window.innerHeight;
 resize();
 window.addEventListener("resize",resize);
 
+/* Performance optimized */
+const total = isMobile ? 40 : 70;
+
 let points=[];
-const total=80;
 
 for(let i=0;i<total;i++){
 points.push({
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
-vx:(Math.random()-0.5)*0.4,
-vy:(Math.random()-0.5)*0.4
+vx:(Math.random()-0.5)*0.3,
+vy:(Math.random()-0.5)*0.3
 });
 }
 
 function draw(){
-ctx.fillStyle="rgba(2,6,23,0.45)";
+ctx.fillStyle="rgba(2,6,23,0.5)";
 ctx.fillRect(0,0,canvas.width,canvas.height);
 
 points.forEach(p=>{
@@ -178,16 +162,18 @@ if(p.x<0||p.x>canvas.width) p.vx*=-1;
 if(p.y<0||p.y>canvas.height) p.vy*=-1;
 });
 
-/* connect points */
+/* limit connections */
 for(let a=0;a<points.length;a++){
-for(let b=a;b<points.length;b++){
+for(let b=a+1;b<points.length;b++){
 
 let dx=points[a].x-points[b].x;
 let dy=points[a].y-points[b].y;
 let dist=dx*dx+dy*dy;
 
-if(dist<12000){
-ctx.strokeStyle="rgba(0,255,255,0.08)";
+let maxDist = isMobile ? 8000 : 12000;
+
+if(dist<maxDist){
+ctx.strokeStyle="rgba(125,211,252,0.08)";
 ctx.lineWidth=1;
 ctx.beginPath();
 ctx.moveTo(points[a].x,points[a].y);
