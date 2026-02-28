@@ -4,21 +4,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Nerox</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
-
-body{
-    background:#030712;
-    color:white;
-    overflow:hidden;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Inter,system-ui,Arial;
 }
 
+body{
+    background:radial-gradient(ellipse at center,#071226 0%,#02050b 70%);
+    color:white;
+    height:100vh;
+    overflow:hidden;
+}
+
+/* STARFIELD */
 canvas{
     position:fixed;
     top:0;
@@ -26,50 +30,61 @@ canvas{
     z-index:-1;
 }
 
+/* HERO */
 .hero{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
     text-align:center;
-    max-width:800px;
-    padding:40px;
+    padding:20px;
 }
 
+/* LOGO */
 .logo{
-    width:220px;
-    margin-bottom:20px;
-    filter:drop-shadow(0 0 25px rgba(0,170,255,0.35));
-    mix-blend-mode:screen;
-    opacity:.95;
+    width:280px;
+    margin-bottom:28px;
+    filter:
+        drop-shadow(0 0 12px rgba(0,170,255,0.45))
+        drop-shadow(0 0 35px rgba(0,170,255,0.25));
+    animation:float 6s ease-in-out infinite;
+}
+
+@keyframes float{
+    0%,100%{transform:translateY(0px)}
+    50%{transform:translateY(-10px)}
 }
 
 h1{
-    font-size:64px;
-    font-weight:700;
+    font-size:68px;
+    letter-spacing:-1px;
     margin-bottom:10px;
-    background:linear-gradient(90deg,#fff,#8fd3ff);
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
 }
 
-p{
+.subtitle{
     font-size:20px;
     opacity:.8;
+    max-width:650px;
+    line-height:1.6;
     margin-bottom:40px;
 }
 
-.btn{
-    display:inline-block;
+.cta{
+    background:linear-gradient(135deg,#1da1ff,#00d4ff);
+    border:none;
     padding:16px 34px;
-    border-radius:14px;
-    background:linear-gradient(90deg,#2563eb,#06b6d4);
-    text-decoration:none;
+    border-radius:12px;
     color:white;
-    font-weight:bold;
+    font-size:18px;
+    font-weight:600;
+    cursor:pointer;
     transition:.25s;
-    box-shadow:0 0 25px rgba(0,150,255,.4);
 }
 
-.btn:hover{
+.cta:hover{
     transform:translateY(-3px);
-    box-shadow:0 0 40px rgba(0,150,255,.7);
+    box-shadow:0 10px 35px rgba(0,170,255,.35);
 }
 </style>
 
@@ -77,64 +92,69 @@ p{
 
 <body>
 
-<canvas id="space"></canvas>
+<canvas id="stars"></canvas>
 
 <div class="hero">
     <img src="nerox-logo.png" class="logo">
     <h1>Nerox</h1>
-    <p>AI som läser din inkorg och föreslår färdiga svar. Du godkänner — klart.</p>
-    <a href="#" class="btn">Boka demo</a>
+    <div class="subtitle">
+        AI som läser din inkorg och föreslår färdiga svar.
+        Du godkänner — klart.
+    </div>
+    <button class="cta">Boka demo</button>
 </div>
 
 <script>
-const canvas = document.getElementById("space");
-const ctx = canvas.getContext("2d");
+const canvas=document.getElementById("stars");
+const ctx=canvas.getContext("2d");
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+let stars=[];
+let w,h;
 
-let stars = [];
+function resize(){
+    w=canvas.width=window.innerWidth;
+    h=canvas.height=window.innerHeight;
+}
+window.onresize=resize;
+resize();
 
-for(let i=0;i<160;i++){
+for(let i=0;i<220;i++){
     stars.push({
-        x:Math.random()*canvas.width,
-        y:Math.random()*canvas.height,
-        z:Math.random()*canvas.width
+        x:Math.random()*w,
+        y:Math.random()*h,
+        z:Math.random()*w
     });
 }
 
-function animate(){
-    ctx.fillStyle="#030712";
-    ctx.fillRect(0,0,canvas.width,canvas.height);
+function draw(){
+    ctx.fillStyle="#02050b";
+    ctx.fillRect(0,0,w,h);
+
+    ctx.fillStyle="white";
 
     for(let s of stars){
-        s.z-=2;
+        s.z-=0.6;
         if(s.z<=0){
-            s.x=Math.random()*canvas.width;
-            s.y=Math.random()*canvas.height;
-            s.z=canvas.width;
+            s.x=Math.random()*w;
+            s.y=Math.random()*h;
+            s.z=w;
         }
 
         let k=128/s.z;
-        let px=(s.x-canvas.width/2)*k+canvas.width/2;
-        let py=(s.y-canvas.height/2)*k+canvas.height/2;
+        let px=(s.x-w/2)*k+w/2;
+        let py=(s.y-h/2)*k+h/2;
 
-        if(px>=0&&px<=canvas.width&&py>=0&&py<=canvas.height){
-            let size=(1-s.z/canvas.width)*3;
-            ctx.fillStyle="white";
-            ctx.fillRect(px,py,size,size);
+        if(px>=0&&px<=w&&py>=0&&py<=h){
+            let size=(1-s.z/w)*3;
+            ctx.beginPath();
+            ctx.arc(px,py,size,0,Math.PI*2);
+            ctx.fill();
         }
     }
 
-    requestAnimationFrame(animate);
+    requestAnimationFrame(draw);
 }
-
-animate();
-
-window.onresize=()=>{
-    canvas.width=window.innerWidth;
-    canvas.height=window.innerHeight;
-}
+draw();
 </script>
 
 </body>
