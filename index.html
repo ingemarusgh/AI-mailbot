@@ -11,9 +11,10 @@
 body{
 background:#020617;
 color:#e5e7eb;
-line-height:1.7;
 overflow-x:hidden;
 }
+
+/* ===== BACKGROUND ===== */
 
 canvas{
 position:fixed;
@@ -22,92 +23,154 @@ left:0;
 z-index:0;
 }
 
-section{
+/* ===== GLOBAL LAYOUT ===== */
+
+.section{
 position:relative;
 z-index:2;
 padding:120px 25px;
 }
 
 .container{
-max-width:1100px;
+max-width:1200px;
 margin:auto;
 }
 
-.hero{
-text-align:center;
-padding-top:160px;
-padding-bottom:140px;
-}
-
-.logo{
-width:90%;
-max-width:650px;
-margin:0 auto 50px;
-display:block;
-filter:
-drop-shadow(0 0 30px #38bdf8)
-drop-shadow(0 0 100px rgba(56,189,248,0.6));
-}
+.center{text-align:center;}
 
 h1{
-font-size:36px;
-margin-bottom:25px;
+font-size:38px;
+margin-bottom:20px;
 color:white;
 }
 
 h2{
 font-size:28px;
-margin-bottom:30px;
+margin-bottom:20px;
 color:white;
 }
 
 p{
-margin-bottom:18px;
 color:#cbd5e1;
 font-size:17px;
 }
 
-.highlight{
-color:#38bdf8;
+/* ===== HERO ===== */
+
+.hero{
+padding-top:160px;
+padding-bottom:140px;
+text-align:center;
 }
 
-.divider{
-height:1px;
-width:100%;
-background:linear-gradient(90deg,transparent,#38bdf8,transparent);
-margin:90px 0;
-opacity:.5;
+.logo{
+width:90%;
+max-width:650px;
+margin-bottom:40px;
+filter:drop-shadow(0 0 40px #38bdf8);
 }
+
+/* ===== BUTTON ===== */
 
 .button{
 display:inline-block;
-margin-top:35px;
+margin-top:30px;
 padding:18px 60px;
 border-radius:14px;
 background:linear-gradient(135deg,#38bdf8,#0ea5e9);
 color:white;
 font-weight:600;
 text-decoration:none;
-transition:.3s ease;
-box-shadow:0 0 25px rgba(56,189,248,0.4);
+transition:.3s;
+box-shadow:0 0 25px rgba(56,189,248,.4);
 }
 
 .button:hover{
 transform:translateY(-3px);
-box-shadow:0 0 50px rgba(56,189,248,0.8);
+box-shadow:0 0 50px rgba(56,189,248,.8);
 }
 
-.split{
+/* ===== GRID BLOCKS ===== */
+
+.grid-3{
+display:grid;
+gap:40px;
+margin-top:60px;
+}
+
+.block{
+background:rgba(15,23,42,.6);
+border:1px solid rgba(56,189,248,.2);
+border-radius:20px;
+padding:40px;
+backdrop-filter:blur(20px);
+}
+
+.block-icon{
+font-size:32px;
+margin-bottom:15px;
+color:#38bdf8;
+}
+
+/* ===== PROCESS FLOW ===== */
+
+.flow{
 display:flex;
 flex-direction:column;
-gap:60px;
+gap:30px;
+margin-top:60px;
 }
 
+.flow-step{
+display:flex;
+align-items:center;
+gap:20px;
+}
+
+.step-circle{
+width:45px;
+height:45px;
+border-radius:50%;
+background:#38bdf8;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:600;
+color:#020617;
+}
+
+.step-line{
+flex:1;
+height:2px;
+background:rgba(56,189,248,.4);
+}
+
+/* ===== DESKTOP ===== */
+
 @media(min-width:900px){
-h1{font-size:56px;}
-h2{font-size:36px;}
-section{padding:160px 40px;}
-.split{flex-direction:row;gap:100px;}
+
+h1{font-size:60px;}
+h2{font-size:34px;}
+
+.grid-3{
+grid-template-columns:repeat(3,1fr);
+}
+
+.flow{
+flex-direction:row;
+align-items:center;
+}
+
+.flow-step{
+flex-direction:column;
+text-align:center;
+}
+
+.step-line{
+width:100px;
+height:2px;
+}
+
 }
 </style>
 </head>
@@ -116,115 +179,112 @@ section{padding:160px 40px;}
 
 <canvas id="network"></canvas>
 
-<section class="hero">
+<!-- HERO -->
+<div class="section hero">
 <div class="container">
 
 <img src="./nerox-logo.png" class="logo">
 
-<h1>En konfigurerad AI för er inkorg.</h1>
+<h1>AI-baserad e-postautomatisering för företag.</h1>
+<p>Konfigurerad. Kontrollerad. Anpassad per användare.</p>
 
-<p><span class="highlight">Nerox</span> är inte en generell assistent.</p>
-<p>Det är ett konfigurerat arbetsverktyg som arbetar enligt hur just ert företag fungerar.</p>
-
-<a href="#kontakt" class="button">Boka demo</a>
+<a href="#" class="button">Boka demo</a>
 
 </div>
-</section>
-
-<div class="divider"></div>
-
-<section>
-<div class="container split">
-
-<div>
-<h2>Vad Nerox är</h2>
-<p>Nerox är ett system som analyserar inkommande mail och föreslår svar baserat på tydligt definierade riktlinjer.</p>
-<p>Det är inte självtränande. Det är inte automatiskt.</p>
-<p>Det är konfigurerat.</p>
 </div>
 
-<div>
-<h2>Vad Nerox inte är</h2>
-<p>Det är inte en AI som gissar.</p>
-<p>Det är inte en chatbot.</p>
-<p>Det är inte ett verktyg som lär sig på ert material.</p>
-<p>Ni bestämmer exakt vad den ska kunna och hur den ska svara.</p>
+<!-- 3 BLOCKS -->
+<div class="section">
+<div class="container center">
+
+<h2>Byggd för strukturerad effektivisering</h2>
+
+<div class="grid-3">
+
+<div class="block">
+<div class="block-icon">⚙️</div>
+<h3>Konfigurerad</h3>
+<p>Systemet sätts upp efter hur ert företag arbetar.</p>
 </div>
 
-</div>
-</section>
-
-<div class="divider"></div>
-
-<section>
-<div class="container">
-
-<h2>Hur det fungerar</h2>
-
-<p>1. Ett mail kommer in.</p>
-<p>2. Nerox analyserar innehållet.</p>
-<p>3. Ett strukturerat svar genereras enligt era riktlinjer.</p>
-<p>4. Ni granskar och godkänner.</p>
-
-<p><strong>Inget skickas utan mänskligt beslut.</strong></p>
-
-</div>
-</section>
-
-<div class="divider"></div>
-
-<section>
-<div class="container split">
-
-<div>
-<h2>Vad ni sparar</h2>
-<p>Tid – varje dag.</p>
-<p>Beslut – varje svar.</p>
-<p>Mental energi – varje formulering.</p>
+<div class="block">
+<div class="block-icon">🔒</div>
+<h3>Kontrollerad</h3>
+<p>Inget skickas utan mänskligt godkännande.</p>
 </div>
 
-<div>
-<p>Ni läser fortfarande mailet.</p>
-<p>Men ni slipper börja från noll.</p>
-<p>Det är där effektiviseringen sker.</p>
+<div class="block">
+<div class="block-icon">🧩</div>
+<h3>Anpassad</h3>
+<p>Olika riktlinjer per användare och roll.</p>
 </div>
 
 </div>
-</section>
-
-<div class="divider"></div>
-
-<section>
-<div class="container">
-
-<h2>Anpassning på två nivåer</h2>
-
-<p><strong>Företagsnivå:</strong> Vilka frågor ska besvaras? Vilken information får användas?</p>
-<p><strong>Användarnivå:</strong> Olika roller kan ha olika konfigurationer.</p>
-
-<p>En säljare kan ha riktlinjer för prisförfrågningar.</p>
-<p>En supportroll kan ha riktlinjer för bokningar och ärenden.</p>
 
 </div>
-</section>
+</div>
 
-<div class="divider"></div>
+<!-- PROCESS FLOW -->
+<div class="section">
+<div class="container center">
 
-<section id="kontakt">
-<div class="container">
+<h2>Så fungerar det</h2>
 
-<h2>Säkerhet & kontroll</h2>
+<div class="flow">
 
-<p>Ingen lagring av mailhistorik.</p>
-<p>Ingen automatisk inlärning.</p>
-<p>Inget skickas utan godkännande.</p>
+<div class="flow-step">
+<div class="step-circle">1</div>
+<p>Mail inkommer</p>
+</div>
 
+<div class="step-line"></div>
+
+<div class="flow-step">
+<div class="step-circle">2</div>
+<p>Nerox analyserar</p>
+</div>
+
+<div class="step-line"></div>
+
+<div class="flow-step">
+<div class="step-circle">3</div>
+<p>Svar genereras</p>
+</div>
+
+<div class="step-line"></div>
+
+<div class="flow-step">
+<div class="step-circle">4</div>
+<p>Du godkänner</p>
+</div>
+
+</div>
+
+</div>
+</div>
+
+<!-- VALUE BAND -->
+<div class="section">
+<div class="container center">
+
+<h2>Mindre friktion. Mer fokus.</h2>
+<p>Ni läser fortfarande mailet. Men ni slipper börja från noll.</p>
+
+</div>
+</div>
+
+<!-- CTA -->
+<div class="section hero">
+<div class="container center">
+
+<h2>Redo att effektivisera er inkorg?</h2>
 <a href="#" class="button">Kontakta oss</a>
 
 </div>
-</section>
+</div>
 
 <script>
+// AI Network Background
 const canvas=document.getElementById("network");
 const ctx=canvas.getContext("2d");
 
@@ -236,7 +296,7 @@ resize();
 window.addEventListener("resize",resize);
 
 let points=[];
-const total=window.innerWidth<768?30:55;
+const total=window.innerWidth<768?25:55;
 
 for(let i=0;i<total;i++){
 points.push({
@@ -254,7 +314,6 @@ ctx.fillRect(0,0,canvas.width,canvas.height);
 points.forEach(p=>{
 p.x+=p.vx;
 p.y+=p.vy;
-
 if(p.x<0||p.x>canvas.width)p.vx*=-1;
 if(p.y<0||p.y>canvas.height)p.vy*=-1;
 });
@@ -264,7 +323,6 @@ for(let j=i+1;j<points.length;j++){
 let b=points[j];
 let dx=a.x-b.x;
 let dy=a.y-b.y;
-
 if(dx*dx+dy*dy<11000){
 ctx.strokeStyle="rgba(56,189,248,0.07)";
 ctx.beginPath();
