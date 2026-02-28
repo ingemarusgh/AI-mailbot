@@ -10,63 +10,78 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Inter, system-ui, -apple-system;
+font-family:-apple-system,BlinkMacSystemFont,Inter,system-ui,sans-serif;
 }
 
 body{
-background:#020617;
-color:#e2e8f0;
+background:#030712;
+color:#e5e7eb;
 line-height:1.6;
 overflow-x:hidden;
 }
 
-/* ===== BACKGROUND ===== */
+/* === BACKGROUND GLOW === */
 
-canvas{
+body::before{
+content:"";
 position:fixed;
-top:0;
-left:0;
+top:-200px;
+left:50%;
+transform:translateX(-50%);
+width:900px;
+height:600px;
+background:radial-gradient(circle, rgba(125,211,252,0.15), transparent 70%);
 z-index:0;
+pointer-events:none;
 }
 
-/* ===== LAYOUT ===== */
+/* === LAYOUT === */
 
 section{
 position:relative;
 z-index:2;
-padding:70px 20px;
+padding:90px 20px;
 }
 
 .container{
-max-width:1000px;
+max-width:1100px;
 margin:auto;
 }
 
-/* ===== HERO ===== */
+/* === HERO === */
 
 .hero{
 text-align:center;
-padding-top:100px;
-padding-bottom:100px;
+padding-top:140px;
+padding-bottom:120px;
 }
 
 .logo{
-width:85%;
-max-width:520px;
-margin:0 auto 30px;
+width:90%;
+max-width:600px;
+margin:0 auto 40px;
 display:block;
-filter:drop-shadow(0 0 50px rgba(125,211,252,0.5));
+filter:drop-shadow(0 0 40px rgba(125,211,252,0.6));
 }
 
 h1{
-font-size:28px;
-margin-bottom:20px;
+font-size:30px;
+font-weight:600;
+margin-bottom:25px;
 color:white;
 }
 
+.hero p{
+font-size:18px;
+color:#cbd5e1;
+margin-bottom:12px;
+}
+
+/* === SECTION TITLES === */
+
 h2{
 font-size:24px;
-margin-bottom:20px;
+margin-bottom:25px;
 color:white;
 }
 
@@ -76,46 +91,39 @@ margin-bottom:16px;
 color:#cbd5e1;
 }
 
-/* ===== ALT SECTIONS ===== */
+/* === ALT SECTION === */
 
 .alt{
-background:rgba(255,255,255,0.02);
-border-top:1px solid rgba(125,211,252,0.05);
-border-bottom:1px solid rgba(125,211,252,0.05);
+background:#0b1220;
+border-top:1px solid rgba(255,255,255,0.05);
+border-bottom:1px solid rgba(255,255,255,0.05);
 }
 
-/* ===== BUTTON ===== */
+/* === BUTTON === */
 
 .button{
 display:inline-block;
-margin-top:25px;
-padding:16px 45px;
-font-size:16px;
-border-radius:14px;
-border:2px solid #7dd3fc;
-background:linear-gradient(135deg,#e0f2ff,#7dd3fc);
-color:#021024;
+margin-top:30px;
+padding:16px 50px;
+border-radius:12px;
+background:linear-gradient(135deg,#dbeafe,#7dd3fc);
+color:#0f172a;
 font-weight:600;
 text-decoration:none;
-transition:all .3s ease;
+transition:all .25s ease;
 }
 
 .button:hover{
-transform:translateY(-3px);
-box-shadow:0 0 40px rgba(125,211,252,0.6);
+transform:translateY(-2px);
+box-shadow:0 0 40px rgba(125,211,252,0.4);
 }
 
-/* ===== DESKTOP ===== */
+/* === SPLIT DESKTOP === */
 
 @media(min-width:900px){
 
 section{
-padding:110px 30px;
-}
-
-.hero{
-padding-top:150px;
-padding-bottom:150px;
+padding:120px 40px;
 }
 
 h1{
@@ -123,17 +131,17 @@ font-size:48px;
 }
 
 h2{
-font-size:34px;
+font-size:32px;
 }
 
-p{
-font-size:18px;
+.hero p{
+font-size:20px;
 }
 
 .split{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:60px;
+gap:80px;
 align-items:center;
 }
 
@@ -143,9 +151,6 @@ align-items:center;
 
 <body>
 
-<canvas id="network"></canvas>
-
-<!-- HERO -->
 <section class="hero">
 <div class="container">
 
@@ -161,64 +166,59 @@ align-items:center;
 </div>
 </section>
 
-<!-- PROBLEM -->
 <section class="alt">
-<div class="container">
+<div class="container split">
 
+<div>
 <h2>Problemet</h2>
-
 <p>Mail är inte svårt. Det är repetitivt.</p>
-<p>Du läser, formulerar, justerar ton och dubbelkollar detaljer.</p>
-<p>Små beslut — om och om igen.</p>
+<p>Formulering, ton och struktur upprepas varje dag.</p>
+<p>Det tar fokus från det som faktiskt skapar värde.</p>
+</div>
+
+<div>
+<p>Det är inte läsningen som tar tid.</p>
+<p>Det är skrivandet och besluten kring hur svaret ska formuleras.</p>
+<p>Små beslut. Om och om igen.</p>
+</div>
 
 </div>
 </section>
 
-<!-- LÖSNING -->
 <section>
-<div class="container">
+<div class="container split">
 
+<div>
 <h2>Lösningen</h2>
-
 <p>Nerox ersätter inte din bedömning.</p>
 <p>Den ersätter tomt skrivfält.</p>
-<p>Du får ett strukturerat förslag baserat på hur ni har konfigurerat systemet.</p>
-
+<p>Du får ett strukturerat svar baserat på hur ni har valt att systemet ska arbeta.</p>
 </div>
-</section>
 
-<!-- HUR DET FUNGERAR -->
-<section class="alt">
-<div class="container">
-
-<h2>Hur det fungerar</h2>
-
-<p>1. Du läser mailet.</p>
-<p>2. Nerox presenterar ett färdigt svar.</p>
-<p>3. Du justerar vid behov och skickar.</p>
-
+<div>
+<p>Du börjar inte från noll.</p>
+<p>Du justerar vid behov.</p>
+<p>Du skickar.</p>
 <p>10–20 sekunder istället för flera minuter.</p>
+</div>
 
 </div>
 </section>
 
-<!-- ANPASSNING -->
-<section>
+<section class="alt">
 <div class="container">
 
-<h2>Anpassning</h2>
+<h2>Konfigurerad för er</h2>
 
-<p>Nerox är inte en generell AI-assistent.</p>
-<p>Den konfigureras efter ert företag och varje användare.</p>
+<p>Till skillnad från generella AI-assistenter är Nerox konfigurerad efter ert företag och era användare.</p>
 
-<p><strong>Företagsnivå:</strong> vilka frågor ska besvaras och hur?</p>
-<p><strong>Användarnivå:</strong> ton, prioriteringar och fokusområden.</p>
+<p><strong>Företagsnivå:</strong> vilka frågor ska besvaras och hur ska svaren struktureras?</p>
+<p><strong>Användarnivå:</strong> ton, prioriteringar och fokusområden per roll.</p>
 
 </div>
 </section>
 
-<!-- SÄKERHET -->
-<section class="alt">
+<section>
 <div class="container">
 
 <h2>Säkerhet & kontroll</h2>
@@ -230,8 +230,7 @@ align-items:center;
 </div>
 </section>
 
-<!-- CTA -->
-<section id="kontakt" class="hero">
+<section class="alt" id="kontakt">
 <div class="container">
 
 <h2>Redo att effektivisera?</h2>
@@ -241,69 +240,6 @@ align-items:center;
 
 </div>
 </section>
-
-<script>
-const canvas=document.getElementById("network");
-const ctx=canvas.getContext("2d");
-
-function resize(){
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-}
-resize();
-window.addEventListener("resize",resize);
-
-let points=[];
-const total=window.innerWidth<768?20:40;
-
-for(let i=0;i<total;i++){
-points.push({
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-vx:(Math.random()-0.5)*0.15,
-vy:(Math.random()-0.5)*0.15
-});
-}
-
-function draw(){
-ctx.fillStyle="rgba(2,6,23,0.7)";
-ctx.fillRect(0,0,canvas.width,canvas.height);
-
-points.forEach(p=>{
-p.x+=p.vx;
-p.y+=p.vy;
-
-if(p.x<0||p.x>canvas.width)p.vx*=-1;
-if(p.y<0||p.y>canvas.height)p.vy*=-1;
-});
-
-points.forEach((a,i)=>{
-for(let j=i+1;j<points.length;j++){
-let b=points[j];
-let dx=a.x-b.x;
-let dy=a.y-b.y;
-
-if(dx*dx+dy*dy<13000){
-ctx.strokeStyle="rgba(125,211,252,0.04)";
-ctx.beginPath();
-ctx.moveTo(a.x,a.y);
-ctx.lineTo(b.x,b.y);
-ctx.stroke();
-}
-}
-});
-
-points.forEach(p=>{
-ctx.beginPath();
-ctx.fillStyle="rgba(200,220,255,0.7)";
-ctx.arc(p.x,p.y,1.8,0,Math.PI*2);
-ctx.fill();
-});
-
-requestAnimationFrame(draw);
-}
-draw();
-</script>
 
 </body>
 </html>
