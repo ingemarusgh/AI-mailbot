@@ -15,9 +15,9 @@ font-family:-apple-system,BlinkMacSystemFont,Inter,system-ui,sans-serif;
 
 body{
 background:#020617;
-color:#e5e7eb;
-line-height:1.6;
+color:#e2e8f0;
 overflow-x:hidden;
+line-height:1.6;
 }
 
 /* ===== AI NETWORK BACKGROUND ===== */
@@ -29,110 +29,139 @@ left:0;
 z-index:0;
 }
 
-/* ===== LAYOUT ===== */
+/* ===== GLOBAL ===== */
 
 section{
 position:relative;
 z-index:2;
-padding:90px 20px;
+padding:120px 25px;
 }
 
 .container{
-max-width:1050px;
+max-width:1100px;
 margin:auto;
 }
 
-.hero{
-text-align:center;
-padding-top:130px;
-padding-bottom:120px;
-}
-
-.logo{
-width:90%;
-max-width:600px;
-margin:0 auto 40px;
-display:block;
-filter:drop-shadow(0 0 60px rgba(125,211,252,0.6));
-}
-
 h1{
-font-size:30px;
-color:white;
+font-size:32px;
 margin-bottom:25px;
-}
-
-.hero p{
-font-size:18px;
-color:#cbd5e1;
-margin-bottom:12px;
+color:white;
 }
 
 h2{
 font-size:24px;
-color:white;
 margin-bottom:20px;
+color:white;
 }
 
 p{
-font-size:16px;
 color:#cbd5e1;
 margin-bottom:16px;
 }
 
-/* ===== GLASS SECTIONS ===== */
+/* ===== HERO ===== */
 
-.glass{
-background:rgba(15,23,42,0.75);
-backdrop-filter:blur(20px);
-border-top:1px solid rgba(125,211,252,0.1);
-border-bottom:1px solid rgba(125,211,252,0.1);
+.hero{
+text-align:center;
+padding-top:160px;
+padding-bottom:140px;
 }
 
-/* ===== BUTTON ===== */
+.logo{
+width:90%;
+max-width:650px;
+margin:0 auto 40px;
+display:block;
+filter:
+drop-shadow(0 0 30px #38bdf8)
+drop-shadow(0 0 80px rgba(56,189,248,0.6));
+animation:pulse 4s ease-in-out infinite;
+}
+
+@keyframes pulse{
+0%{transform:scale(1);}
+50%{transform:scale(1.02);}
+100%{transform:scale(1);}
+}
+
+.hero h1{
+font-size:36px;
+background:linear-gradient(90deg,#e0f2fe,#38bdf8);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
 
 .button{
 display:inline-block;
-margin-top:30px;
-padding:16px 50px;
+margin-top:35px;
+padding:16px 55px;
 border-radius:14px;
-background:linear-gradient(135deg,#dbeafe,#7dd3fc);
-color:#0f172a;
+background:linear-gradient(135deg,#38bdf8,#0ea5e9);
+color:white;
 font-weight:600;
 text-decoration:none;
-transition:all .3s ease;
+transition:.3s ease;
+box-shadow:0 0 20px rgba(56,189,248,0.4);
 }
 
 .button:hover{
 transform:translateY(-3px);
-box-shadow:0 0 50px rgba(125,211,252,0.5);
+box-shadow:0 0 40px rgba(56,189,248,0.8);
+}
+
+/* ===== CYBER DIVIDER ===== */
+
+.divider{
+height:1px;
+width:100%;
+background:linear-gradient(90deg,transparent,#38bdf8,transparent);
+margin:80px 0;
+opacity:0.6;
+}
+
+/* ===== GLASS PANEL ===== */
+
+.panel{
+background:rgba(15,23,42,0.6);
+backdrop-filter:blur(20px);
+border:1px solid rgba(56,189,248,0.2);
+padding:50px;
+border-radius:20px;
+}
+
+/* ===== GRID ===== */
+
+.split{
+display:flex;
+flex-direction:column;
+gap:40px;
+}
+
+.fade{
+opacity:0;
+transform:translateY(40px);
+transition:all .8s ease;
+}
+
+.fade.visible{
+opacity:1;
+transform:translateY(0);
 }
 
 /* ===== DESKTOP ===== */
 
 @media(min-width:900px){
 
-section{
-padding:120px 40px;
-}
-
-h1{
-font-size:48px;
-}
-
-h2{
-font-size:32px;
-}
-
-.hero p{
-font-size:20px;
-}
+h1{font-size:52px;}
+h2{font-size:32px;}
 
 .split{
-display:grid;
-grid-template-columns:1fr 1fr;
+flex-direction:row;
 gap:80px;
-align-items:center;
+}
+
+section{
+padding:160px 40px;
 }
 
 }
@@ -143,83 +172,65 @@ align-items:center;
 
 <canvas id="network"></canvas>
 
-<!-- HERO -->
-<section class="hero">
+<section class="hero fade">
 <div class="container">
 
 <img src="./nerox-logo.png" class="logo">
 
 <h1>Spara tid på mail — utan att tappa kontroll.</h1>
 
-<p>Nerox läser inkommande mail och föreslår färdiga svar.</p>
-<p>Du granskar. Du godkänner. Inget skickas automatiskt.</p>
+<p>Nerox läser inkommande mail och genererar färdiga svar enligt era riktlinjer.</p>
+<p>Du granskar. Du justerar. Du godkänner.</p>
 
 <a href="#kontakt" class="button">Boka demo</a>
 
 </div>
 </section>
 
-<!-- PROBLEM -->
-<section class="glass">
+<div class="divider"></div>
+
+<section class="fade">
 <div class="container split">
 
-<div>
+<div class="panel">
 <h2>Problemet</h2>
-<p>Mail är inte svårt. Det är repetitivt.</p>
-<p>Formulering, ton och struktur upprepas varje dag.</p>
-<p>Det tar fokus från viktigare arbete.</p>
+<p>Mail är repetitivt arbete.</p>
+<p>Formulering, struktur och ton upprepas dagligen.</p>
+<p>Det tar mental energi från viktigare beslut.</p>
 </div>
 
-<div>
-<p>Det är inte läsningen som tar tid.</p>
-<p>Det är skrivandet och besluten kring hur svaret ska formuleras.</p>
-<p>Små beslut. Om och om igen.</p>
-</div>
-
-</div>
-</section>
-
-<!-- LÖSNING -->
-<section>
-<div class="container split">
-
-<div>
+<div class="panel">
 <h2>Lösningen</h2>
-<p>Nerox ersätter inte din bedömning.</p>
-<p>Den ersätter tomt skrivfält.</p>
-<p>Du får ett strukturerat svar baserat på era riktlinjer.</p>
-</div>
-
-<div>
-<p>Du börjar inte från noll.</p>
-<p>Du justerar vid behov.</p>
-<p>Du skickar.</p>
+<p>Nerox ersätter tomt skrivfält.</p>
+<p>Du får ett strukturerat svar baserat på hur ni har konfigurerat systemet.</p>
 <p>10–20 sekunder istället för flera minuter.</p>
 </div>
 
 </div>
 </section>
 
-<!-- KONFIGURATION -->
-<section class="glass">
+<div class="divider"></div>
+
+<section class="fade">
 <div class="container">
 
+<div class="panel">
 <h2>Konfigurerad för er</h2>
-
-<p>Till skillnad från generella AI-assistenter är Nerox konfigurerad efter ert företag och era användare.</p>
-
-<p><strong>Företagsnivå:</strong> vilka frågor ska besvaras och hur?</p>
-<p><strong>Användarnivå:</strong> ton, prioriteringar och fokusområden.</p>
+<p>Nerox är inte en generell AI.</p>
+<p>Den konfigureras på företagsnivå och användarnivå.</p>
+<p>Ni bestämmer vad systemet ska kunna — och hur det ska svara.</p>
+</div>
 
 </div>
 </section>
 
-<!-- CTA -->
-<section id="kontakt">
+<div class="divider"></div>
+
+<section id="kontakt" class="hero fade">
 <div class="container">
 
 <h2>Redo att effektivisera?</h2>
-<p>Boka en demo så visar vi hur Nerox kan konfigureras för er verksamhet.</p>
+<p>Boka en demo och se hur Nerox kan anpassas för er verksamhet.</p>
 
 <a href="#" class="button">Kontakta oss</a>
 
@@ -227,6 +238,18 @@ align-items:center;
 </section>
 
 <script>
+// Fade in animation
+const faders=document.querySelectorAll(".fade");
+const observer=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add("visible");
+}
+});
+});
+faders.forEach(el=>observer.observe(el));
+
+// AI Network background
 const canvas=document.getElementById("network");
 const ctx=canvas.getContext("2d");
 
@@ -244,8 +267,8 @@ for(let i=0;i<total;i++){
 points.push({
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
-vx:(Math.random()-0.5)*0.18,
-vy:(Math.random()-0.5)*0.18
+vx:(Math.random()-0.5)*0.2,
+vy:(Math.random()-0.5)*0.2
 });
 }
 
@@ -268,7 +291,7 @@ let dx=a.x-b.x;
 let dy=a.y-b.y;
 
 if(dx*dx+dy*dy<12000){
-ctx.strokeStyle="rgba(125,211,252,0.06)";
+ctx.strokeStyle="rgba(56,189,248,0.08)";
 ctx.beginPath();
 ctx.moveTo(a.x,a.y);
 ctx.lineTo(b.x,b.y);
@@ -279,7 +302,7 @@ ctx.stroke();
 
 points.forEach(p=>{
 ctx.beginPath();
-ctx.fillStyle="rgba(200,220,255,0.8)";
+ctx.fillStyle="rgba(56,189,248,0.8)";
 ctx.arc(p.x,p.y,2,0,Math.PI*2);
 ctx.fill();
 });
