@@ -20,22 +20,46 @@ line-height:1.6;
 overflow-x:hidden;
 }
 
-/* === BACKGROUND GLOW === */
+/* ===== ANIMATED GRADIENT BACKGROUND ===== */
 
-body::before{
-content:"";
+.background{
 position:fixed;
-top:-200px;
-left:50%;
-transform:translateX(-50%);
-width:900px;
-height:600px;
-background:radial-gradient(circle, rgba(125,211,252,0.15), transparent 70%);
+top:0;
+left:0;
+width:100%;
+height:100%;
 z-index:0;
-pointer-events:none;
+overflow:hidden;
 }
 
-/* === LAYOUT === */
+.background::before,
+.background::after{
+content:"";
+position:absolute;
+width:700px;
+height:700px;
+background:radial-gradient(circle, rgba(125,211,252,0.15), transparent 70%);
+filter:blur(120px);
+animation:float 18s ease-in-out infinite alternate;
+}
+
+.background::before{
+top:-200px;
+left:-200px;
+}
+
+.background::after{
+bottom:-200px;
+right:-200px;
+animation-delay:6s;
+}
+
+@keyframes float{
+0%{transform:translateY(0px) translateX(0px);}
+100%{transform:translateY(80px) translateX(60px);}
+}
+
+/* ===== LAYOUT ===== */
 
 section{
 position:relative;
@@ -47,8 +71,6 @@ padding:90px 20px;
 max-width:1100px;
 margin:auto;
 }
-
-/* === HERO === */
 
 .hero{
 text-align:center;
@@ -77,8 +99,6 @@ color:#cbd5e1;
 margin-bottom:12px;
 }
 
-/* === SECTION TITLES === */
-
 h2{
 font-size:24px;
 margin-bottom:25px;
@@ -91,15 +111,11 @@ margin-bottom:16px;
 color:#cbd5e1;
 }
 
-/* === ALT SECTION === */
-
 .alt{
-background:#0b1220;
+background:rgba(255,255,255,0.02);
 border-top:1px solid rgba(255,255,255,0.05);
 border-bottom:1px solid rgba(255,255,255,0.05);
 }
-
-/* === BUTTON === */
 
 .button{
 display:inline-block;
@@ -118,7 +134,7 @@ transform:translateY(-2px);
 box-shadow:0 0 40px rgba(125,211,252,0.4);
 }
 
-/* === SPLIT DESKTOP === */
+/* ===== DESKTOP ===== */
 
 @media(min-width:900px){
 
@@ -150,6 +166,8 @@ align-items:center;
 </head>
 
 <body>
+
+<div class="background"></div>
 
 <section class="hero">
 <div class="container">
@@ -218,19 +236,7 @@ align-items:center;
 </div>
 </section>
 
-<section>
-<div class="container">
-
-<h2>Säkerhet & kontroll</h2>
-
-<p>Ingen lagring av mailhistorik.</p>
-<p>Ingen automatisk inlärning.</p>
-<p>Inget skickas utan ditt godkännande.</p>
-
-</div>
-</section>
-
-<section class="alt" id="kontakt">
+<section id="kontakt">
 <div class="container">
 
 <h2>Redo att effektivisera?</h2>
