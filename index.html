@@ -1,139 +1,354 @@
-<section>
-  <h1>En konfigurerad AI-lösning för strukturerad e-posthantering.</h1>
-  <p>Nerox arbetar i bakgrunden och skapar genomtänkta utkast direkt i er befintliga inkorg.</p>
-  <p>Det är inte en egen plattform. Det är inte automatiska utskick.</p>
-  <p><strong>Det är strukturerade svarsförslag som ni granskar och godkänner.</strong></p>
-  <p><strong>Full kontroll. Alltid.</strong></p>
-</section>
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nerox</title>
 
-<section>
-  <h2>Vad Nerox är</h2>
-  <p>Nerox analyserar inkommande mail och genererar utkast enligt tydligt definierade riktlinjer.</p>
-  <p>Systemet är konfigurerat – inte självlärande. Det arbetar enligt hur just ert företag vill att kommunikationen ska ske.</p>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,Inter,system-ui,sans-serif;}
 
-  <ul>
-    <li>Vad som ska besvaras</li>
-    <li>Vilken information som får användas</li>
-    <li>Hur svar ska struktureras</li>
-    <li>Vilken tonalitet olika roller ska ha</li>
-  </ul>
+body{
+background:#020617;
+color:#e5e7eb;
+overflow-x:hidden;
+line-height:1.6;
+}
 
-  <p>Nerox ersätter inte människor. Den eliminerar repetitivt skrivarbete och skapar konsekvent kommunikation i hela organisationen.</p>
-</section>
+/* ===== BACKGROUND ===== */
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:0;
+}
 
-<section>
-  <h2>Bas + Anpassning</h2>
+/* ===== STICKY NAV ===== */
+.nav{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+z-index:5;
+background:rgba(2,6,23,.85);
+backdrop-filter:blur(15px);
+border-bottom:1px solid rgba(56,189,248,.2);
+padding:18px 30px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
 
-  <h3>Basversion</h3>
-  <ul>
-    <li>Analys av inkommande mail</li>
-    <li>Generering av strukturerade utkast</li>
-    <li>Mänskligt godkännande innan utskick</li>
-    <li>Säker integration med Microsoft 365</li>
-  </ul>
+.nav a{
+color:#38bdf8;
+text-decoration:none;
+font-weight:600;
+}
 
-  <h3>Anpassning</h3>
-  <ul>
-    <li>Företagsspecifika riktlinjer</li>
-    <li>Rollbaserade konfigurationer</li>
-    <li>Individuella inställningar per användare</li>
-    <li>Anpassade svarsmallar efter arbetsuppgift</li>
-  </ul>
+.nav-btn{
+padding:10px 20px;
+border-radius:10px;
+background:linear-gradient(135deg,#38bdf8,#0ea5e9);
+color:white;
+}
 
-  <p>Samma system – olika beteende beroende på roll, ansvar och arbetsflöde.</p>
-</section>
+/* ===== GLOBAL ===== */
+.section{
+position:relative;
+z-index:2;
+padding:160px 25px;
+}
 
-<section>
-  <h2>Företags- och individanpassad</h2>
+.container{
+max-width:1200px;
+margin:auto;
+}
 
-  <h3>Företagsnivå</h3>
-  <ul>
-    <li>Vad får besvaras?</li>
-    <li>Vilken information ska inkluderas?</li>
-    <li>Hur ska svar struktureras?</li>
-    <li>Vilken tonalitet ska gälla?</li>
-  </ul>
+.center{text-align:center;}
 
-  <p>Det säkerställer konsekvent kommunikation i hela organisationen.</p>
+h1{
+font-size:48px;
+color:white;
+margin-bottom:20px;
+}
 
-  <h3>Användarnivå</h3>
-  <p>Varje roll kan ha egna inställningar.</p>
+h2{
+font-size:34px;
+color:white;
+margin-bottom:25px;
+}
 
-  <ul>
-    <li>VD – strategiska och formella svar</li>
-    <li>Kundsupport – SLA-anpassade ärendesvar</li>
-    <li>Servicetekniker – tids- och platsanpassade bekräftelser</li>
-    <li>Sälj – pris- och uppföljningsstruktur enligt företagets policy</li>
-  </ul>
-</section>
+p{
+color:#cbd5e1;
+font-size:17px;
+}
 
-<section>
-  <h2>Så fungerar det</h2>
-  <ol>
-    <li>Ett mail inkommer</li>
-    <li>Nerox analyserar innehållet</li>
-    <li>Ett utkast genereras enligt era riktlinjer</li>
-    <li>Användaren granskar och godkänner</li>
-  </ol>
-  <p><strong>Inget skickas automatiskt. Ni har alltid sista ordet.</strong></p>
-</section>
+/* ===== HERO ===== */
+.hero{
+padding-top:220px;
+padding-bottom:180px;
+text-align:center;
+}
 
-<section>
-  <h2>Exempel på konfigurerade utkast</h2>
-  <p>Varje roll arbetar utifrån definierade riktlinjer. Nerox genererar utkast som automatiskt följer dessa.</p>
+.logo{
+width:90%;
+max-width:650px;
+margin-bottom:40px;
+filter:drop-shadow(0 0 40px #38bdf8);
+}
 
-  <h4>VD – Strategiskt svar</h4>
-  <p>“Stort tack för ert intresse. Vi delar gärna mer detaljer i ett strukturerat möte där vi går igenom behov och omfattning. Jag föreslår att vi bokar 30 minuter nästa vecka för vidare dialog.”</p>
+.button{
+display:inline-block;
+margin-top:35px;
+padding:18px 65px;
+border-radius:14px;
+background:linear-gradient(135deg,#38bdf8,#0ea5e9);
+color:white;
+font-weight:600;
+text-decoration:none;
+transition:.3s;
+box-shadow:0 0 25px rgba(56,189,248,.4);
+}
 
-  <h4>Kundsupport – SLA-anpassat svar</h4>
-  <p>“Ditt ärende har registrerats under referensnummer #48217. Enligt vår supportpolicy återkopplar vi inom 24 timmar.”</p>
+.button:hover{
+transform:translateY(-3px);
+box-shadow:0 0 60px rgba(56,189,248,.9);
+}
 
-  <h4>Servicetekniker – Bokningsbekräftelse</h4>
-  <p>“Vi bekräftar servicebesök i Luleå-området torsdag mellan 08:00–10:00. Vänligen återkom om tiden behöver justeras senast 24 timmar innan.”</p>
+/* ===== GRID ===== */
+.grid{
+display:grid;
+gap:40px;
+margin-top:60px;
+}
 
-  <h4>Sälj – Pris & uppföljning</h4>
-  <p>“Priset för lösningen är 12 900 kr inklusive installation. Offerten gäller i 14 dagar. Jag följer upp på fredag om jag inte hört från dig.”</p>
+.block{
+background:rgba(15,23,42,.6);
+border:1px solid rgba(56,189,248,.25);
+border-radius:20px;
+padding:45px;
+backdrop-filter:blur(20px);
+}
 
-  <p><strong>Samtliga svar är utkast. Användaren läser, justerar vid behov och klickar skicka.</strong></p>
-</section>
+/* ===== MAIL EXAMPLES ===== */
+.mailbox{
+background:#0f172a;
+border:1px solid rgba(56,189,248,.3);
+border-radius:20px;
+padding:40px;
+margin-top:40px;
+box-shadow:0 0 40px rgba(56,189,248,.15);
+}
 
-<section>
-  <h2>Säker och enkel anslutning</h2>
-  <p>Nerox ansluts via Microsofts officiella OAuth-flöde mot Microsoft 365.</p>
-  <p>Användaren loggar in med sitt Microsoft-konto och en person med administratörsbehörighet i företagets Microsoft 365-miljö godkänner anslutningen.</p>
-  <p>Detta är oftast företagets IT-ansvariga, IT-leverantör eller i mindre bolag VD själv.</p>
-  <p>Anslutningen sker direkt i Microsofts miljö och tar bara några minuter.</p>
-  <p><strong>Inga lösenord lagras. All kommunikation är krypterad. Åtkomst är individuellt kontrollerad per användare.</strong></p>
-</section>
+.mail-header{
+font-weight:600;
+margin-bottom:20px;
+color:#38bdf8;
+}
 
-<section>
-  <h2>Implementering</h2>
-  <p>Vid uppstart definierar vi vilka typer av ärenden Nerox ska hantera, hur svar ska formuleras och vilka riktlinjer som ska gälla per roll.</p>
-  <p>Systemet konfigureras och användare kopplas upp individuellt.</p>
-  <p>Implementeringen kan ske på plats eller digitalt.</p>
-  <p>Efter uppstart kan justeringar och vidare anpassningar göras centralt och på distans.</p>
-  <p><strong>Nerox anpassas korrekt från början – och kan därefter utvecklas i takt med verksamheten.</strong></p>
-</section>
+/* ===== FORM ===== */
+form{
+display:flex;
+flex-direction:column;
+gap:20px;
+margin-top:40px;
+}
 
-<section>
-  <h2>Vad Nerox inte gör</h2>
-  <ul>
-    <li>Skickar automatiskt utan godkännande</li>
-    <li>Lagrar mailhistorik</li>
-    <li>Tränas på ert material</li>
-    <li>Ersätter mänskliga beslut</li>
-  </ul>
-  <p>Nerox är ett konfigurerat arbetsverktyg – inte en självlärande AI.</p>
-</section>
+input,textarea{
+padding:15px;
+border-radius:10px;
+border:1px solid rgba(56,189,248,.3);
+background:#0f172a;
+color:white;
+}
 
-<section>
-  <h2>Resultatet</h2>
-  <p>Ni läser fortfarande mailet. Men ni slipper börja från noll.</p>
-  <p>Det minskar repetitivt skrivarbete, mental belastning och onödig tidsförbrukning.</p>
-  <p>Det ökar struktur, konsekvens och effektivitet.</p>
-</section>
+/* ===== DESKTOP ===== */
+@media(min-width:900px){
 
-<section>
-  <h2>Strukturerad AI – utan att förlora kontroll.</h2>
-  <p>Boka en demo och se hur Nerox kan implementeras i er verksamhet.</p>
-</section>
+h1{font-size:68px;}
+h2{font-size:40px;}
+
+.grid-3{
+grid-template-columns:repeat(3,1fr);
+}
+
+.grid-2{
+grid-template-columns:repeat(2,1fr);
+}
+
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="network"></canvas>
+
+<div class="nav">
+<a href="#">Nerox</a>
+<a href="#kontakt" class="nav-btn">Boka demo</a>
+</div>
+
+<!-- HERO -->
+<div class="section hero">
+<div class="container center">
+
+<img src="./nerox-logo.png" class="logo">
+
+<h1>AI som skapar utkast i er inkorg.</h1>
+<p>Konfigurerad per företag. Anpassad per användare. Full kontroll.</p>
+
+<a href="#kontakt" class="button">Se hur det fungerar</a>
+
+</div>
+</div>
+
+<!-- BAS + ANPASSNING -->
+<div class="section">
+<div class="container center">
+
+<h2>Bas + Anpassning</h2>
+
+<div class="grid grid-2">
+
+<div class="block">
+<h3>Basversion</h3>
+<p>Analys av inkommande mail.</p>
+<p>Strukturerade utkast.</p>
+<p>Mänskligt godkännande.</p>
+</div>
+
+<div class="block">
+<h3>Anpassning</h3>
+<p>Företagsspecifika riktlinjer.</p>
+<p>Rollspecifika konfigurationer.</p>
+<p>Individanpassade svarsmallar.</p>
+</div>
+
+</div>
+
+</div>
+</div>
+
+<!-- ROLLBASERADE EXEMPEL -->
+<div class="section">
+<div class="container center">
+
+<h2>Exempel per roll</h2>
+
+<div class="mailbox">
+<div class="mail-header">VD – Strategiskt svar</div>
+<p>Tack för ert förslag. Vi ser potential i samarbetet och föreslår ett uppföljningsmöte nästa vecka för att diskutera detaljer.</p>
+</div>
+
+<div class="mailbox">
+<div class="mail-header">Kundsupport – Ärendehantering</div>
+<p>Tack för din anmälan. Vi har registrerat ditt ärende och återkommer inom 24 timmar med uppdatering.</p>
+</div>
+
+<div class="mailbox">
+<div class="mail-header">Servicetekniker – Bokningsbekräftelse</div>
+<p>Vi bekräftar servicebesök torsdag kl 08:00. Återkom om tiden behöver justeras.</p>
+</div>
+
+<div class="mailbox">
+<div class="mail-header">Sälj – Pris & uppföljning</div>
+<p>Tack för din förfrågan. Offerten är bifogad och jag följer upp på fredag om jag inte hört från dig.</p>
+</div>
+
+</div>
+</div>
+
+<!-- WHAT IT DOESN'T DO -->
+<div class="section">
+<div class="container center">
+
+<h2>Vad Nerox inte gör</h2>
+
+<p>✖ Skickar automatiskt</p>
+<p>✖ Lagrar mailhistorik</p>
+<p>✖ Tränas på ert material</p>
+<p>✖ Ersätter mänskliga beslut</p>
+
+</div>
+</div>
+
+<!-- KONTAKT -->
+<div class="section hero" id="kontakt">
+<div class="container center">
+
+<h2>Boka demo</h2>
+
+<form>
+<input type="text" placeholder="Företagsnamn">
+<input type="email" placeholder="E-post">
+<textarea placeholder="Beskriv kort hur ni arbetar idag"></textarea>
+<button class="button">Skicka</button>
+</form>
+
+</div>
+</div>
+
+<script>
+const canvas=document.getElementById("network");
+const ctx=canvas.getContext("2d");
+
+function resize(){
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+}
+resize();
+window.addEventListener("resize",resize);
+
+let points=[];
+const total=window.innerWidth<768?25:55;
+
+for(let i=0;i<total;i++){
+points.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+vx:(Math.random()-0.5)*0.18,
+vy:(Math.random()-0.5)*0.18
+});
+}
+
+function draw(){
+ctx.fillStyle="rgba(2,6,23,0.6)";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+
+points.forEach(p=>{
+p.x+=p.vx;
+p.y+=p.vy;
+if(p.x<0||p.x>canvas.width)p.vx*=-1;
+if(p.y<0||p.y>canvas.height)p.vy*=-1;
+});
+
+points.forEach((a,i)=>{
+for(let j=i+1;j<points.length;j++){
+let b=points[j];
+let dx=a.x-b.x;
+let dy=a.y-b.y;
+if(dx*dx+dy*dy<11000){
+ctx.strokeStyle="rgba(56,189,248,0.07)";
+ctx.beginPath();
+ctx.moveTo(a.x,a.y);
+ctx.lineTo(b.x,b.y);
+ctx.stroke();
+}
+}
+});
+
+points.forEach(p=>{
+ctx.beginPath();
+ctx.fillStyle="rgba(56,189,248,0.8)";
+ctx.arc(p.x,p.y,2,0,Math.PI*2);
+ctx.fill();
+});
+
+requestAnimationFrame(draw);
+}
+draw();
+</script>
+
+</body>
+</html>
