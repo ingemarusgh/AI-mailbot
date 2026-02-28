@@ -38,12 +38,11 @@ margin:auto;
 h1{font-size:44px;color:white;margin-bottom:20px;}
 h2{font-size:32px;color:white;margin-bottom:25px;}
 h3{margin-bottom:12px;color:white;}
-p{color:#cbd5e1;font-size:17px;margin-bottom:12px;}
+p{color:#cbd5e1;font-size:17px;}
 
-/* HERO */
 .hero{
-padding-top:200px;
-padding-bottom:180px;
+padding-top:180px;
+padding-bottom:160px;
 text-align:center;
 }
 
@@ -61,7 +60,6 @@ max-width:850px;
 margin:auto;
 }
 
-/* BUTTON */
 .button{
 display:inline-block;
 margin-top:35px;
@@ -81,10 +79,24 @@ box-shadow:0 0 60px rgba(56,189,248,.9);
 }
 
 /* GRID */
+.grid-4{
+display:grid;
+gap:40px;
+margin-top:70px;
+}
+
 .grid-2{
 display:grid;
 gap:50px;
 margin-top:70px;
+}
+
+.block{
+background:rgba(15,23,42,.6);
+border:1px solid rgba(56,189,248,.25);
+border-radius:20px;
+padding:45px;
+backdrop-filter:blur(20px);
 }
 
 .plan{
@@ -98,15 +110,6 @@ backdrop-filter:blur(20px);
 .plan.enterprise{
 border:1px solid rgba(56,189,248,.6);
 box-shadow:0 0 40px rgba(56,189,248,.15);
-}
-
-.plan h3{
-font-size:24px;
-margin-bottom:20px;
-}
-
-.feature{
-margin-bottom:12px;
 }
 
 /* FLOW */
@@ -158,14 +161,12 @@ margin-bottom:15px;
 color:#38bdf8;
 }
 
-/* DESKTOP */
 @media(min-width:900px){
 h1{font-size:64px;}
 h2{font-size:38px;}
 
-.grid-2{
-grid-template-columns:repeat(2,1fr);
-}
+.grid-4{grid-template-columns:repeat(4,1fr);}
+.grid-2{grid-template-columns:repeat(2,1fr);}
 
 .flow{flex-direction:row;}
 .step{flex-direction:column;text-align:center;}
@@ -180,7 +181,7 @@ grid-template-columns:repeat(2,1fr);
 
 <!-- HERO -->
 <div class="section hero">
-<div class="container">
+<div class="container center">
 
 <img src="./nerox-logo.png" class="logo">
 
@@ -188,13 +189,13 @@ grid-template-columns:repeat(2,1fr);
 
 <p class="sub">
 Nerox analyserar inkommande mail och skapar genomtänkta utkast direkt i er befintliga inkorg.
-Inget skickas automatiskt. Ni har alltid kontroll.
+Inget skickas automatiskt. Ni har full kontroll.
 </p>
 
 </div>
 </div>
 
-<!-- PLANER -->
+<!-- VERSIONER -->
 <div class="section">
 <div class="container center">
 
@@ -204,31 +205,20 @@ Inget skickas automatiskt. Ni har alltid kontroll.
 
 <div class="plan">
 <h3>Nerox Bas</h3>
-
-<p class="feature">• Skapar strukturerade utkast</p>
-<p class="feature">• Grundläggande företagskonfiguration</p>
-<p class="feature">• Standardiserad tonalitet</p>
-<p class="feature">• Manuell granskning innan utskick</p>
-<p class="feature">• Microsoft 365-integration</p>
-
-<p style="margin-top:20px;">
-För organisationer som vill effektivisera återkommande kommunikation.
-</p>
+<p>• Skapar strukturerade utkast</p>
+<p>• Grundläggande företagskonfiguration</p>
+<p>• Standardiserad tonalitet</p>
+<p>• Manuell granskning innan utskick</p>
+<p>• Microsoft 365-integration</p>
 </div>
 
 <div class="plan enterprise">
 <h3>Nerox Enterprise</h3>
-
-<p class="feature">• Djup företagskonfiguration</p>
-<p class="feature">• Roll- & individanpassning</p>
-<p class="feature">• Specifika regler per ärendetyp</p>
-<p class="feature">• Anpassade svarsmallar per användare</p>
-<p class="feature">• Central styrning & vidare konfiguration</p>
-
-<p style="margin-top:20px;">
-För organisationer med flera roller, hög kommunikationsvolym
-eller behov av exakt struktur.
-</p>
+<p>• Djup företagskonfiguration</p>
+<p>• Roll- & individanpassning</p>
+<p>• Specifika regler per ärendetyp</p>
+<p>• Anpassade svarsmallar per användare</p>
+<p>• Central styrning & vidare konfiguration</p>
 </div>
 
 </div>
@@ -236,7 +226,40 @@ eller behov av exakt struktur.
 </div>
 </div>
 
-<!-- FLOW -->
+<!-- FEATURES (din gamla behålls) -->
+<div class="section">
+<div class="container center">
+
+<h2>Byggd för strukturerad effektivisering</h2>
+
+<div class="grid-4">
+
+<div class="block">
+<h3>Skapar utkast</h3>
+<p>Färdiga svar läggs som utkast i er inkorg.</p>
+</div>
+
+<div class="block">
+<h3>Konfigurerad</h3>
+<p>Arbetar enligt tydliga företagsriktlinjer.</p>
+</div>
+
+<div class="block">
+<h3>Full kontroll</h3>
+<p>Inget skickas utan mänskligt godkännande.</p>
+</div>
+
+<div class="block">
+<h3>Företags & individanpassad</h3>
+<p>Olika konfiguration per företag, roll och användare.</p>
+</div>
+
+</div>
+
+</div>
+</div>
+
+<!-- FLOW (oförändrad) -->
 <div class="section center">
 <div class="container">
 
@@ -244,69 +267,62 @@ eller behov av exakt struktur.
 
 <div class="flow">
 
-<div class="step">
-<div class="circle">1</div>
-<p>Mail inkommer</p>
-</div>
-
+<div class="step"><div class="circle">1</div><p>Mail inkommer</p></div>
 <div class="line"></div>
-
-<div class="step">
-<div class="circle">2</div>
-<p>Nerox analyserar enligt er konfiguration</p>
-</div>
-
+<div class="step"><div class="circle">2</div><p>Nerox analyserar</p></div>
 <div class="line"></div>
-
-<div class="step">
-<div class="circle">3</div>
-<p>Utkast skapas</p>
-</div>
-
+<div class="step"><div class="circle">3</div><p>Utkast skapas</p></div>
 <div class="line"></div>
-
-<div class="step">
-<div class="circle">4</div>
-<p>Du granskar & godkänner</p>
-</div>
-
-</div>
+<div class="step"><div class="circle">4</div><p>Du granskar & godkänner</p></div>
 
 </div>
 </div>
+</div>
 
-<!-- ENTERPRISE EXAMPLES -->
+<!-- EXAMPLES (behåll + lägg till fler) -->
 <div class="section">
 <div class="container center">
 
-<h2>Exempel – Nerox Enterprise</h2>
-
-<p>Enterprise-versionen möjliggör djup konfiguration per roll och individ.</p>
+<h2>Exempel på genererade utkast</h2>
 
 <div class="mailbox">
-<div class="mail-header">Sälj – Pris enligt företagets policy</div>
-<p>Priset är 12 900 kr inklusive installation. Offerten gäller i 14 dagar. Uppföljning sker automatiskt enligt säljpolicy.</p>
+<div class="mail-header">Sälj – Pris enligt policy</div>
+<p>Priset är 12 900 kr inklusive installation. Offerten gäller i 14 dagar.</p>
 </div>
 
 <div class="mailbox">
 <div class="mail-header">Kundsupport – SLA-styrt svar</div>
-<p>Ditt ärende är registrerat under referensnummer #48217. Återkoppling sker inom 24 timmar enligt avtalad SLA.</p>
+<p>Ditt ärende är registrerat. Återkoppling sker inom 24 timmar enligt avtal.</p>
 </div>
 
 <div class="mailbox">
 <div class="mail-header">VD – Strategisk respons</div>
-<p>Vi föreslår ett strukturerat uppföljningsmöte nästa vecka för att diskutera omfattning och nästa steg.</p>
+<p>Vi föreslår ett uppföljningsmöte nästa vecka för att diskutera omfattning.</p>
 </div>
 
 </div>
 </div>
 
-<!-- FINAL CTA -->
+<!-- WHAT IT DOESN'T DO -->
+<div class="section">
+<div class="container center">
+
+<h2>Vad Nerox inte gör</h2>
+
+<p>✖ Skickar automatiskt utan godkännande</p>
+<p>✖ Lagrar mailhistorik</p>
+<p>✖ Tränas på ert material</p>
+<p>✖ Ersätter mänskliga beslut</p>
+
+</div>
+</div>
+
+<!-- CTA -->
 <div class="section hero">
 <div class="container center">
 
-<h2>Vill ni se vilken nivå som passar er organisation?</h2>
-<a href="#" class="button">Kontakta oss för vidare dialog</a>
+<h2>Intresserad av att effektivisera er e-posthantering?</h2>
+<a href="#" class="button">Intresserad? Kontakta oss</a>
 
 </div>
 </div>
@@ -314,24 +330,14 @@ eller behov av exakt struktur.
 <script>
 const canvas=document.getElementById("network");
 const ctx=canvas.getContext("2d");
-
-function resize(){
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-}
-resize();
-window.addEventListener("resize",resize);
+function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
+resize();window.addEventListener("resize",resize);
 
 let points=[];
 const total=window.innerWidth<768?25:55;
 
 for(let i=0;i<total;i++){
-points.push({
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-vx:(Math.random()-0.5)*0.18,
-vy:(Math.random()-0.5)*0.18
-});
+points.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:(Math.random()-0.5)*0.18,vy:(Math.random()-0.5)*0.18});
 }
 
 function draw(){
@@ -339,8 +345,7 @@ ctx.fillStyle="rgba(2,6,23,0.6)";
 ctx.fillRect(0,0,canvas.width,canvas.height);
 
 points.forEach(p=>{
-p.x+=p.vx;
-p.y+=p.vy;
+p.x+=p.vx;p.y+=p.vy;
 if(p.x<0||p.x>canvas.width)p.vx*=-1;
 if(p.y<0||p.y>canvas.height)p.vy*=-1;
 });
@@ -348,17 +353,11 @@ if(p.y<0||p.y>canvas.height)p.vy*=-1;
 points.forEach((a,i)=>{
 for(let j=i+1;j<points.length;j++){
 let b=points[j];
-let dx=a.x-b.x;
-let dy=a.y-b.y;
+let dx=a.x-b.x;let dy=a.y-b.y;
 if(dx*dx+dy*dy<11000){
 ctx.strokeStyle="rgba(56,189,248,0.07)";
-ctx.beginPath();
-ctx.moveTo(a.x,a.y);
-ctx.lineTo(b.x,b.y);
-ctx.stroke();
-}
-}
-});
+ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
+}}});
 
 points.forEach(p=>{
 ctx.beginPath();
