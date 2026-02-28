@@ -34,16 +34,23 @@ z-index:0;
 position:relative;
 z-index:2;
 text-align:center;
-max-width:800px;
+max-width:900px;
 padding:20px;
 }
 
 .logo{
-width:360px;
+width:440px;
 margin-bottom:35px;
 filter:
-drop-shadow(0 0 18px #00e5ff)
-drop-shadow(0 0 35px #8a2be2);
+drop-shadow(0 0 25px #00e5ff)
+drop-shadow(0 0 60px #ff00ff);
+transition:0.3s;
+}
+
+.logo.glow{
+filter:
+drop-shadow(0 0 50px #00ffff)
+drop-shadow(0 0 120px #ff00ff);
 }
 
 .tagline{
@@ -73,6 +80,19 @@ button:hover{
 transform:scale(1.05);
 box-shadow:0 0 40px rgba(255,0,255,.6);
 }
+
+/* subtle glitch */
+.glitch{
+animation:glitch .25s linear 3;
+}
+
+@keyframes glitch{
+0%{transform:translate(0)}
+25%{transform:translate(3px,-2px)}
+50%{transform:translate(-3px,2px)}
+75%{transform:translate(2px,1px)}
+100%{transform:translate(0)}
+}
 </style>
 </head>
 
@@ -81,17 +101,20 @@ box-shadow:0 0 40px rgba(255,0,255,.6);
 <canvas id="space"></canvas>
 
 <div class="container">
-<img src="./nerox-logo.png" class="logo">
+<img src="./nerox-logo.png" class="logo" id="logo">
+
 <p class="tagline">
 AI som läser din inkorg och föreslår färdiga svar.
 Du godkänner — klart.
 </p>
+
 <button>Boka demo</button>
 </div>
 
 <script>
 const canvas = document.getElementById("space");
 const ctx = canvas.getContext("2d");
+const logo = document.getElementById("logo");
 
 function resize(){
 canvas.width = window.innerWidth;
@@ -101,50 +124,48 @@ resize();
 window.addEventListener("resize",resize);
 
 let particles=[];
-const total=80;
+const total=140;
 
 for(let i=0;i<total;i++){
 particles.push({
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
-vx:(Math.random()-0.5)*0.6,
-vy:(Math.random()-0.5)*0.6
+vx:(Math.random()-0.5)*1,
+vy:(Math.random()-0.5)*1
 });
 }
 
 let forming=false;
 let timer=0;
 
-function getNShape(){
+function getTextShape(text){
+let offscreen=document.createElement("canvas");
+let offctx=offscreen.getContext("2d");
+
+offscreen.width=canvas.width;
+offscreen.height=canvas.height;
+
+offctx.font="bold 180px Arial";
+offctx.textAlign="center";
+offctx.fillStyle="white";
+offctx.fillText(text,canvas.width/2,canvas.height/2+60);
+
+let data=offctx.getImageData(0,0,canvas.width,canvas.height).data;
 let points=[];
-let cx=canvas.width/2;
-let cy=canvas.height/2;
-let size=200;
 
-for(let i=0;i<total;i++){
-let t=i/total;
-let x,y;
-
-if(t<0.33){
-x=cx-size/2;
-y=cy-size/2 + t*3*size;
-}
-else if(t<0.66){
-let tt=(t-0.33)*3;
-x=cx-size/2 + tt*size;
-y=cy-size/2 + tt*size;
-}
-else{
-let tt=(t-0.66)*3;
-x=cx+size/2;
-y=cy-size/2 + tt*size;
-}
-
+for(let y=0;y<canvas.height;y+=6){
+for(let x=0;x<canvas.width;x+=6){
+let index=(y*canvas.width+x)*4;
+if(data[index+3]>150){
 points.push({x,y});
+}
+}
 }
 
 return points;
 }
+
+let textPoints=getTextShape("NEROX");
 
 function draw(){
 ctx.fillStyle="rgba(5,0,21,0.35)";
@@ -152,18 +173,24 @@ ctx.fillRect(0,0,canvas.width,canvas.height);
 
 timer++;
 
-if(timer>360){
+if(timer>180){
 forming=!forming;
 timer=0;
-}
 
-let targets = forming ? getNShape() : null;
+if(forming){
+logo.classList.add("glow");
+logo.classList.add("glitch");
+setTimeout(()=>logo.classList.remove("glitch"),300);
+}else{
+logo.classList.remove("glow");
+}
+}
 
 particles.forEach((p,i)=>{
 
-if(forming){
-p.x += (targets[i].x - p.x)*0.08;
-p.y += (targets[i].y - p.y)*0.08;
+if(forming && textPoints[i]){
+p.x += (textPoints[i].x - p.x)*0.15;
+p.y += (textPoints[i].y - p.y)*0.15;
 }else{
 p.x+=p.vx;
 p.y+=p.vy;
@@ -174,7 +201,7 @@ if(p.y<0||p.y>canvas.height) p.vy*=-1;
 
 ctx.beginPath();
 ctx.fillStyle="rgba(0,255,255,0.9)";
-ctx.arc(p.x,p.y,3,0,Math.PI*2);
+ctx.arc(p.x,p.y,2.5,0,Math.PI*2);
 ctx.fill();
 });
 
