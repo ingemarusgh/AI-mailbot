@@ -6,13 +6,13 @@
 <title>Nerox</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,system-ui,-apple-system;}
 
 body{
 background:#020617;
 color:white;
 overflow-x:hidden;
-line-height:1.7;
+line-height:1.6;
 }
 
 canvas{
@@ -22,44 +22,71 @@ left:0;
 z-index:0;
 }
 
-section{
+.container{
+max-width:1200px;
+margin:auto;
+padding:80px 30px;
 position:relative;
 z-index:2;
-padding:120px 20px;
-max-width:1100px;
-margin:auto;
 }
 
-.center{text-align:center;}
+.section-dark{
+background:rgba(255,255,255,0.02);
+border-top:1px solid rgba(125,211,252,0.05);
+border-bottom:1px solid rgba(125,211,252,0.05);
+}
 
 .logo{
-width:700px;
+width:750px;
 max-width:95%;
-margin:40px auto;
 display:block;
+margin:0 auto 40px;
 filter:drop-shadow(0 0 60px rgba(125,211,252,0.7));
 }
 
 h1{
-font-size:44px;
+font-size:48px;
 margin-bottom:20px;
+text-align:center;
 }
 
 h2{
 font-size:34px;
-margin-bottom:30px;
+margin-bottom:25px;
 background:linear-gradient(90deg,#e0f2ff,#7dd3fc);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 }
 
-p{color:#cbd5e1;margin-bottom:20px;}
+p{color:#cbd5e1;margin-bottom:18px;}
+
+.center{text-align:center;}
+
+.grid-2{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:60px;
+align-items:center;
+}
+
+.grid-3{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:40px;
+}
+
+.card{
+background:rgba(255,255,255,0.03);
+border:1px solid rgba(125,211,252,0.15);
+padding:35px;
+border-radius:20px;
+}
 
 .button{
 display:inline-block;
-padding:20px 60px;
+padding:20px 70px;
 font-size:18px;
-border-radius:16px;
+border-radius:18px;
 border:2px solid #7dd3fc;
 background:linear-gradient(135deg,#e0f2ff,#7dd3fc);
 color:#021024;
@@ -68,51 +95,21 @@ cursor:pointer;
 transition:all .3s ease;
 text-decoration:none;
 position:relative;
-overflow:hidden;
 }
 
 .button:hover{
 transform:translateY(-4px);
-box-shadow:0 0 60px rgba(125,211,252,0.7);
-}
-
-.split{
-display:flex;
-gap:60px;
-flex-wrap:wrap;
-}
-
-.split > div{
-flex:1;
-min-width:300px;
-}
-
-.box{
-background:rgba(255,255,255,0.03);
-border:1px solid rgba(125,211,252,0.15);
-padding:35px;
-border-radius:20px;
-}
-
-.fade{
-opacity:0;
-transform:translateY(40px);
-transition:all .8s ease;
-}
-
-.fade.visible{
-opacity:1;
-transform:translateY(0);
+box-shadow:0 0 80px rgba(125,211,252,0.7);
 }
 
 form{
-margin-top:40px;
-display:flex;
-flex-direction:column;
+display:grid;
 gap:20px;
+max-width:600px;
+margin-top:40px;
 }
 
-input, textarea{
+input,textarea{
 padding:16px;
 border-radius:12px;
 border:1px solid rgba(125,211,252,0.3);
@@ -123,9 +120,11 @@ font-size:16px;
 
 textarea{min-height:120px;}
 
-@media(max-width:768px){
-h1{font-size:30px;}
-section{padding:80px 20px;}
+@media(max-width:900px){
+.grid-2{grid-template-columns:1fr;}
+.grid-3{grid-template-columns:1fr;}
+h1{font-size:32px;}
+.container{padding:60px 20px;}
 }
 </style>
 </head>
@@ -134,95 +133,100 @@ section{padding:80px 20px;}
 
 <canvas id="network"></canvas>
 
-<section class="center">
+<div class="container center">
 <img src="./nerox-logo.png" class="logo">
-
 <h1>Spara tid på mail – utan att tappa kontroll.</h1>
-<p>Nerox läser inkommande mail, föreslår färdiga svar och låter dig godkänna innan något skickas.</p>
-<p>Systemet konfigureras efter ert företag och varje användare. Ingen datalagring. Ingen automatisk inlärning.</p>
-
+<p>Nerox läser inkommande mail och föreslår färdiga svar. Du granskar och godkänner innan något skickas.</p>
+<p>Konfigurerad efter ert företag och varje användare. Ingen datalagring. Ingen automatisk inlärning.</p>
 <a href="#kontakt" class="button">Boka demo</a>
-</section>
+</div>
 
-<section>
-<h2>Problemet</h2>
-<div class="split">
+<div class="container section-dark">
+<div class="grid-2">
 <div>
-<p>Mail tar inte bara tid. Det tar fokus.</p>
-<p>Varje svar kräver formulering, kontroll, struktur och ton.</p>
-<p>Det är upprepande arbete som tar energi från viktigare uppgifter.</p>
+<h2>Problemet</h2>
+<p>Mail tar inte bara minuter. Det tar fokus.</p>
+<p>Formulering, ton, struktur och dubbelkontroll upprepas varje dag.</p>
+<p>Det är mental energi som kunde lagts på viktigare arbete.</p>
 </div>
-<div class="box">
+<div class="card">
 <p><strong>Det är inte läsningen som tar tid.</strong></p>
-<p>Det är skrivandet, formuleringen och dubbelkontrollen.</p>
+<p>Det är skrivandet och besluten kring formulering.</p>
 </div>
 </div>
-</section>
+</div>
 
-<section>
-<h2>Lösningen</h2>
-<p>Nerox ersätter inte din bedömning. Den ersätter tomt skrivfält.</p>
-<p>Du får ett strukturerat, färdigt förslag baserat på hur ni har valt att systemet ska arbeta.</p>
-</section>
+<div class="container">
+<h2 class="center">Hur Nerox hjälper</h2>
+<div class="grid-3">
 
-<section>
-<h2>Exempel i praktiken</h2>
+<div class="card">
+<h3>Du läser</h3>
+<p>Du gör alltid den mänskliga bedömningen.</p>
+</div>
 
-<div class="split fade">
+<div class="card">
+<h3>Nerox strukturerar</h3>
+<p>Ett färdigt svar byggt på era riktlinjer presenteras direkt.</p>
+</div>
 
-<div class="box">
+<div class="card">
+<h3>Du godkänner</h3>
+<p>Inget skickas utan ditt beslut.</p>
+</div>
+
+</div>
+</div>
+
+<div class="container section-dark">
+<h2 class="center">Exempel</h2>
+
+<div class="grid-2">
+<div class="card">
 <p><strong>Utan Nerox</strong></p>
-<p>Du läser mailet.</p>
-<p>Du börjar skriva.</p>
-<p>Du justerar formulering.</p>
-<p>Du dubbelkollar ton.</p>
-<p>3–5 minuter + mental energi.</p>
+<p>Läs → formulera → justera → dubbelkolla → skicka.</p>
+<p>3–5 minuter och mental friktion.</p>
 </div>
 
-<div class="box">
+<div class="card">
 <p><strong>Med Nerox</strong></p>
-<p>Du läser mailet.</p>
-<p>Du får ett färdigt strukturerat svar.</p>
-<p>Du justerar vid behov.</p>
-<p>✔ Skicka.</p>
-<p>10–20 sekunder.</p>
+<p>Läs → justera vid behov → skicka.</p>
+<p>10–20 sekunder. Mindre beslut. Mindre stress.</p>
+</div>
+</div>
 </div>
 
-</div>
-</section>
+<div class="container">
+<h2 class="center">Anpassning</h2>
 
-<section>
-<h2>Anpassning</h2>
-<p>Nerox är konfigurerad – inte självtränande.</p>
-
-<div class="split">
+<div class="grid-2">
 <div>
 <p><strong>Företagsnivå</strong></p>
-<p>Vi definierar vilka frågor systemet ska hantera och hur svar ska formuleras.</p>
+<p>Vi definierar vilka frågor systemet ska hantera och hur svar ska struktureras.</p>
 </div>
 
 <div>
 <p><strong>Användarnivå</strong></p>
-<p>Varje roll kan ha egna riktlinjer – sälj, support, ledning.</p>
+<p>Varje roll kan ha egna riktlinjer och fokusområden.</p>
 </div>
 </div>
-</section>
+</div>
 
-<section>
+<div class="container section-dark center">
 <h2>Säkerhet & kontroll</h2>
 <p>Ingen lagring av mailhistorik.</p>
 <p>Ingen automatisk inlärning.</p>
 <p>Inget skickas utan godkännande.</p>
-</section>
+</div>
 
-<section class="center">
-<h2>Redo att effektivisera er inkorg?</h2>
+<div class="container center">
+<h2>Redo att effektivisera?</h2>
 <a href="#kontakt" class="button">Boka demo</a>
-</section>
+</div>
 
-<section id="kontakt">
+<div class="container section-dark center" id="kontakt">
 <h2>Kontakta oss</h2>
-<p>Vill du veta hur Nerox kan konfigureras för ert företag? Fyll i formuläret så hör vi av oss.</p>
+<p>Vill du se hur Nerox kan konfigureras för ert företag?</p>
 
 <form>
 <input type="text" placeholder="Företagsnamn" required>
@@ -230,21 +234,9 @@ section{padding:80px 20px;}
 <textarea placeholder="Berätta kort om er verksamhet"></textarea>
 <button class="button" type="submit">Skicka</button>
 </form>
-</section>
+</div>
 
 <script>
-// Fade animation
-const faders=document.querySelectorAll(".fade");
-const observer=new IntersectionObserver(entries=>{
-entries.forEach(entry=>{
-if(entry.isIntersecting){
-entry.target.classList.add("visible");
-}
-});
-});
-faders.forEach(el=>observer.observe(el));
-
-// Background animation
 const canvas=document.getElementById("network");
 const ctx=canvas.getContext("2d");
 function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
@@ -259,13 +251,11 @@ points.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:(Math
 function draw(){
 ctx.fillStyle="rgba(2,6,23,0.6)";
 ctx.fillRect(0,0,canvas.width,canvas.height);
-
 points.forEach(p=>{
 p.x+=p.vx;p.y+=p.vy;
 if(p.x<0||p.x>canvas.width)p.vx*=-1;
 if(p.y<0||p.y>canvas.height)p.vy*=-1;
 });
-
 points.forEach((a,i)=>{
 for(let j=i+1;j<points.length;j++){
 let b=points[j];
@@ -280,14 +270,12 @@ ctx.stroke();
 }
 }
 });
-
 points.forEach(p=>{
 ctx.beginPath();
 ctx.fillStyle="rgba(200,220,255,0.8)";
 ctx.arc(p.x,p.y,2,0,Math.PI*2);
 ctx.fill();
 });
-
 requestAnimationFrame(draw);
 }
 draw();
