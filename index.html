@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nerox</title>
 
 <style>
@@ -12,7 +12,7 @@ body{
 background:#020617;
 color:white;
 overflow-x:hidden;
-line-height:1.6;
+line-height:1.7;
 }
 
 canvas{
@@ -22,118 +22,110 @@ left:0;
 z-index:0;
 }
 
-body::before{
-content:"";
-position:fixed;
-top:40%;
-left:50%;
-transform:translate(-50%,-50%);
-width:900px;
-height:900px;
-background:radial-gradient(circle,
-rgba(125,211,252,0.15) 0%,
-rgba(0,170,255,0.1) 30%,
-rgba(0,0,0,0) 70%);
-filter:blur(100px);
-z-index:1;
-pointer-events:none;
-}
-
 section{
 position:relative;
 z-index:2;
-padding:100px 20px;
-max-width:1000px;
+padding:120px 20px;
+max-width:1100px;
 margin:auto;
-text-align:center;
 }
 
-.hero{
-min-height:100vh;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-}
+.center{text-align:center;}
 
 .logo{
-width:650px;
+width:700px;
 max-width:95%;
-margin-bottom:40px;
-filter:
-drop-shadow(0 0 40px rgba(125,211,252,0.6))
-drop-shadow(0 0 120px rgba(0,170,255,0.35));
+margin:40px auto;
+display:block;
+filter:drop-shadow(0 0 60px rgba(125,211,252,0.7));
 }
 
 h1{
-font-size:42px;
+font-size:44px;
 margin-bottom:20px;
 }
 
 h2{
-font-size:32px;
-margin-bottom:40px;
+font-size:34px;
+margin-bottom:30px;
 background:linear-gradient(90deg,#e0f2ff,#7dd3fc);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 }
 
-p{
-margin-bottom:18px;
-color:#dbeafe;
-}
+p{color:#cbd5e1;margin-bottom:20px;}
 
 .button{
 display:inline-block;
-padding:18px 52px;
+padding:20px 60px;
 font-size:18px;
-border-radius:14px;
+border-radius:16px;
 border:2px solid #7dd3fc;
 background:linear-gradient(135deg,#e0f2ff,#7dd3fc);
 color:#021024;
+font-weight:700;
 cursor:pointer;
-transition:0.3s ease;
-font-weight:600;
-margin-top:30px;
+transition:all .3s ease;
 text-decoration:none;
+position:relative;
+overflow:hidden;
 }
 
 .button:hover{
-transform:translateY(-3px);
-box-shadow:0 0 40px rgba(125,211,252,0.6);
-}
-
-.example-box{
-background:rgba(255,255,255,0.03);
-border:1px solid rgba(125,211,252,0.15);
-padding:30px;
-border-radius:18px;
-text-align:left;
-margin-top:30px;
-}
-
-.example-title{
-font-weight:600;
-margin-bottom:15px;
-color:#7dd3fc;
+transform:translateY(-4px);
+box-shadow:0 0 60px rgba(125,211,252,0.7);
 }
 
 .split{
 display:flex;
-gap:40px;
+gap:60px;
 flex-wrap:wrap;
-justify-content:center;
 }
 
-.split div{
+.split > div{
 flex:1;
-min-width:280px;
+min-width:300px;
 }
+
+.box{
+background:rgba(255,255,255,0.03);
+border:1px solid rgba(125,211,252,0.15);
+padding:35px;
+border-radius:20px;
+}
+
+.fade{
+opacity:0;
+transform:translateY(40px);
+transition:all .8s ease;
+}
+
+.fade.visible{
+opacity:1;
+transform:translateY(0);
+}
+
+form{
+margin-top:40px;
+display:flex;
+flex-direction:column;
+gap:20px;
+}
+
+input, textarea{
+padding:16px;
+border-radius:12px;
+border:1px solid rgba(125,211,252,0.3);
+background:#0f172a;
+color:white;
+font-size:16px;
+}
+
+textarea{min-height:120px;}
 
 @media(max-width:768px){
-.logo{width:450px;}
-h1{font-size:28px;}
-section{padding:70px 20px;}
+h1{font-size:30px;}
+section{padding:80px 20px;}
 }
 </style>
 </head>
@@ -142,160 +134,126 @@ section{padding:70px 20px;}
 
 <canvas id="network"></canvas>
 
-<section class="hero">
+<section class="center">
 <img src="./nerox-logo.png" class="logo">
 
 <h1>Spara tid på mail – utan att tappa kontroll.</h1>
+<p>Nerox läser inkommande mail, föreslår färdiga svar och låter dig godkänna innan något skickas.</p>
+<p>Systemet konfigureras efter ert företag och varje användare. Ingen datalagring. Ingen automatisk inlärning.</p>
 
-<p>
-Nerox läser inkommande mail och föreslår färdiga svar.
-Du granskar och godkänner innan något skickas.
-</p>
-
-<p>
-Systemet konfigureras efter ert företag och varje användare.
-Ingen datalagring. Ingen automatisk inlärning.
-</p>
-
-<a href="#" class="button">Boka demo</a>
+<a href="#kontakt" class="button">Boka demo</a>
 </section>
 
 <section>
-<h2>Så fungerar det</h2>
+<h2>Problemet</h2>
+<div class="split">
+<div>
+<p>Mail tar inte bara tid. Det tar fokus.</p>
+<p>Varje svar kräver formulering, kontroll, struktur och ton.</p>
+<p>Det är upprepande arbete som tar energi från viktigare uppgifter.</p>
+</div>
+<div class="box">
+<p><strong>Det är inte läsningen som tar tid.</strong></p>
+<p>Det är skrivandet, formuleringen och dubbelkontrollen.</p>
+</div>
+</div>
+</section>
 
-<p><strong>Ett mail kommer in.</strong> En kund skickar en fråga.</p>
-<p><strong>Nerox föreslår ett svar.</strong> AI:n använder de riktlinjer som satts upp för ert företag.</p>
-<p><strong>Du klickar skicka.</strong> Inget går iväg utan ditt godkännande.</p>
-
-<p>Det tar sekunder istället för minuter.</p>
+<section>
+<h2>Lösningen</h2>
+<p>Nerox ersätter inte din bedömning. Den ersätter tomt skrivfält.</p>
+<p>Du får ett strukturerat, färdigt förslag baserat på hur ni har valt att systemet ska arbeta.</p>
 </section>
 
 <section>
 <h2>Exempel i praktiken</h2>
 
-<div class="split">
+<div class="split fade">
 
-<div class="example-box">
-<div class="example-title">Före</div>
-<p><strong>Kund:</strong> “Vad kostar er tjänst med installation och hur lång är leveranstiden?”</p>
-<br>
-<p>Du:</p>
-<p>– Läser mailet<br>
-– Kollar pris<br>
-– Formulerar svar<br>
-– Dubbelkollar ton<br>
-– Skickar</p>
-<br>
-<p><strong>3–5 minuter</strong></p>
+<div class="box">
+<p><strong>Utan Nerox</strong></p>
+<p>Du läser mailet.</p>
+<p>Du börjar skriva.</p>
+<p>Du justerar formulering.</p>
+<p>Du dubbelkollar ton.</p>
+<p>3–5 minuter + mental energi.</p>
 </div>
 
-<div class="example-box">
-<div class="example-title">Med Nerox</div>
-<p><strong>Nerox föreslår:</strong></p>
-<p>
-“Hej! Tack för din fråga. Tjänsten kostar 12 900 kr inklusive installation.
-Leveranstiden är 5–7 arbetsdagar. Hör gärna av dig om du vill boka.”
-</p>
-<br>
-<p><strong>Du klickar: ✔ Skicka</strong></p>
-<p><strong>10–20 sekunder</strong></p>
+<div class="box">
+<p><strong>Med Nerox</strong></p>
+<p>Du läser mailet.</p>
+<p>Du får ett färdigt strukturerat svar.</p>
+<p>Du justerar vid behov.</p>
+<p>✔ Skicka.</p>
+<p>10–20 sekunder.</p>
 </div>
 
 </div>
 </section>
 
 <section>
-<h2>Anpassad – på riktigt</h2>
-
-<p>
-Nerox är inte en generell AI.
-Den sätts upp för att arbeta enligt hur just ert företag fungerar.
-</p>
-
-<p>
-Vi definierar tillsammans vilka frågor den ska hantera,
-hur den ska formulera sig och vilken information den får använda.
-</p>
-
-<p>
-Det gör svaren förutsägbara och professionella.
-</p>
-</section>
-
-<section>
-<h2>Anpassad per användare</h2>
+<h2>Anpassning</h2>
+<p>Nerox är konfigurerad – inte självtränande.</p>
 
 <div class="split">
-
 <div>
-<h3>Sälj</h3>
-<p>Prisförfrågningar, offertförklaringar och uppföljningar.</p>
-</div>
-
-<div>
-<h3>Support</h3>
-<p>Bokningar, returer och vanliga kundfrågor.</p>
+<p><strong>Företagsnivå</strong></p>
+<p>Vi definierar vilka frågor systemet ska hantera och hur svar ska formuleras.</p>
 </div>
 
 <div>
-<h3>Ledning</h3>
-<p>Formell kommunikation och strategiska svar.</p>
+<p><strong>Användarnivå</strong></p>
+<p>Varje roll kan ha egna riktlinjer – sälj, support, ledning.</p>
 </div>
-
 </div>
-
-<p style="margin-top:40px;">Ni bestämmer vad Nerox ska kunna.</p>
-</section>
-
-<section>
-<h2>Så ställer vi in Nerox</h2>
-
-<p>1. Vi kartlägger återkommande frågor.</p>
-<p>2. Vi sätter upp tydliga riktlinjer.</p>
-<p>3. Vi anpassar per roll och användare.</p>
-<p>4. Ni testar och justerar.</p>
-
-<p>Allt sker genom konfiguration – inte genom datainsamling.</p>
 </section>
 
 <section>
 <h2>Säkerhet & kontroll</h2>
-
-<p>
-Nerox lagrar inte mailhistorik, tränas inte på ert material
-och skickar inget automatiskt.
-</p>
-
-<p>
-Ni har full kontroll över hur systemet arbetar.
-</p>
+<p>Ingen lagring av mailhistorik.</p>
+<p>Ingen automatisk inlärning.</p>
+<p>Inget skickas utan godkännande.</p>
 </section>
 
-<section>
+<section class="center">
 <h2>Redo att effektivisera er inkorg?</h2>
+<a href="#kontakt" class="button">Boka demo</a>
+</section>
 
-<p>
-Mail kommer alltid att finnas.
-Frågan är hur mycket tid ni vill lägga på att skriva samma svar om och om igen.
-</p>
+<section id="kontakt">
+<h2>Kontakta oss</h2>
+<p>Vill du veta hur Nerox kan konfigureras för ert företag? Fyll i formuläret så hör vi av oss.</p>
 
-<a href="#" class="button">Boka demo</a>
+<form>
+<input type="text" placeholder="Företagsnamn" required>
+<input type="email" placeholder="E-postadress" required>
+<textarea placeholder="Berätta kort om er verksamhet"></textarea>
+<button class="button" type="submit">Skicka</button>
+</form>
 </section>
 
 <script>
+// Fade animation
+const faders=document.querySelectorAll(".fade");
+const observer=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add("visible");
+}
+});
+});
+faders.forEach(el=>observer.observe(el));
+
+// Background animation
 const canvas=document.getElementById("network");
 const ctx=canvas.getContext("2d");
-
 function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
-resize();
-window.addEventListener("resize",resize);
-
-const isMobile=window.innerWidth<768;
-const total=isMobile?25:45;
+resize();window.addEventListener("resize",resize);
 
 let points=[];
+const total=window.innerWidth<768?25:45;
 for(let i=0;i<total;i++){
-points.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:(Math.random()-0.5)*0.25,vy:(Math.random()-0.5)*0.25});
+points.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:(Math.random()-0.5)*0.2,vy:(Math.random()-0.5)*0.2});
 }
 
 function draw(){
@@ -313,9 +271,8 @@ for(let j=i+1;j<points.length;j++){
 let b=points[j];
 let dx=a.x-b.x;
 let dy=a.y-b.y;
-let dist=dx*dx+dy*dy;
-if(dist<12000){
-ctx.strokeStyle="rgba(125,211,252,0.06)";
+if(dx*dx+dy*dy<12000){
+ctx.strokeStyle="rgba(125,211,252,0.05)";
 ctx.beginPath();
 ctx.moveTo(a.x,a.y);
 ctx.lineTo(b.x,b.y);
