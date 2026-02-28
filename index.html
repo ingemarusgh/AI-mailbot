@@ -18,17 +18,35 @@ min-height:100vh;
 background:#020617;
 color:white;
 display:flex;
-align-items:flex-start;
+align-items:center;
 justify-content:center;
 overflow:hidden;
 }
 
-/* CANVAS */
+/* BACKGROUND CANVAS */
 canvas{
 position:fixed;
 top:0;
 left:0;
 z-index:0;
+}
+
+/* CINEMATIC SPOTLIGHT */
+body::before{
+content:"";
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+width:800px;
+height:800px;
+background:radial-gradient(circle,
+rgba(125,211,252,0.18) 0%,
+rgba(0,170,255,0.12) 25%,
+rgba(0,0,0,0) 70%);
+filter:blur(80px);
+z-index:1;
+pointer-events:none;
 }
 
 /* CONTENT */
@@ -37,18 +55,18 @@ position:relative;
 z-index:2;
 text-align:center;
 max-width:1000px;
-padding:110px 20px 40px 20px;
+padding:40px 20px;
 }
 
-/* BIGGER LOGO */
+/* HERO LOGO */
 .logo{
-width:620px;
+width:680px;
 max-width:95%;
-margin-bottom:55px;
+margin-bottom:60px;
 
 filter:
-drop-shadow(0 0 35px rgba(125,211,252,0.5))
-drop-shadow(0 0 80px rgba(0,170,255,0.35));
+drop-shadow(0 0 40px rgba(125,211,252,0.6))
+drop-shadow(0 0 120px rgba(0,170,255,0.35));
 
 transition:0.4s ease;
 }
@@ -64,7 +82,7 @@ margin-right:auto;
 line-height:1.6;
 }
 
-/* MATCH NEROX LOGO COLORS */
+/* BUTTON */
 button{
 padding:18px 52px;
 font-size:18px;
@@ -93,12 +111,8 @@ box-shadow:
 /* MOBILE */
 @media(max-width:768px){
 
-.container{
-padding-top:80px;
-}
-
 .logo{
-width:440px;
+width:480px;
 }
 
 .tagline{
@@ -127,8 +141,6 @@ Du godkänner — klart.
 const canvas = document.getElementById("network");
 const ctx = canvas.getContext("2d");
 
-let isMobile = window.innerWidth < 768;
-
 function resize(){
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
@@ -136,8 +148,9 @@ canvas.height = window.innerHeight;
 resize();
 window.addEventListener("resize",resize);
 
-/* Performance optimized */
-const total = isMobile ? 40 : 70;
+/* PERFORMANCE SAFE SETTINGS */
+const isMobile = window.innerWidth < 768;
+const total = isMobile ? 30 : 50;
 
 let points=[];
 
@@ -145,13 +158,23 @@ for(let i=0;i<total;i++){
 points.push({
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
-vx:(Math.random()-0.5)*0.3,
-vy:(Math.random()-0.5)*0.3
+vx:(Math.random()-0.5)*0.25,
+vy:(Math.random()-0.5)*0.25
 });
 }
 
-function draw(){
-ctx.fillStyle="rgba(2,6,23,0.5)";
+let lastTime = 0;
+const fps = 40; // capped FPS
+
+function draw(time){
+
+if(time - lastTime < 1000/fps){
+requestAnimationFrame(draw);
+return;
+}
+lastTime = time;
+
+ctx.fillStyle="rgba(2,6,23,0.6)";
 ctx.fillRect(0,0,canvas.width,canvas.height);
 
 points.forEach(p=>{
@@ -162,26 +185,27 @@ if(p.x<0||p.x>canvas.width) p.vx*=-1;
 if(p.y<0||p.y>canvas.height) p.vy*=-1;
 });
 
-/* limit connections */
-for(let a=0;a<points.length;a++){
-for(let b=a+1;b<points.length;b++){
+/* LIMIT CONNECTIONS (max 2 per node) */
+points.forEach((a,i)=>{
+let connections=0;
 
-let dx=points[a].x-points[b].x;
-let dy=points[a].y-points[b].y;
+for(let j=i+1;j<points.length && connections<2;j++){
+
+let b=points[j];
+let dx=a.x-b.x;
+let dy=a.y-b.y;
 let dist=dx*dx+dy*dy;
 
-let maxDist = isMobile ? 8000 : 12000;
-
-if(dist<maxDist){
-ctx.strokeStyle="rgba(125,211,252,0.08)";
-ctx.lineWidth=1;
+if(dist<10000){
+ctx.strokeStyle="rgba(125,211,252,0.07)";
 ctx.beginPath();
-ctx.moveTo(points[a].x,points[a].y);
-ctx.lineTo(points[b].x,points[b].y);
+ctx.moveTo(a.x,a.y);
+ctx.lineTo(b.x,b.y);
 ctx.stroke();
+connections++;
 }
 }
-}
+});
 
 /* nodes */
 points.forEach(p=>{
@@ -194,7 +218,7 @@ ctx.fill();
 requestAnimationFrame(draw);
 }
 
-draw();
+requestAnimationFrame(draw);
 </script>
 
 </body>
