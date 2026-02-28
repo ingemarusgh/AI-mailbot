@@ -14,49 +14,19 @@ font-family:-apple-system,BlinkMacSystemFont,Inter,system-ui,sans-serif;
 }
 
 body{
-background:#030712;
+background:#020617;
 color:#e5e7eb;
 line-height:1.6;
 overflow-x:hidden;
 }
 
-/* ===== ANIMATED GRADIENT BACKGROUND ===== */
+/* ===== AI NETWORK BACKGROUND ===== */
 
-.background{
+canvas{
 position:fixed;
 top:0;
 left:0;
-width:100%;
-height:100%;
 z-index:0;
-overflow:hidden;
-}
-
-.background::before,
-.background::after{
-content:"";
-position:absolute;
-width:700px;
-height:700px;
-background:radial-gradient(circle, rgba(125,211,252,0.15), transparent 70%);
-filter:blur(120px);
-animation:float 18s ease-in-out infinite alternate;
-}
-
-.background::before{
-top:-200px;
-left:-200px;
-}
-
-.background::after{
-bottom:-200px;
-right:-200px;
-animation-delay:6s;
-}
-
-@keyframes float{
-0%{transform:translateY(0px) translateX(0px);}
-100%{transform:translateY(80px) translateX(60px);}
 }
 
 /* ===== LAYOUT ===== */
@@ -68,13 +38,13 @@ padding:90px 20px;
 }
 
 .container{
-max-width:1100px;
+max-width:1050px;
 margin:auto;
 }
 
 .hero{
 text-align:center;
-padding-top:140px;
+padding-top:130px;
 padding-bottom:120px;
 }
 
@@ -83,14 +53,13 @@ width:90%;
 max-width:600px;
 margin:0 auto 40px;
 display:block;
-filter:drop-shadow(0 0 40px rgba(125,211,252,0.6));
+filter:drop-shadow(0 0 60px rgba(125,211,252,0.6));
 }
 
 h1{
 font-size:30px;
-font-weight:600;
-margin-bottom:25px;
 color:white;
+margin-bottom:25px;
 }
 
 .hero p{
@@ -101,37 +70,42 @@ margin-bottom:12px;
 
 h2{
 font-size:24px;
-margin-bottom:25px;
 color:white;
+margin-bottom:20px;
 }
 
 p{
 font-size:16px;
-margin-bottom:16px;
 color:#cbd5e1;
+margin-bottom:16px;
 }
 
-.alt{
-background:rgba(255,255,255,0.02);
-border-top:1px solid rgba(255,255,255,0.05);
-border-bottom:1px solid rgba(255,255,255,0.05);
+/* ===== GLASS SECTIONS ===== */
+
+.glass{
+background:rgba(15,23,42,0.75);
+backdrop-filter:blur(20px);
+border-top:1px solid rgba(125,211,252,0.1);
+border-bottom:1px solid rgba(125,211,252,0.1);
 }
+
+/* ===== BUTTON ===== */
 
 .button{
 display:inline-block;
 margin-top:30px;
 padding:16px 50px;
-border-radius:12px;
+border-radius:14px;
 background:linear-gradient(135deg,#dbeafe,#7dd3fc);
 color:#0f172a;
 font-weight:600;
 text-decoration:none;
-transition:all .25s ease;
+transition:all .3s ease;
 }
 
 .button:hover{
-transform:translateY(-2px);
-box-shadow:0 0 40px rgba(125,211,252,0.4);
+transform:translateY(-3px);
+box-shadow:0 0 50px rgba(125,211,252,0.5);
 }
 
 /* ===== DESKTOP ===== */
@@ -167,8 +141,9 @@ align-items:center;
 
 <body>
 
-<div class="background"></div>
+<canvas id="network"></canvas>
 
+<!-- HERO -->
 <section class="hero">
 <div class="container">
 
@@ -184,14 +159,15 @@ align-items:center;
 </div>
 </section>
 
-<section class="alt">
+<!-- PROBLEM -->
+<section class="glass">
 <div class="container split">
 
 <div>
 <h2>Problemet</h2>
 <p>Mail är inte svårt. Det är repetitivt.</p>
 <p>Formulering, ton och struktur upprepas varje dag.</p>
-<p>Det tar fokus från det som faktiskt skapar värde.</p>
+<p>Det tar fokus från viktigare arbete.</p>
 </div>
 
 <div>
@@ -203,6 +179,7 @@ align-items:center;
 </div>
 </section>
 
+<!-- LÖSNING -->
 <section>
 <div class="container split">
 
@@ -210,7 +187,7 @@ align-items:center;
 <h2>Lösningen</h2>
 <p>Nerox ersätter inte din bedömning.</p>
 <p>Den ersätter tomt skrivfält.</p>
-<p>Du får ett strukturerat svar baserat på hur ni har valt att systemet ska arbeta.</p>
+<p>Du får ett strukturerat svar baserat på era riktlinjer.</p>
 </div>
 
 <div>
@@ -223,19 +200,21 @@ align-items:center;
 </div>
 </section>
 
-<section class="alt">
+<!-- KONFIGURATION -->
+<section class="glass">
 <div class="container">
 
 <h2>Konfigurerad för er</h2>
 
 <p>Till skillnad från generella AI-assistenter är Nerox konfigurerad efter ert företag och era användare.</p>
 
-<p><strong>Företagsnivå:</strong> vilka frågor ska besvaras och hur ska svaren struktureras?</p>
-<p><strong>Användarnivå:</strong> ton, prioriteringar och fokusområden per roll.</p>
+<p><strong>Företagsnivå:</strong> vilka frågor ska besvaras och hur?</p>
+<p><strong>Användarnivå:</strong> ton, prioriteringar och fokusområden.</p>
 
 </div>
 </section>
 
+<!-- CTA -->
 <section id="kontakt">
 <div class="container">
 
@@ -246,6 +225,69 @@ align-items:center;
 
 </div>
 </section>
+
+<script>
+const canvas=document.getElementById("network");
+const ctx=canvas.getContext("2d");
+
+function resize(){
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+}
+resize();
+window.addEventListener("resize",resize);
+
+let points=[];
+const total=window.innerWidth<768?25:45;
+
+for(let i=0;i<total;i++){
+points.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+vx:(Math.random()-0.5)*0.18,
+vy:(Math.random()-0.5)*0.18
+});
+}
+
+function draw(){
+ctx.fillStyle="rgba(2,6,23,0.6)";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+
+points.forEach(p=>{
+p.x+=p.vx;
+p.y+=p.vy;
+
+if(p.x<0||p.x>canvas.width)p.vx*=-1;
+if(p.y<0||p.y>canvas.height)p.vy*=-1;
+});
+
+points.forEach((a,i)=>{
+for(let j=i+1;j<points.length;j++){
+let b=points[j];
+let dx=a.x-b.x;
+let dy=a.y-b.y;
+
+if(dx*dx+dy*dy<12000){
+ctx.strokeStyle="rgba(125,211,252,0.06)";
+ctx.beginPath();
+ctx.moveTo(a.x,a.y);
+ctx.lineTo(b.x,b.y);
+ctx.stroke();
+}
+}
+});
+
+points.forEach(p=>{
+ctx.beginPath();
+ctx.fillStyle="rgba(200,220,255,0.8)";
+ctx.arc(p.x,p.y,2,0,Math.PI*2);
+ctx.fill();
+});
+
+requestAnimationFrame(draw);
+}
+draw();
+</script>
 
 </body>
 </html>
