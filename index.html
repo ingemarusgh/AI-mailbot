@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="sv">
 <head>
@@ -15,6 +16,7 @@ overflow-x:hidden;
 line-height:1.6;
 }
 
+/* ===== BACKGROUND ===== */
 canvas{
 position:fixed;
 top:0;
@@ -22,6 +24,7 @@ left:0;
 z-index:0;
 }
 
+/* ===== GLOBAL ===== */
 .section{
 position:relative;
 z-index:2;
@@ -35,11 +38,24 @@ margin:auto;
 
 .center{text-align:center;}
 
-h1{font-size:44px;color:white;margin-bottom:20px;}
-h2{font-size:32px;color:white;margin-bottom:25px;}
-h3{margin-bottom:12px;color:white;}
-p{color:#cbd5e1;font-size:17px;}
+h1{
+font-size:44px;
+color:white;
+margin-bottom:20px;
+}
 
+h2{
+font-size:32px;
+color:white;
+margin-bottom:25px;
+}
+
+p{
+color:#cbd5e1;
+font-size:17px;
+}
+
+/* ===== HERO ===== */
 .hero{
 padding-top:180px;
 padding-bottom:160px;
@@ -56,10 +72,9 @@ filter:drop-shadow(0 0 40px #38bdf8);
 .sub{
 font-size:20px;
 opacity:.85;
-max-width:850px;
-margin:auto;
 }
 
+/* ===== BUTTON ===== */
 .button{
 display:inline-block;
 margin-top:35px;
@@ -78,16 +93,10 @@ transform:translateY(-3px);
 box-shadow:0 0 60px rgba(56,189,248,.9);
 }
 
-/* GRID */
+/* ===== GRID ===== */
 .grid-4{
 display:grid;
 gap:40px;
-margin-top:70px;
-}
-
-.grid-2{
-display:grid;
-gap:50px;
 margin-top:70px;
 }
 
@@ -99,20 +108,13 @@ padding:45px;
 backdrop-filter:blur(20px);
 }
 
-.plan{
-background:rgba(15,23,42,.6);
-border:1px solid rgba(56,189,248,.25);
-border-radius:22px;
-padding:50px;
-backdrop-filter:blur(20px);
+.block-icon{
+font-size:28px;
+margin-bottom:15px;
+color:#38bdf8;
 }
 
-.plan.enterprise{
-border:1px solid rgba(56,189,248,.6);
-box-shadow:0 0 40px rgba(56,189,248,.15);
-}
-
-/* FLOW */
+/* ===== FLOW ===== */
 .flow{
 display:flex;
 flex-direction:column;
@@ -145,7 +147,7 @@ height:50px;
 background:rgba(56,189,248,.4);
 }
 
-/* MAIL */
+/* ===== MOCK MAIL ===== */
 .mailbox{
 background:#0f172a;
 border:1px solid rgba(56,189,248,.3);
@@ -157,20 +159,39 @@ box-shadow:0 0 40px rgba(56,189,248,.2);
 
 .mail-header{
 font-weight:600;
-margin-bottom:15px;
+margin-bottom:20px;
 color:#38bdf8;
 }
 
+.mail-content{
+opacity:.9;
+line-height:1.6;
+}
+
+/* ===== DESKTOP ===== */
 @media(min-width:900px){
+
 h1{font-size:64px;}
 h2{font-size:38px;}
 
-.grid-4{grid-template-columns:repeat(4,1fr);}
-.grid-2{grid-template-columns:repeat(2,1fr);}
+.grid-4{
+grid-template-columns:repeat(4,1fr);
+}
 
-.flow{flex-direction:row;}
-.step{flex-direction:column;text-align:center;}
-.line{width:120px;height:2px;}
+.flow{
+flex-direction:row;
+}
+
+.step{
+flex-direction:column;
+text-align:center;
+}
+
+.line{
+width:120px;
+height:2px;
+}
+
 }
 </style>
 </head>
@@ -181,52 +202,22 @@ h2{font-size:38px;}
 
 <!-- HERO -->
 <div class="section hero">
-<div class="container center">
+<div class="container">
 
 <img src="./nerox-logo.png" class="logo">
 
-<h1>En konfigurerad AI-lösning för strukturerad e-posthantering.</h1>
-
+<h1>AI som skapar utkast i er inkorg.</h1>
 <p class="sub">
-Nerox analyserar inkommande mail och skapar genomtänkta utkast direkt i er befintliga inkorg.
+Nerox arbetar i bakgrunden och genererar strukturerade svar direkt i ert befintliga mailflöde.
 Inget skickas automatiskt. Ni har full kontroll.
 </p>
 
-</div>
-</div>
-
-<!-- VERSIONER -->
-<div class="section">
-<div class="container center">
-
-<h2>Nerox finns i två nivåer</h2>
-
-<div class="grid-2">
-
-<div class="plan">
-<h3>Nerox Bas</h3>
-<p>• Skapar strukturerade utkast</p>
-<p>• Grundläggande företagskonfiguration</p>
-<p>• Standardiserad tonalitet</p>
-<p>• Manuell granskning innan utskick</p>
-<p>• Microsoft 365-integration</p>
-</div>
-
-<div class="plan enterprise">
-<h3>Nerox Enterprise</h3>
-<p>• Djup företagskonfiguration</p>
-<p>• Roll- & individanpassning</p>
-<p>• Specifika regler per ärendetyp</p>
-<p>• Anpassade svarsmallar per användare</p>
-<p>• Central styrning & vidare konfiguration</p>
-</div>
-
-</div>
+<a href="#" class="button">Boka demo</a>
 
 </div>
 </div>
 
-<!-- FEATURES (din gamla behålls) -->
+<!-- FEATURES -->
 <div class="section">
 <div class="container center">
 
@@ -235,21 +226,25 @@ Inget skickas automatiskt. Ni har full kontroll.
 <div class="grid-4">
 
 <div class="block">
+<div class="block-icon">✍️</div>
 <h3>Skapar utkast</h3>
 <p>Färdiga svar läggs som utkast i er inkorg.</p>
 </div>
 
 <div class="block">
+<div class="block-icon">🧠</div>
 <h3>Konfigurerad</h3>
 <p>Arbetar enligt tydliga företagsriktlinjer.</p>
 </div>
 
 <div class="block">
+<div class="block-icon">🔒</div>
 <h3>Full kontroll</h3>
 <p>Inget skickas utan mänskligt godkännande.</p>
 </div>
 
 <div class="block">
+<div class="block-icon">🏢</div>
 <h3>Företags & individanpassad</h3>
 <p>Olika konfiguration per företag, roll och användare.</p>
 </div>
@@ -259,7 +254,7 @@ Inget skickas automatiskt. Ni har full kontroll.
 </div>
 </div>
 
-<!-- FLOW (oförändrad) -->
+<!-- FLOW -->
 <div class="section center">
 <div class="container">
 
@@ -267,37 +262,71 @@ Inget skickas automatiskt. Ni har full kontroll.
 
 <div class="flow">
 
-<div class="step"><div class="circle">1</div><p>Mail inkommer</p></div>
+<div class="step">
+<div class="circle">1</div>
+<p>Mail inkommer</p>
+</div>
+
 <div class="line"></div>
-<div class="step"><div class="circle">2</div><p>Nerox analyserar</p></div>
+
+<div class="step">
+<div class="circle">2</div>
+<p>Nerox analyserar</p>
+</div>
+
 <div class="line"></div>
-<div class="step"><div class="circle">3</div><p>Utkast skapas</p></div>
+
+<div class="step">
+<div class="circle">3</div>
+<p>Utkast skapas</p>
+</div>
+
 <div class="line"></div>
-<div class="step"><div class="circle">4</div><p>Du granskar & godkänner</p></div>
+
+<div class="step">
+<div class="circle">4</div>
+<p>Du granskar & godkänner</p>
+</div>
+
+</div>
 
 </div>
 </div>
-</div>
 
-<!-- EXAMPLES (behåll + lägg till fler) -->
+<!-- EXAMPLES -->
 <div class="section">
 <div class="container center">
 
 <h2>Exempel på genererade utkast</h2>
 
 <div class="mailbox">
-<div class="mail-header">Sälj – Pris enligt policy</div>
-<p>Priset är 12 900 kr inklusive installation. Offerten gäller i 14 dagar.</p>
+<div class="mail-header">Prisförfrågan</div>
+<div class="mail-content">
+Hej!<br><br>
+Tack för din förfrågan. Priset för tjänsten är 12 900 kr inklusive installation.
+Leveranstiden är 5–7 arbetsdagar.<br><br>
+Återkom gärna om du vill boka in en tid.
+</div>
 </div>
 
 <div class="mailbox">
-<div class="mail-header">Kundsupport – SLA-styrt svar</div>
-<p>Ditt ärende är registrerat. Återkoppling sker inom 24 timmar enligt avtal.</p>
+<div class="mail-header">Mötesbokning</div>
+<div class="mail-content">
+Hej!<br><br>
+Jag har möjlighet att boka möte tisdag kl 10:00 eller torsdag kl 14:30.
+Återkom med vad som passar dig bäst.<br><br>
+Vänliga hälsningar
+</div>
 </div>
 
 <div class="mailbox">
-<div class="mail-header">VD – Strategisk respons</div>
-<p>Vi föreslår ett uppföljningsmöte nästa vecka för att diskutera omfattning.</p>
+<div class="mail-header">Statusuppdatering</div>
+<div class="mail-content">
+Hej!<br><br>
+Din beställning är nu under behandling och beräknas levereras inom 3 arbetsdagar.
+Vi återkommer om något förändras.<br><br>
+Tack för ditt tålamod.
+</div>
 </div>
 
 </div>
@@ -314,6 +343,10 @@ Inget skickas automatiskt. Ni har full kontroll.
 <p>✖ Tränas på ert material</p>
 <p>✖ Ersätter mänskliga beslut</p>
 
+<p style="margin-top:25px;">
+Nerox är ett konfigurerat arbetsverktyg – inte en självlärande AI.
+</p>
+
 </div>
 </div>
 
@@ -321,8 +354,8 @@ Inget skickas automatiskt. Ni har full kontroll.
 <div class="section hero">
 <div class="container center">
 
-<h2>Intresserad av att effektivisera er e-posthantering?</h2>
-<a href="#" class="button">Intresserad? Kontakta oss</a>
+<h2>Strukturerad AI – utan att förlora kontroll.</h2>
+<a href="#" class="button">Kontakta oss</a>
 
 </div>
 </div>
@@ -330,14 +363,24 @@ Inget skickas automatiskt. Ni har full kontroll.
 <script>
 const canvas=document.getElementById("network");
 const ctx=canvas.getContext("2d");
-function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
-resize();window.addEventListener("resize",resize);
+
+function resize(){
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+}
+resize();
+window.addEventListener("resize",resize);
 
 let points=[];
 const total=window.innerWidth<768?25:55;
 
 for(let i=0;i<total;i++){
-points.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:(Math.random()-0.5)*0.18,vy:(Math.random()-0.5)*0.18});
+points.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+vx:(Math.random()-0.5)*0.18,
+vy:(Math.random()-0.5)*0.18
+});
 }
 
 function draw(){
@@ -345,7 +388,8 @@ ctx.fillStyle="rgba(2,6,23,0.6)";
 ctx.fillRect(0,0,canvas.width,canvas.height);
 
 points.forEach(p=>{
-p.x+=p.vx;p.y+=p.vy;
+p.x+=p.vx;
+p.y+=p.vy;
 if(p.x<0||p.x>canvas.width)p.vx*=-1;
 if(p.y<0||p.y>canvas.height)p.vy*=-1;
 });
@@ -353,11 +397,17 @@ if(p.y<0||p.y>canvas.height)p.vy*=-1;
 points.forEach((a,i)=>{
 for(let j=i+1;j<points.length;j++){
 let b=points[j];
-let dx=a.x-b.x;let dy=a.y-b.y;
+let dx=a.x-b.x;
+let dy=a.y-b.y;
 if(dx*dx+dy*dy<11000){
 ctx.strokeStyle="rgba(56,189,248,0.07)";
-ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
-}}});
+ctx.beginPath();
+ctx.moveTo(a.x,a.y);
+ctx.lineTo(b.x,b.y);
+ctx.stroke();
+}
+}
+});
 
 points.forEach(p=>{
 ctx.beginPath();
