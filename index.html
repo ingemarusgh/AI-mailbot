@@ -1,161 +1,82 @@
-<!DOCTYPE html>
-
-<html lang="sv">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Nerox</title>
-
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Inter,system-ui,Arial;
-}
-
-body{
-    background:radial-gradient(ellipse at center,#071226 0%,#02050b 70%);
-    color:white;
-    height:100vh;
-    overflow:hidden;
-}
-
-/* STARFIELD */
-canvas{
-    position:fixed;
-    top:0;
-    left:0;
-    z-index:-1;
-}
-
-/* HERO */
-.hero{
-    height:100vh;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    padding:20px;
-}
-
-/* LOGO */
-.logo{
-    width:280px;
-    margin-bottom:28px;
-    filter:
-        drop-shadow(0 0 12px rgba(0,170,255,0.45))
-        drop-shadow(0 0 35px rgba(0,170,255,0.25));
-    animation:float 6s ease-in-out infinite;
-}
-
-@keyframes float{
-    0%,100%{transform:translateY(0px)}
-    50%{transform:translateY(-10px)}
-}
-
-h1{
-    font-size:68px;
-    letter-spacing:-1px;
-    margin-bottom:10px;
-}
-
-.subtitle{
-    font-size:20px;
-    opacity:.8;
-    max-width:650px;
-    line-height:1.6;
-    margin-bottom:40px;
-}
-
-.cta{
-    background:linear-gradient(135deg,#1da1ff,#00d4ff);
-    border:none;
-    padding:16px 34px;
-    border-radius:12px;
-    color:white;
-    font-size:18px;
-    font-weight:600;
-    cursor:pointer;
-    transition:.25s;
-}
-
-.cta:hover{
-    transform:translateY(-3px);
-    box-shadow:0 10px 35px rgba(0,170,255,.35);
-}
-</style>
-
-</head>
-
-<body>
-
-<canvas id="stars"></canvas>
-
-<div class="hero">
-    <img src="nerox-logo.png" class="logo">
-    <h1>Nerox</h1>
-    <div class="subtitle">
-        AI som läser din inkorg och föreslår färdiga svar.
-        Du godkänner — klart.
-    </div>
-    <button class="cta">Boka demo</button>
-</div>
+<canvas id="ai-bg"></canvas>
 
 <script>
-const canvas=document.getElementById("stars");
-const ctx=canvas.getContext("2d");
+const canvas = document.getElementById("ai-bg");
+const ctx = canvas.getContext("2d");
 
-let stars=[];
-let w,h;
-
-function resize(){
-    w=canvas.width=window.innerWidth;
-    h=canvas.height=window.innerHeight;
+let w, h;
+function resize() {
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = window.innerHeight;
 }
-window.onresize=resize;
 resize();
+window.addEventListener("resize", resize);
 
-for(let i=0;i<220;i++){
-    stars.push({
-        x:Math.random()*w,
-        y:Math.random()*h,
-        z:Math.random()*w
-    });
-}
+class Particle {
+  constructor() {
+    this.reset();
+  }
 
-function draw(){
-    ctx.fillStyle="#02050b";
-    ctx.fillRect(0,0,w,h);
+  reset() {
+    this.x = Math.random() * w;
+    this.y = Math.random() * h;
+    this.size = Math.random() * 2 + 0.5;
+    this.speedX = (Math.random() - 0.5) * 0.3;
+    this.speedY = (Math.random() - 0.5) * 0.3;
+    this.alpha = Math.random() * 0.5 + 0.2;
+  }
 
-    ctx.fillStyle="white";
+  move() {
+    this.x += this.speedX;
+    this.y += this.speedY;
 
-    for(let s of stars){
-        s.z-=0.6;
-        if(s.z<=0){
-            s.x=Math.random()*w;
-            s.y=Math.random()*h;
-            s.z=w;
-        }
-
-        let k=128/s.z;
-        let px=(s.x-w/2)*k+w/2;
-        let py=(s.y-h/2)*k+h/2;
-
-        if(px>=0&&px<=w&&py>=0&&py<=h){
-            let size=(1-s.z/w)*3;
-            ctx.beginPath();
-            ctx.arc(px,py,size,0,Math.PI*2);
-            ctx.fill();
-        }
+    if (this.x < 0 || this.x > w || this.y < 0 || this.y > h) {
+      this.reset();
     }
+  }
 
-    requestAnimationFrame(draw);
+  draw() {
+    ctx.beginPath();
+    ctx.fillStyle = `rgba(0, 200, 255, ${this.alpha})`;
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
 }
-draw();
-</script>
 
-</body>
-</html>
+const particles = [];
+for (let i = 0; i < 120; i++) {
+  particles.push(new Particle());
+}
+
+function connect() {
+  for (let a = 0; a < particles.length; a++) {
+    for (let b = a; b < particles.length; b++) {
+      const dx = particles[a].x - particles[b].x;
+      const dy = particles[a].y - particles[b].y;
+      const dist = dx * dx + dy * dy;
+
+      if (dist < 12000) {
+        ctx.strokeStyle = "rgba(0,180,255,0.06)";
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(particles[a].x, particles[a].y);
+        ctx.lineTo(particles[b].x, particles[b].y);
+        ctx.stroke();
+      }
+    }
+  }
+}
+
+function animate() {
+  ctx.clearRect(0, 0, w, h);
+
+  particles.forEach(p => {
+    p.move();
+    p.draw();
+  });
+
+  connect();
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
