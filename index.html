@@ -14,11 +14,11 @@ font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;
 }
 
 body{
-height:100vh;
+min-height:100vh;
 background:#020617;
 color:white;
 display:flex;
-align-items:center;
+align-items:flex-start;
 justify-content:center;
 overflow:hidden;
 }
@@ -37,40 +37,93 @@ position:relative;
 z-index:2;
 text-align:center;
 max-width:900px;
-padding:20px;
+padding:80px 20px 40px 20px;
 }
 
+/* BIGGER LOGO */
 .logo{
-width:460px;
+width:520px;
+max-width:90%;
 margin-bottom:40px;
-filter:drop-shadow(0 0 30px rgba(0,170,255,0.35));
+
+/* cyberpunk glow */
+filter:
+drop-shadow(0 0 25px #00f2ff)
+drop-shadow(0 0 60px #8a2be2)
+drop-shadow(0 0 120px rgba(255,0,255,0.4));
+
+transition:0.4s ease;
 }
 
+.logo:hover{
+filter:
+drop-shadow(0 0 40px #00ffff)
+drop-shadow(0 0 90px #ff00ff)
+drop-shadow(0 0 160px rgba(255,0,255,0.6));
+}
+
+/* TAGLINE */
 .tagline{
 font-size:22px;
-color:#c7d2fe;
-margin-bottom:50px;
+color:#dbeafe;
+margin-bottom:60px;
 max-width:600px;
 margin-left:auto;
 margin-right:auto;
 line-height:1.6;
 }
 
+/* CYBERPUNK BUTTON */
 button{
-padding:18px 44px;
+padding:18px 48px;
 font-size:18px;
-border:none;
 border-radius:14px;
-background:linear-gradient(135deg,#2563eb,#06b6d4);
-color:white;
+border:2px solid #00f2ff;
+background:transparent;
+color:#00f2ff;
 cursor:pointer;
-transition:.25s;
-box-shadow:0 10px 40px rgba(0,170,255,.25);
+position:relative;
+overflow:hidden;
+transition:0.3s ease;
+text-transform:uppercase;
+letter-spacing:1px;
+}
+
+button::before{
+content:"";
+position:absolute;
+inset:0;
+background:linear-gradient(90deg,#00f2ff,#ff00ff);
+opacity:0;
+transition:0.3s;
+z-index:-1;
 }
 
 button:hover{
-transform:translateY(-3px);
-box-shadow:0 20px 60px rgba(0,170,255,.45);
+color:black;
+box-shadow:
+0 0 20px #00f2ff,
+0 0 40px #ff00ff;
+}
+
+button:hover::before{
+opacity:1;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+.container{
+padding-top:60px;
+}
+
+.logo{
+width:360px;
+}
+
+.tagline{
+font-size:18px;
+}
 }
 </style>
 </head>
@@ -81,10 +134,12 @@ box-shadow:0 20px 60px rgba(0,170,255,.45);
 
 <div class="container">
 <img src="./nerox-logo.png" class="logo">
+
 <p class="tagline">
 AI som läser din inkorg och föreslår färdiga svar.
 Du godkänner — klart.
 </p>
+
 <button>Boka demo</button>
 </div>
 
@@ -112,7 +167,7 @@ vy:(Math.random()-0.5)*0.4
 }
 
 function draw(){
-ctx.fillStyle="rgba(2,6,23,0.4)";
+ctx.fillStyle="rgba(2,6,23,0.45)";
 ctx.fillRect(0,0,canvas.width,canvas.height);
 
 points.forEach(p=>{
@@ -123,7 +178,7 @@ if(p.x<0||p.x>canvas.width) p.vx*=-1;
 if(p.y<0||p.y>canvas.height) p.vy*=-1;
 });
 
-/* connect nearby points */
+/* connect points */
 for(let a=0;a<points.length;a++){
 for(let b=a;b<points.length;b++){
 
@@ -132,7 +187,7 @@ let dy=points[a].y-points[b].y;
 let dist=dx*dx+dy*dy;
 
 if(dist<12000){
-ctx.strokeStyle="rgba(0,170,255,0.08)";
+ctx.strokeStyle="rgba(0,255,255,0.08)";
 ctx.lineWidth=1;
 ctx.beginPath();
 ctx.moveTo(points[a].x,points[a].y);
@@ -142,10 +197,10 @@ ctx.stroke();
 }
 }
 
-/* draw nodes */
+/* nodes */
 points.forEach(p=>{
 ctx.beginPath();
-ctx.fillStyle="rgba(200,220,255,0.8)";
+ctx.fillStyle="rgba(200,220,255,0.9)";
 ctx.arc(p.x,p.y,2,0,Math.PI*2);
 ctx.fill();
 });
