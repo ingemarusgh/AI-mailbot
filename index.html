@@ -3,57 +3,84 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nerox – AI-assistent för företagsmail</title>
+<title>Nerox – AI som svarar på din inkorg</title>
 
 <style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,system-ui}
 body{
-  margin:0;
-  font-family: system-ui, -apple-system, Arial;
-  background:#02030a;
-  color:#e8eef6;
-  overflow-x:hidden;
+    background:radial-gradient(ellipse at bottom,#020617 0%,#000000 100%);
+    color:white;
+    height:100vh;
+    overflow:hidden;
 }
+
+/* ===== SPACE BACKGROUND ===== */
 
 canvas{
-  position:fixed;
-  top:0;
-  left:0;
-  z-index:-1;
+    position:fixed;
+    inset:0;
+    z-index:-1;
 }
 
-.container{max-width:1100px;margin:auto;padding:40px 20px;}
-.hero{text-align:center;padding:140px 20px 90px;}
-h1{font-size:52px;margin-bottom:20px;}
-p{color:#a9b4c2;font-size:18px;}
+/* ===== HERO ===== */
 
-button{
-  margin-top:30px;
-  padding:16px 30px;
-  border-radius:14px;
-  border:none;
-  font-size:16px;
-  background:linear-gradient(90deg,#3b82f6,#00e5ff);
-  color:white;
-  cursor:pointer;
-  box-shadow:0 0 25px rgba(59,130,246,.4);
+.hero{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:20px;
 }
 
-.section{margin-top:120px;text-align:center;}
-
-.cards{
-  display:flex;gap:40px;justify-content:center;
-  flex-wrap:wrap;margin-top:40px;
+.logo{
+    width:240px;
+    margin-bottom:28px;
+    filter:drop-shadow(0 0 25px rgba(0,170,255,.35));
 }
 
-.card{
-  width:260px;
-  background:rgba(18,24,33,.55);
-  backdrop-filter:blur(8px);
-  padding:25px;border-radius:18px;
-  border:1px solid rgba(255,255,255,.05);
+h1{
+    font-size:56px;
+    font-weight:700;
+    letter-spacing:-1px;
 }
 
-footer{margin-top:120px;text-align:center;color:#7c8796;font-size:14px;padding-bottom:40px;}
+.sub{
+    margin-top:18px;
+    font-size:20px;
+    opacity:.75;
+    max-width:700px;
+    line-height:1.6;
+}
+
+.btn{
+    margin-top:38px;
+    background:linear-gradient(90deg,#3b82f6,#06b6d4);
+    padding:16px 34px;
+    border-radius:14px;
+    font-weight:600;
+    text-decoration:none;
+    color:white;
+    transition:.25s;
+    box-shadow:0 10px 30px rgba(0,150,255,.25);
+}
+
+.btn:hover{
+    transform:translateY(-3px) scale(1.03);
+    box-shadow:0 20px 50px rgba(0,150,255,.45);
+}
+
+/* glow */
+.hero:before{
+    content:"";
+    position:absolute;
+    width:700px;
+    height:700px;
+    background:radial-gradient(circle,rgba(0,140,255,.15),transparent 70%);
+    filter:blur(80px);
+    z-index:-1;
+}
 </style>
 </head>
 
@@ -61,76 +88,75 @@ footer{margin-top:120px;text-align:center;color:#7c8796;font-size:14px;padding-b
 
 <canvas id="space"></canvas>
 
-<div class="hero container">
-  <h1>AI-assistenten för företagsmail</h1>
-  <p>Nerox läser inkommande mail och föreslår färdiga svar du bara godkänner.</p>
-  <button onclick="location.href='mailto:support@nerox.se?subject=Demo%20Nerox'">Boka 15 min demo</button>
+<div class="hero">
+    <img src="nerox-logo.png" class="logo">
+
+    <h1>Nerox</h1>
+
+    <div class="sub">
+        AI som läser din inkorg och föreslår färdiga svar.
+        Du godkänner — klart.
+    </div>
+
+    <a class="btn" href="#">Boka demo</a>
 </div>
-
-<div class="section container">
-  <h2>Så fungerar Nerox</h2>
-  <div class="cards">
-    <div class="card"><h3>1. Koppla mail</h3><p>Säker anslutning via Microsoft 365 eller Gmail.</p></div>
-    <div class="card"><h3>2. AI föreslår svar</h3><p>Analyserar och skriver utkast automatiskt.</p></div>
-    <div class="card"><h3>3. Du godkänner</h3><p>Inget skickas utan din kontroll.</p></div>
-  </div>
-</div>
-
-<section class="section container">
-  <h2>Passar företag som får mycket mail</h2>
-  <div class="cards">
-    <div class="card"><h3>Kundtjänst</h3><p>Slipp skriva samma svar varje dag.</p></div>
-    <div class="card"><h3>Bokningar</h3><p>Svara snabbt på förfrågningar.</p></div>
-    <div class="card"><h3>Offerter</h3><p>AI skapar färdiga utkast.</p></div>
-  </div>
-</section>
-
-<footer class="container">© 2026 Nerox</footer>
 
 <script>
-const canvas=document.getElementById("space");
-const ctx=canvas.getContext("2d");
+const c = document.getElementById("space");
+const ctx = c.getContext("2d");
+
+let w,h,particles=[];
 
 function resize(){
- canvas.width=window.innerWidth;
- canvas.height=window.innerHeight;
+    w=c.width=window.innerWidth;
+    h=c.height=window.innerHeight;
 }
 resize();
-window.onresize=resize;
+window.addEventListener("resize",resize);
 
-let stars=[];
-for(let i=0;i<180;i++){
- stars.push({
-   x:Math.random()*canvas.width,
-   y:Math.random()*canvas.height,
-   z:Math.random()*2+0.2
- });
+class Particle{
+    constructor(){
+        this.reset();
+    }
+    reset(){
+        this.x=Math.random()*w;
+        this.y=Math.random()*h;
+        this.z=Math.random()*w;
+        this.size=Math.random()*2+0.5;
+        this.speed=Math.random()*0.6+0.2;
+        this.color=`hsl(${200+Math.random()*40},100%,70%)`;
+    }
+    update(){
+        this.z-=this.speed;
+        if(this.z<=0) this.reset();
+    }
+    draw(){
+        let k=128/this.z;
+        let px=(this.x-w/2)*k+w/2;
+        let py=(this.y-h/2)*k+h/2;
+        let s=this.size*k;
+
+        ctx.fillStyle=this.color;
+        ctx.beginPath();
+        ctx.arc(px,py,s,0,Math.PI*2);
+        ctx.fill();
+    }
 }
 
-function draw(){
- ctx.fillStyle="rgba(2,3,10,0.45)";
- ctx.fillRect(0,0,canvas.width,canvas.height);
+for(let i=0;i<180;i++)particles.push(new Particle());
 
- for(let s of stars){
-   s.y+=s.z;
-   if(s.y>canvas.height){s.y=0;s.x=Math.random()*canvas.width;}
+function animate(){
+    ctx.fillStyle="rgba(0,0,0,0.4)";
+    ctx.fillRect(0,0,w,h);
 
-   ctx.beginPath();
-   ctx.arc(s.x,s.y,s.z*1.2,0,Math.PI*2);
-   ctx.fillStyle="white";
-   ctx.fill();
- }
+    particles.forEach(p=>{
+        p.update();
+        p.draw();
+    });
 
- // nebulosa glow
- let g=ctx.createRadialGradient(canvas.width*0.7,canvas.height*0.3,0,canvas.width*0.7,canvas.height*0.3,400);
- g.addColorStop(0,"rgba(0,140,255,0.12)");
- g.addColorStop(1,"rgba(0,0,0,0)");
- ctx.fillStyle=g;
- ctx.fillRect(0,0,canvas.width,canvas.height);
-
- requestAnimationFrame(draw);
+    requestAnimationFrame(animate);
 }
-draw();
+animate();
 </script>
 
 </body>
