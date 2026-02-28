@@ -79,21 +79,12 @@ background:linear-gradient(90deg,#e0f2ff,#7dd3fc);
 }
 
 p{
-margin-bottom:15px;
+margin-bottom:18px;
 color:#dbeafe;
 }
 
-ul{
-list-style:none;
-margin:20px 0;
-}
-
-ul li{
-margin-bottom:10px;
-color:#cbd5e1;
-}
-
-button{
+.button{
+display:inline-block;
 padding:18px 52px;
 font-size:18px;
 border-radius:14px;
@@ -103,39 +94,46 @@ color:#021024;
 cursor:pointer;
 transition:0.3s ease;
 font-weight:600;
-margin-top:20px;
+margin-top:30px;
+text-decoration:none;
 }
 
-button:hover{
+.button:hover{
 transform:translateY(-3px);
 box-shadow:0 0 40px rgba(125,211,252,0.6);
 }
 
-.cards{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:40px;
-margin-top:40px;
-}
-
-.card{
-width:300px;
-padding:30px;
-border-radius:18px;
+.example-box{
 background:rgba(255,255,255,0.03);
 border:1px solid rgba(125,211,252,0.15);
+padding:30px;
+border-radius:18px;
+text-align:left;
+margin-top:30px;
 }
 
-.card h3{
+.example-title{
+font-weight:600;
 margin-bottom:15px;
+color:#7dd3fc;
+}
+
+.split{
+display:flex;
+gap:40px;
+flex-wrap:wrap;
+justify-content:center;
+}
+
+.split div{
+flex:1;
+min-width:280px;
 }
 
 @media(max-width:768px){
 .logo{width:450px;}
 h1{font-size:28px;}
 section{padding:70px 20px;}
-.cards{flex-direction:column;align-items:center;}
 }
 </style>
 </head>
@@ -150,113 +148,138 @@ section{padding:70px 20px;}
 <h1>Spara tid på mail – utan att tappa kontroll.</h1>
 
 <p>
-Nerox läser inkommande mail, föreslår färdiga svar och låter dig godkänna innan något skickas.
+Nerox läser inkommande mail och föreslår färdiga svar.
+Du granskar och godkänner innan något skickas.
 </p>
+
 <p>
 Systemet konfigureras efter ert företag och varje användare.
 Ingen datalagring. Ingen automatisk inlärning.
 </p>
 
-<button>Boka demo</button>
+<a href="#" class="button">Boka demo</a>
 </section>
 
 <section>
-<h2>Så fungerar Nerox</h2>
+<h2>Så fungerar det</h2>
 
-<div class="cards">
-<div class="card">
-<h3>1. Ett mail kommer in</h3>
-<p>Nerox analyserar innehållet.</p>
+<p><strong>Ett mail kommer in.</strong> En kund skickar en fråga.</p>
+<p><strong>Nerox föreslår ett svar.</strong> AI:n använder de riktlinjer som satts upp för ert företag.</p>
+<p><strong>Du klickar skicka.</strong> Inget går iväg utan ditt godkännande.</p>
+
+<p>Det tar sekunder istället för minuter.</p>
+</section>
+
+<section>
+<h2>Exempel i praktiken</h2>
+
+<div class="split">
+
+<div class="example-box">
+<div class="example-title">Före</div>
+<p><strong>Kund:</strong> “Vad kostar er tjänst med installation och hur lång är leveranstiden?”</p>
+<br>
+<p>Du:</p>
+<p>– Läser mailet<br>
+– Kollar pris<br>
+– Formulerar svar<br>
+– Dubbelkollar ton<br>
+– Skickar</p>
+<br>
+<p><strong>3–5 minuter</strong></p>
 </div>
 
-<div class="card">
-<h3>2. Du får ett färdigt svar</h3>
-<p>AI:n föreslår ett svar enligt era riktlinjer.</p>
+<div class="example-box">
+<div class="example-title">Med Nerox</div>
+<p><strong>Nerox föreslår:</strong></p>
+<p>
+“Hej! Tack för din fråga. Tjänsten kostar 12 900 kr inklusive installation.
+Leveranstiden är 5–7 arbetsdagar. Hör gärna av dig om du vill boka.”
+</p>
+<br>
+<p><strong>Du klickar: ✔ Skicka</strong></p>
+<p><strong>10–20 sekunder</strong></p>
 </div>
 
-<div class="card">
-<h3>3. Du godkänner</h3>
-<p>Inget skickas automatiskt. Du har alltid sista ordet.</p>
-</div>
 </div>
 </section>
 
 <section>
-<h2>Anpassad för ert företag</h2>
+<h2>Anpassad – på riktigt</h2>
 
-<p>Nerox är inte en generell AI. Den konfigureras efter hur just ert företag arbetar.</p>
+<p>
+Nerox är inte en generell AI.
+Den sätts upp för att arbeta enligt hur just ert företag fungerar.
+</p>
 
-<ul>
-<li>• Vilka frågor den ska kunna svara på</li>
-<li>• Hur svaren ska formuleras</li>
-<li>• Vilken information den får använda</li>
-<li>• Vilken tonalitet ni vill ha</li>
-</ul>
+<p>
+Vi definierar tillsammans vilka frågor den ska hantera,
+hur den ska formulera sig och vilken information den får använda.
+</p>
 
-<p>Det gör svaren förutsägbara och professionella.</p>
+<p>
+Det gör svaren förutsägbara och professionella.
+</p>
 </section>
 
 <section>
 <h2>Anpassad per användare</h2>
 
-<div class="cards">
-<div class="card">
+<div class="split">
+
+<div>
 <h3>Sälj</h3>
-<p>Prisförfrågningar, offertförklaringar, leveranstider.</p>
+<p>Prisförfrågningar, offertförklaringar och uppföljningar.</p>
 </div>
 
-<div class="card">
+<div>
 <h3>Support</h3>
-<p>Vanliga kundfrågor, bokningar, returer och garantier.</p>
+<p>Bokningar, returer och vanliga kundfrågor.</p>
 </div>
 
-<div class="card">
+<div>
 <h3>Ledning</h3>
-<p>Formella svar och strategisk kommunikation.</p>
-</div>
+<p>Formell kommunikation och strategiska svar.</p>
 </div>
 
-<p>Ni bestämmer vad Nerox ska kunna.</p>
+</div>
+
+<p style="margin-top:40px;">Ni bestämmer vad Nerox ska kunna.</p>
 </section>
 
 <section>
-<h2>Så här ställer vi in Nerox</h2>
+<h2>Så ställer vi in Nerox</h2>
 
-<p><strong>Steg 1:</strong> Vi går igenom er verksamhet och identifierar återkommande frågor.</p>
-<p><strong>Steg 2:</strong> Vi sätter upp riktlinjer på företagsnivå.</p>
-<p><strong>Steg 3:</strong> Vi anpassar per användare och roll.</p>
+<p>1. Vi kartlägger återkommande frågor.</p>
+<p>2. Vi sätter upp tydliga riktlinjer.</p>
+<p>3. Vi anpassar per roll och användare.</p>
+<p>4. Ni testar och justerar.</p>
 
-<p>Allt sker genom tydlig konfiguration – inte genom datainsamling.</p>
-</section>
-
-<section>
-<h2>Vad Nerox löser</h2>
-
-<ul>
-<li>• Mindre tid på återkommande mail</li>
-<li>• Snabbare svar till kunder</li>
-<li>• Enhetlig kommunikation</li>
-<li>• Mindre stress i vardagen</li>
-</ul>
+<p>Allt sker genom konfiguration – inte genom datainsamling.</p>
 </section>
 
 <section>
 <h2>Säkerhet & kontroll</h2>
 
-<ul>
-<li>• Ingen lagring av mailhistorik</li>
-<li>• Ingen automatisk inlärning</li>
-<li>• Säker inloggning via Microsoft 365 eller Google</li>
-<li>• Inget skickas utan godkännande</li>
-</ul>
+<p>
+Nerox lagrar inte mailhistorik, tränas inte på ert material
+och skickar inget automatiskt.
+</p>
+
+<p>
+Ni har full kontroll över hur systemet arbetar.
+</p>
 </section>
 
 <section>
 <h2>Redo att effektivisera er inkorg?</h2>
 
-<p>Mail kommer alltid att finnas. Frågan är om ni ska skriva varje svar själva.</p>
+<p>
+Mail kommer alltid att finnas.
+Frågan är hur mycket tid ni vill lägga på att skriva samma svar om och om igen.
+</p>
 
-<button>Boka demo</button>
+<a href="#" class="button">Boka demo</a>
 </section>
 
 <script>
@@ -268,7 +291,7 @@ resize();
 window.addEventListener("resize",resize);
 
 const isMobile=window.innerWidth<768;
-const total=isMobile?30:50;
+const total=isMobile?25:45;
 
 let points=[];
 for(let i=0;i<total;i++){
@@ -291,8 +314,8 @@ let b=points[j];
 let dx=a.x-b.x;
 let dy=a.y-b.y;
 let dist=dx*dx+dy*dy;
-if(dist<10000){
-ctx.strokeStyle="rgba(125,211,252,0.07)";
+if(dist<12000){
+ctx.strokeStyle="rgba(125,211,252,0.06)";
 ctx.beginPath();
 ctx.moveTo(a.x,a.y);
 ctx.lineTo(b.x,b.y);
@@ -303,7 +326,7 @@ ctx.stroke();
 
 points.forEach(p=>{
 ctx.beginPath();
-ctx.fillStyle="rgba(200,220,255,0.9)";
+ctx.fillStyle="rgba(200,220,255,0.8)";
 ctx.arc(p.x,p.y,2,0,Math.PI*2);
 ctx.fill();
 });
