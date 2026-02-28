@@ -23,7 +23,7 @@ justify-content:center;
 overflow:hidden;
 }
 
-/* BACKGROUND CANVAS */
+/* CANVAS */
 canvas{
 position:fixed;
 top:0;
@@ -43,9 +43,7 @@ padding:20px;
 .logo{
 width:460px;
 margin-bottom:40px;
-filter:
-drop-shadow(0 0 30px rgba(0,170,255,0.35));
-transition:0.3s ease;
+filter:drop-shadow(0 0 30px rgba(0,170,255,0.35));
 }
 
 .tagline{
@@ -79,21 +77,19 @@ box-shadow:0 20px 60px rgba(0,170,255,.45);
 
 <body>
 
-<canvas id="bg"></canvas>
+<canvas id="waves"></canvas>
 
 <div class="container">
 <img src="./nerox-logo.png" class="logo">
-
 <p class="tagline">
 AI som läser din inkorg och föreslår färdiga svar.
 Du godkänner — klart.
 </p>
-
 <button>Boka demo</button>
 </div>
 
 <script>
-const canvas = document.getElementById("bg");
+const canvas = document.getElementById("waves");
 const ctx = canvas.getContext("2d");
 
 function resize(){
@@ -103,41 +99,47 @@ canvas.height = window.innerHeight;
 resize();
 window.addEventListener("resize",resize);
 
-let mouse = {x:canvas.width/2,y:canvas.height/2};
-
+let mouseX = canvas.width/2;
 window.addEventListener("mousemove",e=>{
-mouse.x=e.clientX;
-mouse.y=e.clientY;
+mouseX = e.clientX;
 });
 
-let stars=[];
-
-/* create layered depth */
-for(let i=0;i<180;i++){
-stars.push({
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-z:Math.random()*2+0.5, // depth
-});
-}
+let t=0;
 
 function draw(){
-ctx.fillStyle="#020617";
+ctx.fillStyle="rgba(2,6,23,0.35)";
 ctx.fillRect(0,0,canvas.width,canvas.height);
 
-stars.forEach(s=>{
-let parallaxX=(mouse.x-canvas.width/2)*0.0005*s.z;
-let parallaxY=(mouse.y-canvas.height/2)*0.0005*s.z;
+for(let i=0;i<6;i++){
 
-let x=s.x+parallaxX;
-let y=s.y+parallaxY;
+let amplitude = 40 + i*25;
+let frequency = 0.004 + i*0.0007;
+let speed = 0.001 + i*0.0003;
+let opacity = 0.12 - i*0.015;
 
 ctx.beginPath();
-ctx.fillStyle="rgba(200,220,255,0.7)";
-ctx.arc(x,y,1.2*s.z,0,Math.PI*2);
-ctx.fill();
-});
 
+for(let x=0;x<canvas.width;x++){
+
+let mouseInfluence = (mouseX - canvas.width/2) * 0.00005;
+
+let y = canvas.height/2 +
+Math.sin(x*frequency + t*speed + i) * amplitude +
+mouseInfluence * x;
+
+ctx.lineTo(x,y);
+}
+
+let gradient = ctx.createLinearGradient(0,0,canvas.width,0);
+gradient.addColorStop(0,"rgba(0,170,255,"+opacity+")");
+gradient.addColorStop(1,"rgba(0,255,255,"+opacity+")");
+
+ctx.strokeStyle = gradient;
+ctx.lineWidth = 1.5;
+ctx.stroke();
+}
+
+t += 1;
 requestAnimationFrame(draw);
 }
 
