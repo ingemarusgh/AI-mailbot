@@ -6,14 +6,21 @@
 <title>Nerox</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,system-ui,-apple-system;}
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Inter, system-ui, -apple-system;
+}
 
 body{
 background:#020617;
-color:white;
-overflow-x:hidden;
+color:#e2e8f0;
 line-height:1.6;
+overflow-x:hidden;
 }
+
+/* ===== BACKGROUND ===== */
 
 canvas{
 position:fixed;
@@ -22,109 +29,114 @@ left:0;
 z-index:0;
 }
 
-.container{
-max-width:1200px;
-margin:auto;
-padding:80px 30px;
+/* ===== LAYOUT ===== */
+
+section{
 position:relative;
 z-index:2;
+padding:70px 20px;
 }
 
-.section-dark{
+.container{
+max-width:1000px;
+margin:auto;
+}
+
+/* ===== HERO ===== */
+
+.hero{
+text-align:center;
+padding-top:100px;
+padding-bottom:100px;
+}
+
+.logo{
+width:85%;
+max-width:520px;
+margin:0 auto 30px;
+display:block;
+filter:drop-shadow(0 0 50px rgba(125,211,252,0.5));
+}
+
+h1{
+font-size:28px;
+margin-bottom:20px;
+color:white;
+}
+
+h2{
+font-size:24px;
+margin-bottom:20px;
+color:white;
+}
+
+p{
+font-size:16px;
+margin-bottom:16px;
+color:#cbd5e1;
+}
+
+/* ===== ALT SECTIONS ===== */
+
+.alt{
 background:rgba(255,255,255,0.02);
 border-top:1px solid rgba(125,211,252,0.05);
 border-bottom:1px solid rgba(125,211,252,0.05);
 }
 
-.logo{
-width:750px;
-max-width:95%;
-display:block;
-margin:0 auto 40px;
-filter:drop-shadow(0 0 60px rgba(125,211,252,0.7));
+/* ===== BUTTON ===== */
+
+.button{
+display:inline-block;
+margin-top:25px;
+padding:16px 45px;
+font-size:16px;
+border-radius:14px;
+border:2px solid #7dd3fc;
+background:linear-gradient(135deg,#e0f2ff,#7dd3fc);
+color:#021024;
+font-weight:600;
+text-decoration:none;
+transition:all .3s ease;
+}
+
+.button:hover{
+transform:translateY(-3px);
+box-shadow:0 0 40px rgba(125,211,252,0.6);
+}
+
+/* ===== DESKTOP ===== */
+
+@media(min-width:900px){
+
+section{
+padding:110px 30px;
+}
+
+.hero{
+padding-top:150px;
+padding-bottom:150px;
 }
 
 h1{
 font-size:48px;
-margin-bottom:20px;
-text-align:center;
 }
 
 h2{
 font-size:34px;
-margin-bottom:25px;
-background:linear-gradient(90deg,#e0f2ff,#7dd3fc);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
 }
 
-p{color:#cbd5e1;margin-bottom:18px;}
+p{
+font-size:18px;
+}
 
-.center{text-align:center;}
-
-.grid-2{
+.split{
 display:grid;
 grid-template-columns:1fr 1fr;
 gap:60px;
 align-items:center;
 }
 
-.grid-3{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:40px;
-}
-
-.card{
-background:rgba(255,255,255,0.03);
-border:1px solid rgba(125,211,252,0.15);
-padding:35px;
-border-radius:20px;
-}
-
-.button{
-display:inline-block;
-padding:20px 70px;
-font-size:18px;
-border-radius:18px;
-border:2px solid #7dd3fc;
-background:linear-gradient(135deg,#e0f2ff,#7dd3fc);
-color:#021024;
-font-weight:700;
-cursor:pointer;
-transition:all .3s ease;
-text-decoration:none;
-position:relative;
-}
-
-.button:hover{
-transform:translateY(-4px);
-box-shadow:0 0 80px rgba(125,211,252,0.7);
-}
-
-form{
-display:grid;
-gap:20px;
-max-width:600px;
-margin-top:40px;
-}
-
-input,textarea{
-padding:16px;
-border-radius:12px;
-border:1px solid rgba(125,211,252,0.3);
-background:#0f172a;
-color:white;
-font-size:16px;
-}
-
-textarea{min-height:120px;}
-
-@media(max-width:900px){
-.grid-2{grid-template-columns:1fr;}
-.grid-3{grid-template-columns:1fr;}
-h1{font-size:32px;}
-.container{padding:60px 20px;}
 }
 </style>
 </head>
@@ -133,136 +145,146 @@ h1{font-size:32px;}
 
 <canvas id="network"></canvas>
 
-<div class="container center">
+<!-- HERO -->
+<section class="hero">
+<div class="container">
+
 <img src="./nerox-logo.png" class="logo">
-<h1>Spara tid på mail – utan att tappa kontroll.</h1>
-<p>Nerox läser inkommande mail och föreslår färdiga svar. Du granskar och godkänner innan något skickas.</p>
-<p>Konfigurerad efter ert företag och varje användare. Ingen datalagring. Ingen automatisk inlärning.</p>
+
+<h1>Spara tid på mail — utan att tappa kontroll.</h1>
+
+<p>Nerox läser inkommande mail och föreslår färdiga svar.</p>
+<p>Du granskar. Du godkänner. Inget skickas automatiskt.</p>
+
 <a href="#kontakt" class="button">Boka demo</a>
-</div>
 
-<div class="container section-dark">
-<div class="grid-2">
-<div>
+</div>
+</section>
+
+<!-- PROBLEM -->
+<section class="alt">
+<div class="container">
+
 <h2>Problemet</h2>
-<p>Mail tar inte bara minuter. Det tar fokus.</p>
-<p>Formulering, ton, struktur och dubbelkontroll upprepas varje dag.</p>
-<p>Det är mental energi som kunde lagts på viktigare arbete.</p>
-</div>
-<div class="card">
-<p><strong>Det är inte läsningen som tar tid.</strong></p>
-<p>Det är skrivandet och besluten kring formulering.</p>
-</div>
-</div>
-</div>
 
+<p>Mail är inte svårt. Det är repetitivt.</p>
+<p>Du läser, formulerar, justerar ton och dubbelkollar detaljer.</p>
+<p>Små beslut — om och om igen.</p>
+
+</div>
+</section>
+
+<!-- LÖSNING -->
+<section>
 <div class="container">
-<h2 class="center">Hur Nerox hjälper</h2>
-<div class="grid-3">
 
-<div class="card">
-<h3>Du läser</h3>
-<p>Du gör alltid den mänskliga bedömningen.</p>
-</div>
+<h2>Lösningen</h2>
 
-<div class="card">
-<h3>Nerox strukturerar</h3>
-<p>Ett färdigt svar byggt på era riktlinjer presenteras direkt.</p>
-</div>
-
-<div class="card">
-<h3>Du godkänner</h3>
-<p>Inget skickas utan ditt beslut.</p>
-</div>
+<p>Nerox ersätter inte din bedömning.</p>
+<p>Den ersätter tomt skrivfält.</p>
+<p>Du får ett strukturerat förslag baserat på hur ni har konfigurerat systemet.</p>
 
 </div>
-</div>
+</section>
 
-<div class="container section-dark">
-<h2 class="center">Exempel</h2>
-
-<div class="grid-2">
-<div class="card">
-<p><strong>Utan Nerox</strong></p>
-<p>Läs → formulera → justera → dubbelkolla → skicka.</p>
-<p>3–5 minuter och mental friktion.</p>
-</div>
-
-<div class="card">
-<p><strong>Med Nerox</strong></p>
-<p>Läs → justera vid behov → skicka.</p>
-<p>10–20 sekunder. Mindre beslut. Mindre stress.</p>
-</div>
-</div>
-</div>
-
+<!-- HUR DET FUNGERAR -->
+<section class="alt">
 <div class="container">
-<h2 class="center">Anpassning</h2>
 
-<div class="grid-2">
-<div>
-<p><strong>Företagsnivå</strong></p>
-<p>Vi definierar vilka frågor systemet ska hantera och hur svar ska struktureras.</p>
-</div>
+<h2>Hur det fungerar</h2>
 
-<div>
-<p><strong>Användarnivå</strong></p>
-<p>Varje roll kan ha egna riktlinjer och fokusområden.</p>
-</div>
-</div>
-</div>
+<p>1. Du läser mailet.</p>
+<p>2. Nerox presenterar ett färdigt svar.</p>
+<p>3. Du justerar vid behov och skickar.</p>
 
-<div class="container section-dark center">
+<p>10–20 sekunder istället för flera minuter.</p>
+
+</div>
+</section>
+
+<!-- ANPASSNING -->
+<section>
+<div class="container">
+
+<h2>Anpassning</h2>
+
+<p>Nerox är inte en generell AI-assistent.</p>
+<p>Den konfigureras efter ert företag och varje användare.</p>
+
+<p><strong>Företagsnivå:</strong> vilka frågor ska besvaras och hur?</p>
+<p><strong>Användarnivå:</strong> ton, prioriteringar och fokusområden.</p>
+
+</div>
+</section>
+
+<!-- SÄKERHET -->
+<section class="alt">
+<div class="container">
+
 <h2>Säkerhet & kontroll</h2>
+
 <p>Ingen lagring av mailhistorik.</p>
 <p>Ingen automatisk inlärning.</p>
-<p>Inget skickas utan godkännande.</p>
-</div>
+<p>Inget skickas utan ditt godkännande.</p>
 
-<div class="container center">
+</div>
+</section>
+
+<!-- CTA -->
+<section id="kontakt" class="hero">
+<div class="container">
+
 <h2>Redo att effektivisera?</h2>
-<a href="#kontakt" class="button">Boka demo</a>
-</div>
+<p>Boka en demo så visar vi hur Nerox kan konfigureras för er verksamhet.</p>
 
-<div class="container section-dark center" id="kontakt">
-<h2>Kontakta oss</h2>
-<p>Vill du se hur Nerox kan konfigureras för ert företag?</p>
+<a href="#" class="button">Kontakta oss</a>
 
-<form>
-<input type="text" placeholder="Företagsnamn" required>
-<input type="email" placeholder="E-postadress" required>
-<textarea placeholder="Berätta kort om er verksamhet"></textarea>
-<button class="button" type="submit">Skicka</button>
-</form>
 </div>
+</section>
 
 <script>
 const canvas=document.getElementById("network");
 const ctx=canvas.getContext("2d");
-function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
-resize();window.addEventListener("resize",resize);
+
+function resize(){
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+}
+resize();
+window.addEventListener("resize",resize);
 
 let points=[];
-const total=window.innerWidth<768?25:45;
+const total=window.innerWidth<768?20:40;
+
 for(let i=0;i<total;i++){
-points.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:(Math.random()-0.5)*0.2,vy:(Math.random()-0.5)*0.2});
+points.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+vx:(Math.random()-0.5)*0.15,
+vy:(Math.random()-0.5)*0.15
+});
 }
 
 function draw(){
-ctx.fillStyle="rgba(2,6,23,0.6)";
+ctx.fillStyle="rgba(2,6,23,0.7)";
 ctx.fillRect(0,0,canvas.width,canvas.height);
+
 points.forEach(p=>{
-p.x+=p.vx;p.y+=p.vy;
+p.x+=p.vx;
+p.y+=p.vy;
+
 if(p.x<0||p.x>canvas.width)p.vx*=-1;
 if(p.y<0||p.y>canvas.height)p.vy*=-1;
 });
+
 points.forEach((a,i)=>{
 for(let j=i+1;j<points.length;j++){
 let b=points[j];
 let dx=a.x-b.x;
 let dy=a.y-b.y;
-if(dx*dx+dy*dy<12000){
-ctx.strokeStyle="rgba(125,211,252,0.05)";
+
+if(dx*dx+dy*dy<13000){
+ctx.strokeStyle="rgba(125,211,252,0.04)";
 ctx.beginPath();
 ctx.moveTo(a.x,a.y);
 ctx.lineTo(b.x,b.y);
@@ -270,12 +292,14 @@ ctx.stroke();
 }
 }
 });
+
 points.forEach(p=>{
 ctx.beginPath();
-ctx.fillStyle="rgba(200,220,255,0.8)";
-ctx.arc(p.x,p.y,2,0,Math.PI*2);
+ctx.fillStyle="rgba(200,220,255,0.7)";
+ctx.arc(p.x,p.y,1.8,0,Math.PI*2);
 ctx.fill();
 });
+
 requestAnimationFrame(draw);
 }
 draw();
