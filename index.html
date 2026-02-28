@@ -15,7 +15,7 @@ font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;
 
 body{
 height:100vh;
-background:#040010;
+background:#050015;
 color:white;
 display:flex;
 align-items:center;
@@ -23,7 +23,6 @@ justify-content:center;
 overflow:hidden;
 }
 
-/* CANVAS */
 canvas{
 position:fixed;
 top:0;
@@ -31,7 +30,6 @@ left:0;
 z-index:0;
 }
 
-/* CONTENT */
 .container{
 position:relative;
 z-index:2;
@@ -44,13 +42,13 @@ padding:20px;
 width:360px;
 margin-bottom:35px;
 filter:
-drop-shadow(0 0 30px #00f2ff)
-drop-shadow(0 0 60px #ff00ff);
+drop-shadow(0 0 18px #00e5ff)
+drop-shadow(0 0 35px #8a2be2);
 }
 
 .tagline{
 font-size:22px;
-color:#d1c7ff;
+color:#cfc9ff;
 margin-bottom:50px;
 max-width:600px;
 margin-left:auto;
@@ -63,38 +61,36 @@ padding:18px 44px;
 font-size:18px;
 border:none;
 border-radius:10px;
-background:linear-gradient(90deg,#00f2ff,#ff00ff);
+background:linear-gradient(90deg,#00e5ff,#b400ff);
 color:black;
 font-weight:bold;
 cursor:pointer;
 transition:.25s;
-box-shadow:0 0 30px rgba(255,0,255,.5);
+box-shadow:0 0 20px rgba(255,0,255,.4);
 }
 
 button:hover{
-transform:scale(1.08);
-box-shadow:0 0 60px rgba(255,0,255,.8);
+transform:scale(1.05);
+box-shadow:0 0 40px rgba(255,0,255,.6);
 }
 </style>
 </head>
 
 <body>
 
-<canvas id="brain"></canvas>
+<canvas id="space"></canvas>
 
 <div class="container">
 <img src="./nerox-logo.png" class="logo">
-
 <p class="tagline">
 AI som läser din inkorg och föreslår färdiga svar.
 Du godkänner — klart.
 </p>
-
 <button>Boka demo</button>
 </div>
 
 <script>
-const canvas = document.getElementById("brain");
+const canvas = document.getElementById("space");
 const ctx = canvas.getContext("2d");
 
 function resize(){
@@ -104,58 +100,86 @@ canvas.height = window.innerHeight;
 resize();
 window.addEventListener("resize",resize);
 
-let nodes=[];
-const total=90;
+let mouse={x:canvas.width/2,y:canvas.height/2};
+window.addEventListener("mousemove",e=>{
+mouse.x=e.clientX;
+mouse.y=e.clientY;
+});
 
-for(let i=0;i<total;i++){
-nodes.push({
-angle:Math.random()*Math.PI*2,
-radius:140+Math.random()*220,
-speed:0.001+Math.random()*0.003,
-size:1.5+Math.random()*2
+/* Floating space objects */
+let objects=[];
+for(let i=0;i<12;i++){
+objects.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+vx:(Math.random()-0.5)*0.4,
+vy:(Math.random()-0.5)*0.4,
+size:20+Math.random()*40,
+rotation:Math.random()*Math.PI,
+type:Math.floor(Math.random()*3)
 });
 }
 
-let t=0;
+function drawObject(o){
+ctx.save();
+ctx.translate(o.x,o.y);
+ctx.rotate(o.rotation);
+
+ctx.strokeStyle="rgba(0,255,255,0.6)";
+ctx.lineWidth=2;
+
+if(o.type===0){
+ctx.beginPath();
+ctx.arc(0,0,o.size/2,0,Math.PI*2);
+ctx.stroke();
+}
+else if(o.type===1){
+ctx.strokeRect(-o.size/2,-o.size/2,o.size,o.size);
+}
+else{
+ctx.beginPath();
+ctx.moveTo(0,-o.size/2);
+ctx.lineTo(o.size/2,o.size/2);
+ctx.lineTo(-o.size/2,o.size/2);
+ctx.closePath();
+ctx.stroke();
+}
+
+ctx.restore();
+}
 
 function draw(){
-t+=0.01;
-ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="rgba(5,0,21,0.4)";
+ctx.fillRect(0,0,canvas.width,canvas.height);
 
-const cx=canvas.width/2;
-const cy=canvas.height/2;
-
-/* central glow */
-const core=ctx.createRadialGradient(cx,cy,0,cx,cy,260);
-core.addColorStop(0,"rgba(0,255,255,0.25)");
-core.addColorStop(0.4,"rgba(255,0,255,0.15)");
-core.addColorStop(1,"rgba(0,0,0,0)");
-ctx.fillStyle=core;
+/* Subtle glow around mouse */
+const glow=ctx.createRadialGradient(
+mouse.x,
+mouse.y,
+0,
+mouse.x,
+mouse.y,
+180
+);
+glow.addColorStop(0,"rgba(0,255,255,0.12)");
+glow.addColorStop(1,"rgba(0,0,0,0)");
+ctx.fillStyle=glow;
 ctx.beginPath();
-ctx.arc(cx,cy,260,0,Math.PI*2);
+ctx.arc(mouse.x,mouse.y,180,0,Math.PI*2);
 ctx.fill();
 
-/* orbiting nodes */
-nodes.forEach(n=>{
-n.angle+=n.speed*60;
+/* Move objects */
+objects.forEach(o=>{
+o.x+=o.vx;
+o.y+=o.vy;
+o.rotation+=0.002;
 
-const r=n.radius+Math.sin(t*2+n.angle)*25;
+if(o.x< -100) o.x=canvas.width+100;
+if(o.x>canvas.width+100) o.x=-100;
+if(o.y< -100) o.y=canvas.height+100;
+if(o.y>canvas.height+100) o.y=-100;
 
-const x=cx+Math.cos(n.angle)*r;
-const y=cy+Math.sin(n.angle)*r;
-
-/* node */
-ctx.beginPath();
-ctx.fillStyle="rgba(0,255,255,0.9)";
-ctx.arc(x,y,n.size,0,Math.PI*2);
-ctx.fill();
-
-/* connection */
-ctx.strokeStyle="rgba(255,0,255,0.08)";
-ctx.beginPath();
-ctx.moveTo(cx,cy);
-ctx.lineTo(x,y);
-ctx.stroke();
+drawObject(o);
 });
 
 requestAnimationFrame(draw);
