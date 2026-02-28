@@ -12,6 +12,7 @@ body{
 background:#020617;
 color:#e5e7eb;
 overflow-x:hidden;
+line-height:1.6;
 }
 
 /* ===== BACKGROUND ===== */
@@ -37,15 +38,15 @@ margin:auto;
 .center{text-align:center;}
 
 h1{
-font-size:42px;
+font-size:44px;
 color:white;
 margin-bottom:20px;
 }
 
 h2{
-font-size:30px;
+font-size:32px;
 color:white;
-margin-bottom:20px;
+margin-bottom:25px;
 }
 
 p{
@@ -92,7 +93,7 @@ box-shadow:0 0 60px rgba(56,189,248,.9);
 }
 
 /* ===== GRID ===== */
-.grid-3{
+.grid-4{
 display:grid;
 gap:40px;
 margin-top:70px;
@@ -107,7 +108,7 @@ backdrop-filter:blur(20px);
 }
 
 .block-icon{
-font-size:30px;
+font-size:28px;
 margin-bottom:15px;
 color:#38bdf8;
 }
@@ -151,7 +152,7 @@ background:#0f172a;
 border:1px solid rgba(56,189,248,.3);
 border-radius:20px;
 padding:40px;
-margin-top:60px;
+margin-top:40px;
 box-shadow:0 0 40px rgba(56,189,248,.2);
 }
 
@@ -162,7 +163,7 @@ color:#38bdf8;
 }
 
 .mail-content{
-opacity:.85;
+opacity:.9;
 line-height:1.6;
 }
 
@@ -172,8 +173,8 @@ line-height:1.6;
 h1{font-size:64px;}
 h2{font-size:38px;}
 
-.grid-3{
-grid-template-columns:repeat(3,1fr);
+.grid-4{
+grid-template-columns:repeat(4,1fr);
 }
 
 .flow{
@@ -205,7 +206,10 @@ height:2px;
 <img src="./nerox-logo.png" class="logo">
 
 <h1>AI som skapar utkast i er inkorg.</h1>
-<p class="sub">Inte en egen plattform. Inte automatiska utskick. Bara strukturerade förslag – direkt i ert befintliga mailflöde.</p>
+<p class="sub">
+Nerox arbetar i bakgrunden och genererar strukturerade svar direkt i ert befintliga mailflöde.
+Inget skickas automatiskt. Ni har full kontroll.
+</p>
 
 <a href="#" class="button">Boka demo</a>
 
@@ -216,26 +220,32 @@ height:2px;
 <div class="section">
 <div class="container center">
 
-<h2>Byggd för kontrollerad effektivisering</h2>
+<h2>Byggd för strukturerad effektivisering</h2>
 
-<div class="grid-3">
+<div class="grid-4">
 
 <div class="block">
 <div class="block-icon">✍️</div>
 <h3>Skapar utkast</h3>
-<p>Nerox genererar färdiga svar som läggs som utkast.</p>
+<p>Färdiga svar läggs som utkast i er inkorg.</p>
 </div>
 
 <div class="block">
 <div class="block-icon">🧠</div>
 <h3>Konfigurerad</h3>
-<p>Systemet arbetar enligt era definierade riktlinjer.</p>
+<p>Arbetar enligt tydliga företagsriktlinjer.</p>
 </div>
 
 <div class="block">
 <div class="block-icon">🔒</div>
 <h3>Full kontroll</h3>
-<p>Inget skickas utan att ni godkänner det.</p>
+<p>Inget skickas utan mänskligt godkännande.</p>
+</div>
+
+<div class="block">
+<div class="block-icon">🏢</div>
+<h3>Företags & individanpassad</h3>
+<p>Olika konfiguration per företag, roll och användare.</p>
 </div>
 
 </div>
@@ -274,7 +284,7 @@ height:2px;
 
 <div class="step">
 <div class="circle">4</div>
-<p>Du godkänner</p>
+<p>Du granskar & godkänner</p>
 </div>
 
 </div>
@@ -282,31 +292,58 @@ height:2px;
 </div>
 </div>
 
-<!-- EXAMPLE -->
+<!-- EXAMPLES -->
 <div class="section">
 <div class="container center">
 
-<h2>Exempel på ett utkast</h2>
+<h2>Exempel på genererade utkast</h2>
 
 <div class="mailbox">
-
-<div class="mail-header">
-Utkast genererat av Nerox
-</div>
-
+<div class="mail-header">Prisförfrågan</div>
 <div class="mail-content">
 Hej!<br><br>
-Tack för din förfrågan. Tjänsten kostar 12 900 kr inklusive installation. 
-Leveranstiden är 5–7 arbetsdagar. 
-Hör gärna av dig om du vill att vi bokar in en tid.<br><br>
-Vänliga hälsningar,<br>
-[Er signatur]
+Tack för din förfrågan. Priset för tjänsten är 12 900 kr inklusive installation.
+Leveranstiden är 5–7 arbetsdagar.<br><br>
+Återkom gärna om du vill boka in en tid.
+</div>
+</div>
+
+<div class="mailbox">
+<div class="mail-header">Mötesbokning</div>
+<div class="mail-content">
+Hej!<br><br>
+Jag har möjlighet att boka möte tisdag kl 10:00 eller torsdag kl 14:30.
+Återkom med vad som passar dig bäst.<br><br>
+Vänliga hälsningar
+</div>
+</div>
+
+<div class="mailbox">
+<div class="mail-header">Statusuppdatering</div>
+<div class="mail-content">
+Hej!<br><br>
+Din beställning är nu under behandling och beräknas levereras inom 3 arbetsdagar.
+Vi återkommer om något förändras.<br><br>
+Tack för ditt tålamod.
+</div>
 </div>
 
 </div>
+</div>
 
-<p style="margin-top:30px;">
-Du justerar vid behov och klickar skicka.
+<!-- WHAT IT DOESN'T DO -->
+<div class="section">
+<div class="container center">
+
+<h2>Vad Nerox inte gör</h2>
+
+<p>✖ Skickar automatiskt utan godkännande</p>
+<p>✖ Lagrar mailhistorik</p>
+<p>✖ Tränas på ert material</p>
+<p>✖ Ersätter mänskliga beslut</p>
+
+<p style="margin-top:25px;">
+Nerox är ett konfigurerat arbetsverktyg – inte en självlärande AI.
 </p>
 
 </div>
