@@ -42,8 +42,8 @@ p{color:#cbd5e1;font-size:17px;margin-bottom:12px;}
 
 /* HERO */
 .hero{
-padding-top:180px;
-padding-bottom:160px;
+padding-top:200px;
+padding-bottom:180px;
 text-align:center;
 }
 
@@ -57,7 +57,7 @@ filter:drop-shadow(0 0 40px #38bdf8);
 .sub{
 font-size:20px;
 opacity:.85;
-max-width:800px;
+max-width:850px;
 margin:auto;
 }
 
@@ -146,7 +146,7 @@ box-shadow:0 0 40px rgba(56,189,248,.2);
 
 .mail-header{
 font-weight:600;
-margin-bottom:20px;
+margin-bottom:15px;
 color:#38bdf8;
 }
 
@@ -185,11 +185,9 @@ grid-template-columns:repeat(4,1fr);
 
 <p class="sub">
 Nerox analyserar inkommande mail och skapar genomtänkta utkast direkt i er befintliga inkorg.
-Det är inte en egen plattform. Det är inte automatiska utskick.
-<strong>Ni granskar alltid innan något skickas.</strong>
+Det är inte en egen plattform och inga svar skickas automatiskt.
+<strong>Ni granskar alltid innan något går iväg.</strong>
 </p>
-
-<a href="#kontakt" class="button">Boka demo</a>
 
 </div>
 </div>
@@ -198,32 +196,32 @@ Det är inte en egen plattform. Det är inte automatiska utskick.
 <div class="section">
 <div class="container center">
 
-<h2>Byggd för strukturerad effektivisering</h2>
+<h2>Konfigurerad – inte generell</h2>
 
 <div class="grid-4">
 
 <div class="block">
 <div class="block-icon">✍️</div>
 <h3>Skapar utkast</h3>
-<p>Färdiga svar genereras som utkast – aldrig automatiskt skickade.</p>
-</div>
-
-<div class="block">
-<div class="block-icon">🧠</div>
-<h3>Konfigurerad</h3>
-<p>Arbetar enligt definierade företagsriktlinjer – inte generell AI-gissning.</p>
+<p>Strukturerade svar läggs i inkorgen – redo att granskas.</p>
 </div>
 
 <div class="block">
 <div class="block-icon">🏢</div>
 <h3>Företagsanpassad</h3>
-<p>Struktur, tonalitet och informationsregler definieras centralt.</p>
+<p>Tonalitet, policy, prisstruktur och informationsregler definieras centralt.</p>
 </div>
 
 <div class="block">
 <div class="block-icon">👤</div>
 <h3>Individanpassad</h3>
 <p>Olika beteende per roll och användare inom samma organisation.</p>
+</div>
+
+<div class="block">
+<div class="block-icon">🔒</div>
+<h3>Full kontroll</h3>
+<p>Inget skickas utan mänskligt godkännande.</p>
 </div>
 
 </div>
@@ -248,14 +246,14 @@ Det är inte en egen plattform. Det är inte automatiska utskick.
 
 <div class="step">
 <div class="circle">2</div>
-<p>Nerox analyserar innehållet</p>
+<p>Nerox analyserar enligt er konfiguration</p>
 </div>
 
 <div class="line"></div>
 
 <div class="step">
 <div class="circle">3</div>
-<p>Utkast skapas enligt era riktlinjer</p>
+<p>Utkast skapas</p>
 </div>
 
 <div class="line"></div>
@@ -274,24 +272,24 @@ Det är inte en egen plattform. Det är inte automatiska utskick.
 <div class="section">
 <div class="container center">
 
-<h2>Exempel på konfigurerade utkast</h2>
+<h2>Exempel per roll</h2>
 <p>Varje roll arbetar utifrån definierade riktlinjer. Nerox följer dessa automatiskt.</p>
 
 <div class="mailbox">
 <div class="mail-header">Sälj – Pris enligt policy</div>
 <div class="mail-content">
 Hej!<br><br>
-Priset för lösningen är 12 900 kr inklusive installation. Offerten gäller i 14 dagar.
+Priset är 12 900 kr inklusive installation. Offerten gäller i 14 dagar.
 Jag följer upp på fredag om jag inte hört från dig.<br><br>
 Vänliga hälsningar
 </div>
 </div>
 
 <div class="mailbox">
-<div class="mail-header">Kundsupport – SLA-anpassat svar</div>
+<div class="mail-header">Kundsupport – SLA-styrt svar</div>
 <div class="mail-content">
 Hej!<br><br>
-Ditt ärende har registrerats under referensnummer #48217.
+Ditt ärende är registrerat under referensnummer #48217.
 Enligt vår policy återkopplar vi inom 24 timmar.<br><br>
 Vänliga hälsningar
 </div>
@@ -307,6 +305,26 @@ Vänliga hälsningar
 </div>
 </div>
 
+<div class="mailbox">
+<div class="mail-header">Projektledare – Statusuppdatering</div>
+<div class="mail-content">
+Hej!<br><br>
+Projektet är nu i fas 2 enligt tidsplan.
+Nästa milstolpe är planerad till 15 mars.<br><br>
+Vänliga hälsningar
+</div>
+</div>
+
+<div class="mailbox">
+<div class="mail-header">Administration – Bokningsbekräftelse</div>
+<div class="mail-content">
+Hej!<br><br>
+Vi bekräftar möte torsdag kl 14:30.
+Återkom gärna om tiden behöver justeras.<br><br>
+Vänliga hälsningar
+</div>
+</div>
+
 </div>
 </div>
 
@@ -314,11 +332,11 @@ Vänliga hälsningar
 <div class="section">
 <div class="container center">
 
-<h2>Säker och enkel anslutning</h2>
+<h2>Säker anslutning</h2>
 
 <p>Nerox ansluts via Microsofts officiella OAuth-flöde mot Microsoft 365.</p>
-<p>Användaren loggar in med sitt Microsoft-konto och administratör godkänner anslutningen.</p>
-<p>Inga lösenord lagras. All kommunikation är krypterad och åtkomst är individuellt kontrollerad.</p>
+<p>Administratör godkänner anslutningen och varje användare kopplas individuellt.</p>
+<p>Inga lösenord lagras och all kommunikation är krypterad.</p>
 
 </div>
 </div>
@@ -329,9 +347,9 @@ Vänliga hälsningar
 
 <h2>Implementering</h2>
 
-<p>Vid uppstart definieras vilka ärenden Nerox ska hantera och hur svar ska struktureras per roll.</p>
-<p>Systemet konfigureras och användare kopplas upp individuellt.</p>
-<p>Efter uppstart kan justeringar och vidare anpassningar göras centralt och på distans.</p>
+<p>Vid uppstart definierar vi hur kommunikationen ska struktureras per företag och per roll.</p>
+<p>Nerox konfigureras och användare kopplas upp individuellt.</p>
+<p>Justeringar kan därefter göras centralt och på distans.</p>
 
 </div>
 </div>
@@ -354,12 +372,12 @@ Nerox är ett konfigurerat arbetsverktyg – inte en självlärande AI.
 </div>
 </div>
 
-<!-- CTA -->
-<div class="section hero" id="kontakt">
+<!-- FINAL CTA -->
+<div class="section hero">
 <div class="container center">
 
-<h2>Strukturerad AI – utan att förlora kontroll.</h2>
-<a href="#" class="button">Kontakta oss</a>
+<h2>Intresserad av att effektivisera er e-posthantering?</h2>
+<a href="#" class="button">Kontakta oss för mer information</a>
 
 </div>
 </div>
