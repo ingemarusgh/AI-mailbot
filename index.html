@@ -1,87 +1,78 @@
 <!DOCTYPE html>
+
 <html lang="sv">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nerox – AI som svarar på din inkorg</title>
+<title>Nerox</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,system-ui}
-body{
-    background:radial-gradient(ellipse at bottom,#020617 0%,#000000 100%);
-    color:white;
-    height:100vh;
-    overflow:hidden;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
 
-/* ===== SPACE BACKGROUND ===== */
+body{
+    background:#030712;
+    color:white;
+    overflow:hidden;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
 
 canvas{
     position:fixed;
-    inset:0;
+    top:0;
+    left:0;
     z-index:-1;
 }
 
-/* ===== HERO ===== */
-
 .hero{
-    height:100vh;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
     text-align:center;
-    padding:20px;
+    max-width:800px;
+    padding:40px;
 }
 
 .logo{
-    width:240px;
-    margin-bottom:28px;
-    filter:drop-shadow(0 0 25px rgba(0,170,255,.35));
+    width:220px;
+    margin-bottom:20px;
+    filter:drop-shadow(0 0 25px rgba(0,170,255,0.35));
+    mix-blend-mode:screen;
+    opacity:.95;
 }
 
 h1{
-    font-size:56px;
+    font-size:64px;
     font-weight:700;
-    letter-spacing:-1px;
+    margin-bottom:10px;
+    background:linear-gradient(90deg,#fff,#8fd3ff);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
 }
 
-.sub{
-    margin-top:18px;
+p{
     font-size:20px;
-    opacity:.75;
-    max-width:700px;
-    line-height:1.6;
+    opacity:.8;
+    margin-bottom:40px;
 }
 
 .btn{
-    margin-top:38px;
-    background:linear-gradient(90deg,#3b82f6,#06b6d4);
+    display:inline-block;
     padding:16px 34px;
     border-radius:14px;
-    font-weight:600;
+    background:linear-gradient(90deg,#2563eb,#06b6d4);
     text-decoration:none;
     color:white;
+    font-weight:bold;
     transition:.25s;
-    box-shadow:0 10px 30px rgba(0,150,255,.25);
+    box-shadow:0 0 25px rgba(0,150,255,.4);
 }
 
 .btn:hover{
-    transform:translateY(-3px) scale(1.03);
-    box-shadow:0 20px 50px rgba(0,150,255,.45);
-}
-
-/* glow */
-.hero:before{
-    content:"";
-    position:absolute;
-    width:700px;
-    height:700px;
-    background:radial-gradient(circle,rgba(0,140,255,.15),transparent 70%);
-    filter:blur(80px);
-    z-index:-1;
+    transform:translateY(-3px);
+    box-shadow:0 0 40px rgba(0,150,255,.7);
 }
 </style>
+
 </head>
 
 <body>
@@ -90,73 +81,60 @@ h1{
 
 <div class="hero">
     <img src="nerox-logo.png" class="logo">
-
     <h1>Nerox</h1>
-
-    <div class="sub">
-        AI som läser din inkorg och föreslår färdiga svar.
-        Du godkänner — klart.
-    </div>
-
-    <a class="btn" href="#">Boka demo</a>
+    <p>AI som läser din inkorg och föreslår färdiga svar. Du godkänner — klart.</p>
+    <a href="#" class="btn">Boka demo</a>
 </div>
 
 <script>
-const c = document.getElementById("space");
-const ctx = c.getContext("2d");
+const canvas = document.getElementById("space");
+const ctx = canvas.getContext("2d");
 
-let w,h,particles=[];
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-function resize(){
-    w=c.width=window.innerWidth;
-    h=c.height=window.innerHeight;
+let stars = [];
+
+for(let i=0;i<160;i++){
+    stars.push({
+        x:Math.random()*canvas.width,
+        y:Math.random()*canvas.height,
+        z:Math.random()*canvas.width
+    });
 }
-resize();
-window.addEventListener("resize",resize);
-
-class Particle{
-    constructor(){
-        this.reset();
-    }
-    reset(){
-        this.x=Math.random()*w;
-        this.y=Math.random()*h;
-        this.z=Math.random()*w;
-        this.size=Math.random()*2+0.5;
-        this.speed=Math.random()*0.6+0.2;
-        this.color=`hsl(${200+Math.random()*40},100%,70%)`;
-    }
-    update(){
-        this.z-=this.speed;
-        if(this.z<=0) this.reset();
-    }
-    draw(){
-        let k=128/this.z;
-        let px=(this.x-w/2)*k+w/2;
-        let py=(this.y-h/2)*k+h/2;
-        let s=this.size*k;
-
-        ctx.fillStyle=this.color;
-        ctx.beginPath();
-        ctx.arc(px,py,s,0,Math.PI*2);
-        ctx.fill();
-    }
-}
-
-for(let i=0;i<180;i++)particles.push(new Particle());
 
 function animate(){
-    ctx.fillStyle="rgba(0,0,0,0.4)";
-    ctx.fillRect(0,0,w,h);
+    ctx.fillStyle="#030712";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
 
-    particles.forEach(p=>{
-        p.update();
-        p.draw();
-    });
+    for(let s of stars){
+        s.z-=2;
+        if(s.z<=0){
+            s.x=Math.random()*canvas.width;
+            s.y=Math.random()*canvas.height;
+            s.z=canvas.width;
+        }
+
+        let k=128/s.z;
+        let px=(s.x-canvas.width/2)*k+canvas.width/2;
+        let py=(s.y-canvas.height/2)*k+canvas.height/2;
+
+        if(px>=0&&px<=canvas.width&&py>=0&&py<=canvas.height){
+            let size=(1-s.z/canvas.width)*3;
+            ctx.fillStyle="white";
+            ctx.fillRect(px,py,size,size);
+        }
+    }
 
     requestAnimationFrame(animate);
 }
+
 animate();
+
+window.onresize=()=>{
+    canvas.width=window.innerWidth;
+    canvas.height=window.innerHeight;
+}
 </script>
 
 </body>
