@@ -15,7 +15,7 @@ font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;
 
 body{
 height:100vh;
-background:#020617;
+background:#050010;
 color:white;
 display:flex;
 align-items:center;
@@ -23,25 +23,12 @@ justify-content:center;
 overflow:hidden;
 }
 
-/* Animated gradient aura */
-body::before{
-content:"";
-position:absolute;
-width:700px;
-height:700px;
-background:radial-gradient(circle,
-rgba(0,170,255,0.35) 0%,
-rgba(0,170,255,0.15) 25%,
-rgba(0,170,255,0.05) 45%,
-transparent 70%);
-animation:pulse 6s ease-in-out infinite;
-filter:blur(60px);
+/* NEON GRID BACKGROUND */
+canvas{
+position:fixed;
+top:0;
+left:0;
 z-index:0;
-}
-
-@keyframes pulse{
-0%,100%{transform:scale(1);}
-50%{transform:scale(1.15);}
 }
 
 .container{
@@ -55,21 +42,28 @@ padding:20px;
 .logo{
 width:360px;
 margin-bottom:40px;
-filter:drop-shadow(0 0 40px rgba(0,170,255,.35));
+filter:
+drop-shadow(0 0 25px #00f2ff)
+drop-shadow(0 0 50px #8a2be2);
+animation:glowPulse 3s infinite ease-in-out;
+}
+
+@keyframes glowPulse{
+0%,100%{filter:drop-shadow(0 0 20px #00f2ff) drop-shadow(0 0 40px #8a2be2);}
+50%{filter:drop-shadow(0 0 35px #00f2ff) drop-shadow(0 0 70px #ff00ff);}
 }
 
 h1{
 font-size:64px;
-font-weight:600;
 margin-bottom:20px;
-background:linear-gradient(90deg,#ffffff,#9ecbff);
+background:linear-gradient(90deg,#00f2ff,#ff00ff);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 }
 
 p{
 font-size:20px;
-color:#c5d4f5;
+color:#d1c7ff;
 margin-bottom:45px;
 }
 
@@ -77,22 +71,25 @@ button{
 padding:18px 44px;
 font-size:18px;
 border:none;
-border-radius:14px;
-background:linear-gradient(135deg,#2563eb,#06b6d4);
-color:white;
+border-radius:10px;
+background:linear-gradient(90deg,#00f2ff,#ff00ff);
+color:black;
+font-weight:bold;
 cursor:pointer;
 transition:.25s;
-box-shadow:0 12px 40px rgba(0,170,255,.25);
+box-shadow:0 0 30px rgba(255,0,255,.5);
 }
 
 button:hover{
-transform:translateY(-3px);
-box-shadow:0 20px 60px rgba(0,170,255,.5);
+transform:scale(1.08);
+box-shadow:0 0 60px rgba(255,0,255,.8);
 }
 </style>
 </head>
 
 <body>
+
+<canvas id="grid"></canvas>
 
 <div class="container">
 <img src="./nerox-logo.png" class="logo">
@@ -100,6 +97,50 @@ box-shadow:0 20px 60px rgba(0,170,255,.5);
 <p>AI som läser din inkorg och föreslår färdiga svar. Du godkänner — klart.</p>
 <button>Boka demo</button>
 </div>
+
+<script>
+const canvas = document.getElementById("grid");
+const ctx = canvas.getContext("2d");
+
+function resize(){
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener("resize",resize);
+
+let offset = 0;
+
+function draw(){
+ctx.fillStyle="#050010";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+
+ctx.strokeStyle="rgba(0,255,255,0.15)";
+ctx.lineWidth=1;
+
+const size = 40;
+
+for(let x=0;x<canvas.width;x+=size){
+ctx.beginPath();
+ctx.moveTo(x,0);
+ctx.lineTo(x,canvas.height);
+ctx.stroke();
+}
+
+for(let y=0;y<canvas.height;y+=size){
+ctx.beginPath();
+ctx.moveTo(0,y+offset);
+ctx.lineTo(canvas.width,y+offset);
+ctx.stroke();
+}
+
+offset += 0.4;
+if(offset>size) offset=0;
+
+requestAnimationFrame(draw);
+}
+draw();
+</script>
 
 </body>
 </html>
