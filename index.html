@@ -14,13 +14,9 @@ font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;
 }
 
 body{
-min-height:100vh;
 background:#020617;
 color:white;
-display:flex;
-align-items:center;
-justify-content:center;
-overflow:hidden;
+overflow-x:hidden;
 }
 
 /* BACKGROUND CANVAS */
@@ -31,54 +27,51 @@ left:0;
 z-index:0;
 }
 
-/* CINEMATIC SPOTLIGHT */
+/* SPOTLIGHT */
 body::before{
 content:"";
 position:fixed;
-top:50%;
+top:40%;
 left:50%;
 transform:translate(-50%,-50%);
-width:800px;
-height:800px;
+width:900px;
+height:900px;
 background:radial-gradient(circle,
-rgba(125,211,252,0.18) 0%,
-rgba(0,170,255,0.12) 25%,
+rgba(125,211,252,0.15) 0%,
+rgba(0,170,255,0.1) 30%,
 rgba(0,0,0,0) 70%);
-filter:blur(80px);
+filter:blur(100px);
 z-index:1;
 pointer-events:none;
 }
 
-/* CONTENT */
-.container{
+/* HERO */
+.hero{
 position:relative;
 z-index:2;
+min-height:100vh;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
 text-align:center;
-max-width:1000px;
 padding:40px 20px;
 }
 
-/* HERO LOGO */
 .logo{
-width:680px;
+width:650px;
 max-width:95%;
 margin-bottom:60px;
-
 filter:
 drop-shadow(0 0 40px rgba(125,211,252,0.6))
 drop-shadow(0 0 120px rgba(0,170,255,0.35));
-
-transition:0.4s ease;
 }
 
-/* TAGLINE */
 .tagline{
 font-size:22px;
 color:#dbeafe;
 margin-bottom:70px;
 max-width:600px;
-margin-left:auto;
-margin-right:auto;
 line-height:1.6;
 }
 
@@ -95,7 +88,6 @@ transition:0.3s ease;
 text-transform:uppercase;
 letter-spacing:1px;
 font-weight:600;
-
 box-shadow:
 0 0 25px rgba(125,211,252,0.4),
 0 0 60px rgba(0,170,255,0.25);
@@ -108,15 +100,82 @@ box-shadow:
 0 0 80px rgba(0,170,255,0.4);
 }
 
+/* HOW SECTION */
+.how{
+position:relative;
+z-index:2;
+padding:120px 20px;
+text-align:center;
+}
+
+.how h2{
+font-size:40px;
+margin-bottom:70px;
+background:linear-gradient(90deg,#e0f2ff,#7dd3fc);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.cards{
+display:flex;
+justify-content:center;
+gap:40px;
+flex-wrap:wrap;
+}
+
+.card{
+width:300px;
+padding:40px 30px;
+border-radius:20px;
+background:rgba(255,255,255,0.03);
+border:1px solid rgba(125,211,252,0.15);
+backdrop-filter:blur(8px);
+transition:0.3s ease;
+}
+
+.card:hover{
+transform:translateY(-10px);
+border-color:#7dd3fc;
+box-shadow:0 0 30px rgba(125,211,252,0.2);
+}
+
+.step{
+font-size:14px;
+letter-spacing:2px;
+color:#7dd3fc;
+margin-bottom:20px;
+}
+
+.card h3{
+font-size:22px;
+margin-bottom:15px;
+color:white;
+}
+
+.card p{
+font-size:16px;
+color:#cbd5e1;
+line-height:1.6;
+}
+
 /* MOBILE */
 @media(max-width:768px){
 
 .logo{
-width:480px;
+width:450px;
 }
 
 .tagline{
 font-size:18px;
+}
+
+.how{
+padding:80px 20px;
+}
+
+.cards{
+flex-direction:column;
+align-items:center;
 }
 }
 </style>
@@ -126,7 +185,7 @@ font-size:18px;
 
 <canvas id="network"></canvas>
 
-<div class="container">
+<section class="hero">
 <img src="./nerox-logo.png" class="logo">
 
 <p class="tagline">
@@ -135,7 +194,33 @@ Du godkänner — klart.
 </p>
 
 <button>Boka demo</button>
+</section>
+
+<section class="how">
+<h2>Så fungerar Nerox</h2>
+
+<div class="cards">
+
+<div class="card">
+<div class="step">01</div>
+<h3>Analyserar inkorgen</h3>
+<p>Nerox förstår kontext, ton och avsikt i varje inkommande mail.</p>
 </div>
+
+<div class="card">
+<div class="step">02</div>
+<h3>Genererar svar</h3>
+<p>AI skapar färdiga svar anpassade efter företagets ton och riktlinjer.</p>
+</div>
+
+<div class="card">
+<div class="step">03</div>
+<h3>Du godkänner</h3>
+<p>Inget skickas automatiskt. Du har alltid full kontroll.</p>
+</div>
+
+</div>
+</section>
 
 <script>
 const canvas = document.getElementById("network");
@@ -148,7 +233,6 @@ canvas.height = window.innerHeight;
 resize();
 window.addEventListener("resize",resize);
 
-/* PERFORMANCE SAFE SETTINGS */
 const isMobile = window.innerWidth < 768;
 const total = isMobile ? 30 : 50;
 
@@ -163,16 +247,16 @@ vy:(Math.random()-0.5)*0.25
 });
 }
 
-let lastTime = 0;
-const fps = 40; // capped FPS
+let lastTime=0;
+const fps=40;
 
 function draw(time){
 
-if(time - lastTime < 1000/fps){
+if(time-lastTime<1000/fps){
 requestAnimationFrame(draw);
 return;
 }
-lastTime = time;
+lastTime=time;
 
 ctx.fillStyle="rgba(2,6,23,0.6)";
 ctx.fillRect(0,0,canvas.width,canvas.height);
@@ -185,12 +269,9 @@ if(p.x<0||p.x>canvas.width) p.vx*=-1;
 if(p.y<0||p.y>canvas.height) p.vy*=-1;
 });
 
-/* LIMIT CONNECTIONS (max 2 per node) */
 points.forEach((a,i)=>{
 let connections=0;
-
 for(let j=i+1;j<points.length && connections<2;j++){
-
 let b=points[j];
 let dx=a.x-b.x;
 let dy=a.y-b.y;
@@ -207,7 +288,6 @@ connections++;
 }
 });
 
-/* nodes */
 points.forEach(p=>{
 ctx.beginPath();
 ctx.fillStyle="rgba(200,220,255,0.9)";
