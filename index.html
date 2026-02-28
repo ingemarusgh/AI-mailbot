@@ -100,86 +100,82 @@ canvas.height = window.innerHeight;
 resize();
 window.addEventListener("resize",resize);
 
-let mouse={x:canvas.width/2,y:canvas.height/2};
-window.addEventListener("mousemove",e=>{
-mouse.x=e.clientX;
-mouse.y=e.clientY;
-});
+let particles=[];
+const total=80;
 
-/* Floating space objects */
-let objects=[];
-for(let i=0;i<12;i++){
-objects.push({
+for(let i=0;i<total;i++){
+particles.push({
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
-vx:(Math.random()-0.5)*0.4,
-vy:(Math.random()-0.5)*0.4,
-size:20+Math.random()*40,
-rotation:Math.random()*Math.PI,
-type:Math.floor(Math.random()*3)
+vx:(Math.random()-0.5)*0.6,
+vy:(Math.random()-0.5)*0.6
 });
 }
 
-function drawObject(o){
-ctx.save();
-ctx.translate(o.x,o.y);
-ctx.rotate(o.rotation);
+let forming=false;
+let timer=0;
 
-ctx.strokeStyle="rgba(0,255,255,0.6)";
-ctx.lineWidth=2;
+function getNShape(){
+let points=[];
+let cx=canvas.width/2;
+let cy=canvas.height/2;
+let size=200;
 
-if(o.type===0){
-ctx.beginPath();
-ctx.arc(0,0,o.size/2,0,Math.PI*2);
-ctx.stroke();
+for(let i=0;i<total;i++){
+let t=i/total;
+let x,y;
+
+if(t<0.33){
+x=cx-size/2;
+y=cy-size/2 + t*3*size;
 }
-else if(o.type===1){
-ctx.strokeRect(-o.size/2,-o.size/2,o.size,o.size);
+else if(t<0.66){
+let tt=(t-0.33)*3;
+x=cx-size/2 + tt*size;
+y=cy-size/2 + tt*size;
 }
 else{
-ctx.beginPath();
-ctx.moveTo(0,-o.size/2);
-ctx.lineTo(o.size/2,o.size/2);
-ctx.lineTo(-o.size/2,o.size/2);
-ctx.closePath();
-ctx.stroke();
+let tt=(t-0.66)*3;
+x=cx+size/2;
+y=cy-size/2 + tt*size;
 }
 
-ctx.restore();
+points.push({x,y});
+}
+
+return points;
 }
 
 function draw(){
-ctx.fillStyle="rgba(5,0,21,0.4)";
+ctx.fillStyle="rgba(5,0,21,0.35)";
 ctx.fillRect(0,0,canvas.width,canvas.height);
 
-/* Subtle glow around mouse */
-const glow=ctx.createRadialGradient(
-mouse.x,
-mouse.y,
-0,
-mouse.x,
-mouse.y,
-180
-);
-glow.addColorStop(0,"rgba(0,255,255,0.12)");
-glow.addColorStop(1,"rgba(0,0,0,0)");
-ctx.fillStyle=glow;
+timer++;
+
+if(timer>360){
+forming=!forming;
+timer=0;
+}
+
+let targets = forming ? getNShape() : null;
+
+particles.forEach((p,i)=>{
+
+if(forming){
+p.x += (targets[i].x - p.x)*0.08;
+p.y += (targets[i].y - p.y)*0.08;
+}else{
+p.x+=p.vx;
+p.y+=p.vy;
+
+if(p.x<0||p.x>canvas.width) p.vx*=-1;
+if(p.y<0||p.y>canvas.height) p.vy*=-1;
+}
+
 ctx.beginPath();
-ctx.arc(mouse.x,mouse.y,180,0,Math.PI*2);
+ctx.fillStyle="rgba(0,255,255,0.9)";
+ctx.arc(p.x,p.y,3,0,Math.PI*2);
 ctx.fill();
-
-/* Move objects */
-objects.forEach(o=>{
-o.x+=o.vx;
-o.y+=o.vy;
-o.rotation+=0.002;
-
-if(o.x< -100) o.x=canvas.width+100;
-if(o.x>canvas.width+100) o.x=-100;
-if(o.y< -100) o.y=canvas.height+100;
-if(o.y>canvas.height+100) o.y=-100;
-
-drawObject(o);
 });
 
 requestAnimationFrame(draw);
