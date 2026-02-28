@@ -6,20 +6,15 @@
 <title>Nerox</title>
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;}
 
 body{
 background:#020617;
 color:white;
 overflow-x:hidden;
+line-height:1.6;
 }
 
-/* BACKGROUND CANVAS */
 canvas{
 position:fixed;
 top:0;
@@ -27,7 +22,6 @@ left:0;
 z-index:0;
 }
 
-/* SPOTLIGHT */
 body::before{
 content:"";
 position:fixed;
@@ -45,37 +39,60 @@ z-index:1;
 pointer-events:none;
 }
 
-/* HERO */
-.hero{
+section{
 position:relative;
 z-index:2;
+padding:100px 20px;
+max-width:1000px;
+margin:auto;
+text-align:center;
+}
+
+.hero{
 min-height:100vh;
 display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:center;
-text-align:center;
-padding:40px 20px;
 }
 
 .logo{
 width:650px;
 max-width:95%;
-margin-bottom:60px;
+margin-bottom:40px;
 filter:
 drop-shadow(0 0 40px rgba(125,211,252,0.6))
 drop-shadow(0 0 120px rgba(0,170,255,0.35));
 }
 
-.tagline{
-font-size:22px;
-color:#dbeafe;
-margin-bottom:70px;
-max-width:600px;
-line-height:1.6;
+h1{
+font-size:42px;
+margin-bottom:20px;
 }
 
-/* BUTTON */
+h2{
+font-size:32px;
+margin-bottom:40px;
+background:linear-gradient(90deg,#e0f2ff,#7dd3fc);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+p{
+margin-bottom:15px;
+color:#dbeafe;
+}
+
+ul{
+list-style:none;
+margin:20px 0;
+}
+
+ul li{
+margin-bottom:10px;
+color:#cbd5e1;
+}
+
 button{
 padding:18px 52px;
 font-size:18px;
@@ -85,98 +102,40 @@ background:linear-gradient(135deg,#e0f2ff,#7dd3fc);
 color:#021024;
 cursor:pointer;
 transition:0.3s ease;
-text-transform:uppercase;
-letter-spacing:1px;
 font-weight:600;
-box-shadow:
-0 0 25px rgba(125,211,252,0.4),
-0 0 60px rgba(0,170,255,0.25);
+margin-top:20px;
 }
 
 button:hover{
 transform:translateY(-3px);
-box-shadow:
-0 0 40px rgba(125,211,252,0.6),
-0 0 80px rgba(0,170,255,0.4);
-}
-
-/* HOW SECTION */
-.how{
-position:relative;
-z-index:2;
-padding:120px 20px;
-text-align:center;
-}
-
-.how h2{
-font-size:40px;
-margin-bottom:70px;
-background:linear-gradient(90deg,#e0f2ff,#7dd3fc);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
+box-shadow:0 0 40px rgba(125,211,252,0.6);
 }
 
 .cards{
 display:flex;
+flex-wrap:wrap;
 justify-content:center;
 gap:40px;
-flex-wrap:wrap;
+margin-top:40px;
 }
 
 .card{
 width:300px;
-padding:40px 30px;
-border-radius:20px;
+padding:30px;
+border-radius:18px;
 background:rgba(255,255,255,0.03);
 border:1px solid rgba(125,211,252,0.15);
-backdrop-filter:blur(8px);
-transition:0.3s ease;
-}
-
-.card:hover{
-transform:translateY(-10px);
-border-color:#7dd3fc;
-box-shadow:0 0 30px rgba(125,211,252,0.2);
-}
-
-.step{
-font-size:14px;
-letter-spacing:2px;
-color:#7dd3fc;
-margin-bottom:20px;
 }
 
 .card h3{
-font-size:22px;
 margin-bottom:15px;
-color:white;
 }
 
-.card p{
-font-size:16px;
-color:#cbd5e1;
-line-height:1.6;
-}
-
-/* MOBILE */
 @media(max-width:768px){
-
-.logo{
-width:450px;
-}
-
-.tagline{
-font-size:18px;
-}
-
-.how{
-padding:80px 20px;
-}
-
-.cards{
-flex-direction:column;
-align-items:center;
-}
+.logo{width:450px;}
+h1{font-size:28px;}
+section{padding:70px 20px;}
+.cards{flex-direction:column;align-items:center;}
 }
 </style>
 </head>
@@ -188,102 +147,156 @@ align-items:center;
 <section class="hero">
 <img src="./nerox-logo.png" class="logo">
 
-<p class="tagline">
-AI som läser din inkorg och föreslår färdiga svar.
-Du godkänner — klart.
+<h1>Spara tid på mail – utan att tappa kontroll.</h1>
+
+<p>
+Nerox läser inkommande mail, föreslår färdiga svar och låter dig godkänna innan något skickas.
+</p>
+<p>
+Systemet konfigureras efter ert företag och varje användare.
+Ingen datalagring. Ingen automatisk inlärning.
 </p>
 
 <button>Boka demo</button>
 </section>
 
-<section class="how">
+<section>
 <h2>Så fungerar Nerox</h2>
 
 <div class="cards">
-
 <div class="card">
-<div class="step">01</div>
-<h3>Analyserar inkorgen</h3>
-<p>Nerox förstår kontext, ton och avsikt i varje inkommande mail.</p>
+<h3>1. Ett mail kommer in</h3>
+<p>Nerox analyserar innehållet.</p>
 </div>
 
 <div class="card">
-<div class="step">02</div>
-<h3>Genererar svar</h3>
-<p>AI skapar färdiga svar anpassade efter företagets ton och riktlinjer.</p>
+<h3>2. Du får ett färdigt svar</h3>
+<p>AI:n föreslår ett svar enligt era riktlinjer.</p>
 </div>
 
 <div class="card">
-<div class="step">03</div>
-<h3>Du godkänner</h3>
-<p>Inget skickas automatiskt. Du har alltid full kontroll.</p>
+<h3>3. Du godkänner</h3>
+<p>Inget skickas automatiskt. Du har alltid sista ordet.</p>
 </div>
-
 </div>
 </section>
 
-<script>
-const canvas = document.getElementById("network");
-const ctx = canvas.getContext("2d");
+<section>
+<h2>Anpassad för ert företag</h2>
 
-function resize(){
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-}
+<p>Nerox är inte en generell AI. Den konfigureras efter hur just ert företag arbetar.</p>
+
+<ul>
+<li>• Vilka frågor den ska kunna svara på</li>
+<li>• Hur svaren ska formuleras</li>
+<li>• Vilken information den får använda</li>
+<li>• Vilken tonalitet ni vill ha</li>
+</ul>
+
+<p>Det gör svaren förutsägbara och professionella.</p>
+</section>
+
+<section>
+<h2>Anpassad per användare</h2>
+
+<div class="cards">
+<div class="card">
+<h3>Sälj</h3>
+<p>Prisförfrågningar, offertförklaringar, leveranstider.</p>
+</div>
+
+<div class="card">
+<h3>Support</h3>
+<p>Vanliga kundfrågor, bokningar, returer och garantier.</p>
+</div>
+
+<div class="card">
+<h3>Ledning</h3>
+<p>Formella svar och strategisk kommunikation.</p>
+</div>
+</div>
+
+<p>Ni bestämmer vad Nerox ska kunna.</p>
+</section>
+
+<section>
+<h2>Så här ställer vi in Nerox</h2>
+
+<p><strong>Steg 1:</strong> Vi går igenom er verksamhet och identifierar återkommande frågor.</p>
+<p><strong>Steg 2:</strong> Vi sätter upp riktlinjer på företagsnivå.</p>
+<p><strong>Steg 3:</strong> Vi anpassar per användare och roll.</p>
+
+<p>Allt sker genom tydlig konfiguration – inte genom datainsamling.</p>
+</section>
+
+<section>
+<h2>Vad Nerox löser</h2>
+
+<ul>
+<li>• Mindre tid på återkommande mail</li>
+<li>• Snabbare svar till kunder</li>
+<li>• Enhetlig kommunikation</li>
+<li>• Mindre stress i vardagen</li>
+</ul>
+</section>
+
+<section>
+<h2>Säkerhet & kontroll</h2>
+
+<ul>
+<li>• Ingen lagring av mailhistorik</li>
+<li>• Ingen automatisk inlärning</li>
+<li>• Säker inloggning via Microsoft 365 eller Google</li>
+<li>• Inget skickas utan godkännande</li>
+</ul>
+</section>
+
+<section>
+<h2>Redo att effektivisera er inkorg?</h2>
+
+<p>Mail kommer alltid att finnas. Frågan är om ni ska skriva varje svar själva.</p>
+
+<button>Boka demo</button>
+</section>
+
+<script>
+const canvas=document.getElementById("network");
+const ctx=canvas.getContext("2d");
+
+function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
 resize();
 window.addEventListener("resize",resize);
 
-const isMobile = window.innerWidth < 768;
-const total = isMobile ? 30 : 50;
+const isMobile=window.innerWidth<768;
+const total=isMobile?30:50;
 
 let points=[];
-
 for(let i=0;i<total;i++){
-points.push({
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-vx:(Math.random()-0.5)*0.25,
-vy:(Math.random()-0.5)*0.25
-});
+points.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:(Math.random()-0.5)*0.25,vy:(Math.random()-0.5)*0.25});
 }
 
-let lastTime=0;
-const fps=40;
-
-function draw(time){
-
-if(time-lastTime<1000/fps){
-requestAnimationFrame(draw);
-return;
-}
-lastTime=time;
-
+function draw(){
 ctx.fillStyle="rgba(2,6,23,0.6)";
 ctx.fillRect(0,0,canvas.width,canvas.height);
 
 points.forEach(p=>{
-p.x+=p.vx;
-p.y+=p.vy;
-
-if(p.x<0||p.x>canvas.width) p.vx*=-1;
-if(p.y<0||p.y>canvas.height) p.vy*=-1;
+p.x+=p.vx;p.y+=p.vy;
+if(p.x<0||p.x>canvas.width)p.vx*=-1;
+if(p.y<0||p.y>canvas.height)p.vy*=-1;
 });
 
 points.forEach((a,i)=>{
-let connections=0;
-for(let j=i+1;j<points.length && connections<2;j++){
+for(let j=i+1;j<points.length;j++){
 let b=points[j];
 let dx=a.x-b.x;
 let dy=a.y-b.y;
 let dist=dx*dx+dy*dy;
-
 if(dist<10000){
 ctx.strokeStyle="rgba(125,211,252,0.07)";
 ctx.beginPath();
 ctx.moveTo(a.x,a.y);
 ctx.lineTo(b.x,b.y);
 ctx.stroke();
-connections++;
 }
 }
 });
@@ -297,8 +310,7 @@ ctx.fill();
 
 requestAnimationFrame(draw);
 }
-
-requestAnimationFrame(draw);
+draw();
 </script>
 
 </body>
