@@ -9,7 +9,7 @@
 body{
   margin:0;
   font-family: system-ui, -apple-system, Arial;
-  background:#04060a;
+  background:#02030a;
   color:#e8eef6;
   overflow-x:hidden;
 }
@@ -21,26 +21,10 @@ canvas{
   z-index:-1;
 }
 
-.container{
-  max-width:1100px;
-  margin:auto;
-  padding:40px 20px;
-}
-
-.hero{
-  text-align:center;
-  padding:140px 20px 90px 20px;
-}
-
-h1{
-  font-size:52px;
-  margin-bottom:20px;
-}
-
-p{
-  color:#a9b4c2;
-  font-size:18px;
-}
+.container{max-width:1100px;margin:auto;padding:40px 20px;}
+.hero{text-align:center;padding:140px 20px 90px;}
+h1{font-size:52px;margin-bottom:20px;}
+p{color:#a9b4c2;font-size:18px;}
 
 button{
   margin-top:30px;
@@ -52,49 +36,30 @@ button{
   color:white;
   cursor:pointer;
   box-shadow:0 0 25px rgba(59,130,246,.4);
-  transition:.2s;
 }
 
-button:hover{
-  transform:translateY(-2px);
-  box-shadow:0 0 35px rgba(0,229,255,.6);
-}
-
-.section{
-  margin-top:120px;
-  text-align:center;
-}
+.section{margin-top:120px;text-align:center;}
 
 .cards{
-  display:flex;
-  gap:40px;
-  justify-content:center;
-  flex-wrap:wrap;
-  margin-top:40px;
+  display:flex;gap:40px;justify-content:center;
+  flex-wrap:wrap;margin-top:40px;
 }
 
 .card{
   width:260px;
-  background:rgba(18,24,33,.6);
+  background:rgba(18,24,33,.55);
   backdrop-filter:blur(8px);
-  padding:25px;
-  border-radius:18px;
+  padding:25px;border-radius:18px;
   border:1px solid rgba(255,255,255,.05);
 }
 
-footer{
-  margin-top:120px;
-  text-align:center;
-  color:#7c8796;
-  font-size:14px;
-  padding-bottom:40px;
-}
+footer{margin-top:120px;text-align:center;color:#7c8796;font-size:14px;padding-bottom:40px;}
 </style>
 </head>
 
 <body>
 
-<canvas id="ai"></canvas>
+<canvas id="space"></canvas>
 
 <div class="hero container">
   <h1>AI-assistenten för företagsmail</h1>
@@ -123,58 +88,47 @@ footer{
 <footer class="container">© 2026 Nerox</footer>
 
 <script>
-const canvas = document.getElementById("ai");
-const ctx = canvas.getContext("2d");
+const canvas=document.getElementById("space");
+const ctx=canvas.getContext("2d");
 
 function resize(){
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+ canvas.width=window.innerWidth;
+ canvas.height=window.innerHeight;
 }
 resize();
-window.onresize = resize;
+window.onresize=resize;
 
-let t = 0;
+let stars=[];
+for(let i=0;i<180;i++){
+ stars.push({
+   x:Math.random()*canvas.width,
+   y:Math.random()*canvas.height,
+   z:Math.random()*2+0.2
+ });
+}
 
 function draw(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
+ ctx.fillStyle="rgba(2,3,10,0.45)";
+ ctx.fillRect(0,0,canvas.width,canvas.height);
 
-  const cx = canvas.width/2;
-  const cy = canvas.height/2;
+ for(let s of stars){
+   s.y+=s.z;
+   if(s.y>canvas.height){s.y=0;s.x=Math.random()*canvas.width;}
 
-  for(let i=0;i<40;i++){
-    let r = 80 + Math.sin(t+i*0.3)*25;
-    let angle = (Math.PI*2/40)*i + t*0.4;
+   ctx.beginPath();
+   ctx.arc(s.x,s.y,s.z*1.2,0,Math.PI*2);
+   ctx.fillStyle="white";
+   ctx.fill();
+ }
 
-    let x = cx + Math.cos(angle)*r;
-    let y = cy + Math.sin(angle)*r;
+ // nebulosa glow
+ let g=ctx.createRadialGradient(canvas.width*0.7,canvas.height*0.3,0,canvas.width*0.7,canvas.height*0.3,400);
+ g.addColorStop(0,"rgba(0,140,255,0.12)");
+ g.addColorStop(1,"rgba(0,0,0,0)");
+ ctx.fillStyle=g;
+ ctx.fillRect(0,0,canvas.width,canvas.height);
 
-    let grad = ctx.createRadialGradient(x,y,0,x,y,8);
-    grad.addColorStop(0,"#00e5ff");
-    grad.addColorStop(1,"rgba(0,229,255,0)");
-
-    ctx.fillStyle = grad;
-    ctx.beginPath();
-    ctx.arc(x,y,8,0,Math.PI*2);
-    ctx.fill();
-
-    ctx.beginPath();
-    ctx.moveTo(cx,cy);
-    ctx.lineTo(x,y);
-    ctx.strokeStyle="rgba(0,229,255,0.08)";
-    ctx.stroke();
-  }
-
-  let core = ctx.createRadialGradient(cx,cy,10,cx,cy,120);
-  core.addColorStop(0,"rgba(59,130,246,0.7)");
-  core.addColorStop(1,"rgba(0,0,0,0)");
-
-  ctx.fillStyle=core;
-  ctx.beginPath();
-  ctx.arc(cx,cy,120,0,Math.PI*2);
-  ctx.fill();
-
-  t+=0.01;
-  requestAnimationFrame(draw);
+ requestAnimationFrame(draw);
 }
 draw();
 </script>
