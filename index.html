@@ -15,7 +15,6 @@ overflow-x:hidden;
 }
 
 /* ===== BACKGROUND ===== */
-
 canvas{
 position:fixed;
 top:0;
@@ -23,12 +22,11 @@ left:0;
 z-index:0;
 }
 
-/* ===== GLOBAL LAYOUT ===== */
-
+/* ===== GLOBAL ===== */
 .section{
 position:relative;
 z-index:2;
-padding:120px 25px;
+padding:140px 25px;
 }
 
 .container{
@@ -39,15 +37,15 @@ margin:auto;
 .center{text-align:center;}
 
 h1{
-font-size:38px;
-margin-bottom:20px;
+font-size:42px;
 color:white;
+margin-bottom:20px;
 }
 
 h2{
-font-size:28px;
-margin-bottom:20px;
+font-size:30px;
 color:white;
+margin-bottom:20px;
 }
 
 p{
@@ -56,10 +54,9 @@ font-size:17px;
 }
 
 /* ===== HERO ===== */
-
 .hero{
-padding-top:160px;
-padding-bottom:140px;
+padding-top:180px;
+padding-bottom:160px;
 text-align:center;
 }
 
@@ -70,12 +67,16 @@ margin-bottom:40px;
 filter:drop-shadow(0 0 40px #38bdf8);
 }
 
-/* ===== BUTTON ===== */
+.sub{
+font-size:20px;
+opacity:.85;
+}
 
+/* ===== BUTTON ===== */
 .button{
 display:inline-block;
-margin-top:30px;
-padding:18px 60px;
+margin-top:35px;
+padding:18px 65px;
 border-radius:14px;
 background:linear-gradient(135deg,#38bdf8,#0ea5e9);
 color:white;
@@ -87,70 +88,89 @@ box-shadow:0 0 25px rgba(56,189,248,.4);
 
 .button:hover{
 transform:translateY(-3px);
-box-shadow:0 0 50px rgba(56,189,248,.8);
+box-shadow:0 0 60px rgba(56,189,248,.9);
 }
 
-/* ===== GRID BLOCKS ===== */
-
+/* ===== GRID ===== */
 .grid-3{
 display:grid;
 gap:40px;
-margin-top:60px;
+margin-top:70px;
 }
 
 .block{
 background:rgba(15,23,42,.6);
-border:1px solid rgba(56,189,248,.2);
+border:1px solid rgba(56,189,248,.25);
 border-radius:20px;
-padding:40px;
+padding:45px;
 backdrop-filter:blur(20px);
 }
 
 .block-icon{
-font-size:32px;
+font-size:30px;
 margin-bottom:15px;
 color:#38bdf8;
 }
 
-/* ===== PROCESS FLOW ===== */
-
+/* ===== FLOW ===== */
 .flow{
 display:flex;
 flex-direction:column;
-gap:30px;
-margin-top:60px;
+gap:40px;
+margin-top:80px;
+align-items:center;
 }
 
-.flow-step{
+.step{
 display:flex;
 align-items:center;
 gap:20px;
 }
 
-.step-circle{
-width:45px;
-height:45px;
+.circle{
+width:48px;
+height:48px;
 border-radius:50%;
 background:#38bdf8;
 display:flex;
 align-items:center;
 justify-content:center;
-font-weight:600;
+font-weight:700;
 color:#020617;
 }
 
-.step-line{
-flex:1;
-height:2px;
+.line{
+width:2px;
+height:50px;
 background:rgba(56,189,248,.4);
 }
 
-/* ===== DESKTOP ===== */
+/* ===== MOCK MAIL ===== */
+.mailbox{
+background:#0f172a;
+border:1px solid rgba(56,189,248,.3);
+border-radius:20px;
+padding:40px;
+margin-top:60px;
+box-shadow:0 0 40px rgba(56,189,248,.2);
+}
 
+.mail-header{
+font-weight:600;
+margin-bottom:20px;
+color:#38bdf8;
+}
+
+.mail-content{
+opacity:.85;
+line-height:1.6;
+}
+
+/* ===== DESKTOP ===== */
 @media(min-width:900px){
 
-h1{font-size:60px;}
-h2{font-size:34px;}
+h1{font-size:64px;}
+h2{font-size:38px;}
 
 .grid-3{
 grid-template-columns:repeat(3,1fr);
@@ -158,16 +178,15 @@ grid-template-columns:repeat(3,1fr);
 
 .flow{
 flex-direction:row;
-align-items:center;
 }
 
-.flow-step{
+.step{
 flex-direction:column;
 text-align:center;
 }
 
-.step-line{
-width:100px;
+.line{
+width:120px;
 height:2px;
 }
 
@@ -185,38 +204,38 @@ height:2px;
 
 <img src="./nerox-logo.png" class="logo">
 
-<h1>AI-baserad e-postautomatisering för företag.</h1>
-<p>Konfigurerad. Kontrollerad. Anpassad per användare.</p>
+<h1>AI som skapar utkast i er inkorg.</h1>
+<p class="sub">Inte en egen plattform. Inte automatiska utskick. Bara strukturerade förslag – direkt i ert befintliga mailflöde.</p>
 
 <a href="#" class="button">Boka demo</a>
 
 </div>
 </div>
 
-<!-- 3 BLOCKS -->
+<!-- FEATURES -->
 <div class="section">
 <div class="container center">
 
-<h2>Byggd för strukturerad effektivisering</h2>
+<h2>Byggd för kontrollerad effektivisering</h2>
 
 <div class="grid-3">
 
 <div class="block">
-<div class="block-icon">⚙️</div>
+<div class="block-icon">✍️</div>
+<h3>Skapar utkast</h3>
+<p>Nerox genererar färdiga svar som läggs som utkast.</p>
+</div>
+
+<div class="block">
+<div class="block-icon">🧠</div>
 <h3>Konfigurerad</h3>
-<p>Systemet sätts upp efter hur ert företag arbetar.</p>
+<p>Systemet arbetar enligt era definierade riktlinjer.</p>
 </div>
 
 <div class="block">
 <div class="block-icon">🔒</div>
-<h3>Kontrollerad</h3>
-<p>Inget skickas utan mänskligt godkännande.</p>
-</div>
-
-<div class="block">
-<div class="block-icon">🧩</div>
-<h3>Anpassad</h3>
-<p>Olika riktlinjer per användare och roll.</p>
+<h3>Full kontroll</h3>
+<p>Inget skickas utan att ni godkänner det.</p>
 </div>
 
 </div>
@@ -224,37 +243,37 @@ height:2px;
 </div>
 </div>
 
-<!-- PROCESS FLOW -->
-<div class="section">
-<div class="container center">
+<!-- FLOW -->
+<div class="section center">
+<div class="container">
 
 <h2>Så fungerar det</h2>
 
 <div class="flow">
 
-<div class="flow-step">
-<div class="step-circle">1</div>
+<div class="step">
+<div class="circle">1</div>
 <p>Mail inkommer</p>
 </div>
 
-<div class="step-line"></div>
+<div class="line"></div>
 
-<div class="flow-step">
-<div class="step-circle">2</div>
+<div class="step">
+<div class="circle">2</div>
 <p>Nerox analyserar</p>
 </div>
 
-<div class="step-line"></div>
+<div class="line"></div>
 
-<div class="flow-step">
-<div class="step-circle">3</div>
-<p>Svar genereras</p>
+<div class="step">
+<div class="circle">3</div>
+<p>Utkast skapas</p>
 </div>
 
-<div class="step-line"></div>
+<div class="line"></div>
 
-<div class="flow-step">
-<div class="step-circle">4</div>
+<div class="step">
+<div class="circle">4</div>
 <p>Du godkänner</p>
 </div>
 
@@ -263,12 +282,32 @@ height:2px;
 </div>
 </div>
 
-<!-- VALUE BAND -->
+<!-- EXAMPLE -->
 <div class="section">
 <div class="container center">
 
-<h2>Mindre friktion. Mer fokus.</h2>
-<p>Ni läser fortfarande mailet. Men ni slipper börja från noll.</p>
+<h2>Exempel på ett utkast</h2>
+
+<div class="mailbox">
+
+<div class="mail-header">
+Utkast genererat av Nerox
+</div>
+
+<div class="mail-content">
+Hej!<br><br>
+Tack för din förfrågan. Tjänsten kostar 12 900 kr inklusive installation. 
+Leveranstiden är 5–7 arbetsdagar. 
+Hör gärna av dig om du vill att vi bokar in en tid.<br><br>
+Vänliga hälsningar,<br>
+[Er signatur]
+</div>
+
+</div>
+
+<p style="margin-top:30px;">
+Du justerar vid behov och klickar skicka.
+</p>
 
 </div>
 </div>
@@ -277,14 +316,13 @@ height:2px;
 <div class="section hero">
 <div class="container center">
 
-<h2>Redo att effektivisera er inkorg?</h2>
+<h2>Strukturerad AI – utan att förlora kontroll.</h2>
 <a href="#" class="button">Kontakta oss</a>
 
 </div>
 </div>
 
 <script>
-// AI Network Background
 const canvas=document.getElementById("network");
 const ctx=canvas.getContext("2d");
 
