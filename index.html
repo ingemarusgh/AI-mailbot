@@ -99,18 +99,13 @@ gap:40px;
 margin-top:70px;
 }
 
-.grid-2{
-display:grid;
-gap:50px;
-margin-top:70px;
-}
-
 .block{
 background:rgba(15,23,42,.6);
 border:1px solid rgba(56,189,248,.25);
 border-radius:20px;
 padding:45px;
 backdrop-filter:blur(20px);
+position:relative;
 }
 
 .block-icon{
@@ -119,9 +114,8 @@ margin-bottom:15px;
 color:#38bdf8;
 }
 
-/* ===== ENTERPRISE PLAN ===== */
-.enterprise-plan{
-position:relative;
+/* ===== RECOMMENDED BADGE ===== */
+.recommended{
 border:1px solid rgba(56,189,248,.7);
 box-shadow:0 0 60px rgba(56,189,248,.15);
 }
@@ -203,10 +197,6 @@ h2{font-size:38px;}
 grid-template-columns:repeat(4,1fr);
 }
 
-.grid-2{
-grid-template-columns:repeat(2,1fr);
-}
-
 .flow{
 flex-direction:row;
 }
@@ -272,13 +262,15 @@ Inget skickas automatiskt. Ni har full kontroll.
 <p>Inget skickas utan mänskligt godkännande.</p>
 </div>
 
-<div class="block">
+<div class="block recommended">
+<div class="badge">Rekommenderad</div>
 <div class="block-icon">🏢</div>
 <h3>Företags & individanpassad</h3>
 <p>Olika konfiguration per företag, roll och användare.</p>
 </div>
 
 </div>
+
 </div>
 </div>
 
@@ -355,37 +347,6 @@ Tack för ditt tålamod.
 Nerox är ett konfigurerat arbetsverktyg – inte en självlärande AI.
 </p>
 
-</div>
-</div>
-
-<!-- VERSIONER (NY SEKTION LÄNGRE NER) -->
-<div class="section">
-<div class="container center">
-
-<h2>Nerox finns i två nivåer</h2>
-
-<div class="grid-2">
-
-<div class="block">
-<h3>Nerox Bas</h3>
-<p>Skapar strukturerade utkast</p>
-<p>Grundläggande företagskonfiguration</p>
-<p>Standardiserad tonalitet</p>
-<p>Manuell granskning</p>
-<p>Microsoft 365-integration</p>
-</div>
-
-<div class="block enterprise-plan">
-<div class="badge">Rekommenderad</div>
-<h3>Nerox Enterprise</h3>
-<p>Djup företagskonfiguration</p>
-<p>Roll- & individanpassning</p>
-<p>Specifika regler per ärendetyp</p>
-<p>Anpassade svarmallar per användare</p>
-<p>Central konfigurationsstyrning</p>
-</div>
-
-</div>
 </div>
 </div>
 
