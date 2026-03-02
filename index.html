@@ -212,6 +212,49 @@ height:2px;
 }
 
 }
+  /* ===== COLLEAGUE SECTION ===== */
+
+.colleague{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:80px;
+}
+
+.colleague-avatar{
+flex:1;
+text-align:center;
+}
+
+.colleague-avatar img{
+max-width:320px;
+width:100%;
+filter:drop-shadow(0 0 40px rgba(56,189,248,.4));
+}
+
+.colleague-text{
+flex:1;
+text-align:left;
+}
+
+.colleague-text h2{
+margin-bottom:30px;
+}
+
+.colleague-text p{
+margin-bottom:15px;
+font-size:18px;
+}
+
+@media(max-width:900px){
+.colleague{
+flex-direction:column;
+text-align:center;
+}
+.colleague-text{
+text-align:center;
+}
+}
 </style>
 </head>
 
@@ -233,7 +276,29 @@ Inget skickas automatiskt. Ni har full kontroll.
 
 </div>
 </div>
+<!-- COLLEAGUE -->
+<div class="section">
+<div class="container colleague">
 
+<div class="colleague-avatar">
+<img src="nerox_open.png" alt="Nerox">
+</div>
+
+<div class="colleague-text">
+<h2>Anpassad på rätt nivå</h2>
+
+<p><strong>Företagsnivå</strong> – riktlinjer, ton och struktur.</p>
+<p><strong>Rollnivå</strong> – olika prioriteringar och ansvar.</p>
+<p><strong>Användarnivå</strong> – individuellt arbetssätt.</p>
+
+<p style="margin-top:25px;">
+Full kontroll. Inget skickas utan godkännande.
+</p>
+
+</div>
+
+</div>
+</div>
 <!-- FEATURES -->
 <div class="section">
 <div class="container center">
