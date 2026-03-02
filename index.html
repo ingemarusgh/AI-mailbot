@@ -212,6 +212,57 @@ height:2px;
 }
 
 }
+  }
+}
+
+/* ===== SUBTIL NEROX ===== */
+
+.hero{
+position:relative;
+}
+
+.nerox-float{
+position:absolute;
+left:50%;
+transform:translateX(-380px);
+top:140px;
+width:150px;
+opacity:.95;
+z-index:2;
+}
+
+.nerox-container{
+position:relative;
+width:100%;
+}
+
+.nerox{
+width:100%;
+position:absolute;
+top:0;
+left:0;
+}
+
+.base{
+position:relative;
+}
+
+.blink{
+opacity:0;
+transition:opacity .15s ease-in-out;
+}
+
+@media(max-width:900px){
+.nerox-float{
+position:relative;
+left:auto;
+transform:none;
+top:auto;
+margin-bottom:30px;
+width:120px;
+}
+}
+
 </style>
 </head>
 
@@ -222,7 +273,14 @@ height:2px;
 <!-- HERO -->
 <div class="section hero">
 <div class="container">
-
+  
+<div class="nerox-float">
+  <div class="nerox-container">
+    <img src="nerox_open.png" class="nerox base">
+    <img src="nerox_closed.png" class="nerox blink">
+  </div>
+</div>
+  
 <img src="./nerox-logo.png" class="logo">
 
 <h1>AI som skapar utkast i er inkorg.</h1>
