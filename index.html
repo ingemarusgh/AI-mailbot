@@ -220,10 +220,21 @@ align-items:center;
 justify-content:space-between;
 gap:80px;
 }
-
 .colleague-avatar{
-flex:1;
-text-align:center;
+position:relative;
+}
+
+.colleague-avatar::before{
+content:"";
+position:absolute;
+width:400px;
+height:400px;
+background:radial-gradient(circle, rgba(56,189,248,.18) 0%, rgba(2,6,23,0) 70%);
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+z-index:-1;
+}
 }
 .colleague-avatar img{
 max-width:380px;
