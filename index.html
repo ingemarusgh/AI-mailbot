@@ -229,7 +229,8 @@ text-align:center;
 .colleague-avatar img{
 max-width:320px;
 width:100%;
-filter:drop-shadow(0 0 40px rgba(56,189,248,.4));
+transform:translateY(10px);
+filter:drop-shadow(0 0 60px rgba(56,189,248,.5));
 }
 
 .colleague-text{
@@ -254,6 +255,27 @@ text-align:center;
 .colleague-text{
 text-align:center;
 }
+}
+  .level{
+margin-bottom:28px;
+padding-left:18px;
+border-left:2px solid rgba(56,189,248,.5);
+}
+
+.level h3{
+color:white;
+margin-bottom:6px;
+font-size:20px;
+}
+
+.level p{
+opacity:.8;
+}
+
+.control{
+margin-top:35px;
+font-weight:600;
+color:#38bdf8;
 }
 </style>
 </head>
@@ -287,11 +309,22 @@ Inget skickas automatiskt. Ni har full kontroll.
 <div class="colleague-text">
 <h2>Anpassad på rätt nivå</h2>
 
-<p><strong>Företagsnivå</strong> – riktlinjer, ton och struktur.</p>
-<p><strong>Rollnivå</strong> – olika prioriteringar och ansvar.</p>
-<p><strong>Användarnivå</strong> – individuellt arbetssätt.</p>
+<div class="level">
+<h3>Företagsnivå</h3>
+<p>Riktlinjer, tonalitet och struktur sätts centralt.</p>
+</div>
 
-<p style="margin-top:25px;">
+<div class="level">
+<h3>Rollnivå</h3>
+<p>Olika prioriteringar och ansvar per funktion.</p>
+</div>
+
+<div class="level">
+<h3>Användarnivå</h3>
+<p>Individuellt arbetssätt – utan att bryta strukturen.</p>
+</div>
+
+<p class="control">
 Full kontroll. Inget skickas utan godkännande.
 </p>
 
